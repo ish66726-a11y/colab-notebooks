@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-input950bc8ac669e19c7 – 金融工学ノート</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">金融工学ノート</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./03-portfolio.html"> 
+<span class="menu-text">ポートフォリオ理論</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./04-capm.qmd"> 
+<span class="menu-text">CAPM</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#長期投資とは何か" id="toc-長期投資とは何か" class="nav-link active" data-scroll-target="#長期投資とは何か">1. 長期投資とは何か？</a>
+  <ul class="collapse">
+  <li><a href="#代表者" id="toc-代表者" class="nav-link" data-scroll-target="#代表者">代表者</a></li>
+  </ul></li>
+  <li><a href="#長期投資の基本思想" id="toc-長期投資の基本思想" class="nav-link" data-scroll-target="#長期投資の基本思想">2. 長期投資の基本思想</a></li>
+  <li><a href="#長期投資の4つの柱" id="toc-長期投資の4つの柱" class="nav-link" data-scroll-target="#長期投資の4つの柱">3. 長期投資の4つの柱</a>
+  <ul class="collapse">
+  <li><a href="#企業に投資する株ではなく企業を見る" id="toc-企業に投資する株ではなく企業を見る" class="nav-link" data-scroll-target="#企業に投資する株ではなく企業を見る"><strong>① 企業に投資する（株ではなく企業を見る）</strong></a></li>
+  <li><a href="#割安なときに買う" id="toc-割安なときに買う" class="nav-link" data-scroll-target="#割安なときに買う"><strong>② 割安なときに買う</strong></a></li>
+  <li><a href="#長期の買い持ちbuy-hold" id="toc-長期の買い持ちbuy-hold" class="nav-link" data-scroll-target="#長期の買い持ちbuy-hold"><strong>③ 長期の買い持ち（Buy &amp; Hold）</strong></a></li>
+  <li><a href="#群衆に流されないignore-the-crowd" id="toc-群衆に流されないignore-the-crowd" class="nav-link" data-scroll-target="#群衆に流されないignore-the-crowd"><strong>④ 群衆に流されない（Ignore the crowd）</strong></a></li>
+  </ul></li>
+  <li><a href="#クオンツと長期投資の違い" id="toc-クオンツと長期投資の違い" class="nav-link" data-scroll-target="#クオンツと長期投資の違い">4. クオンツと長期投資の違い</a></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">5. まとめ</a></li>
+  <li><a href="#効率的市場仮説とは" id="toc-効率的市場仮説とは" class="nav-link" data-scroll-target="#効率的市場仮説とは">1. 効率的市場仮説とは？</a></li>
+  <li><a href="#emh-が意味するもの" id="toc-emh-が意味するもの" class="nav-link" data-scroll-target="#emh-が意味するもの">2. EMH が意味するもの</a>
+  <ul class="collapse">
+  <li><a href="#株価の動きは完全にランダムrandom-walk" id="toc-株価の動きは完全にランダムrandom-walk" class="nav-link" data-scroll-target="#株価の動きは完全にランダムrandom-walk"><strong>① 株価の動きは完全にランダム（Random Walk）</strong></a></li>
+  <li><a href="#情報はすべて価格に即座に反映される" id="toc-情報はすべて価格に即座に反映される" class="nav-link" data-scroll-target="#情報はすべて価格に即座に反映される"><strong>② 情報はすべて価格に即座に反映される</strong></a></li>
+  <li><a href="#オートコリレーション自己相関は存在しないはず" id="toc-オートコリレーション自己相関は存在しないはず" class="nav-link" data-scroll-target="#オートコリレーション自己相関は存在しないはず"><strong>③ オートコリレーション（自己相関）は存在しないはず</strong></a></li>
+  </ul></li>
+  <li><a href="#emh-の問題点現実との矛盾" id="toc-emh-の問題点現実との矛盾" class="nav-link" data-scroll-target="#emh-の問題点現実との矛盾">3. EMH の問題点（現実との矛盾）</a>
+  <ul class="collapse">
+  <li><a href="#ランダムウォークは負の株価を許してしまう" id="toc-ランダムウォークは負の株価を許してしまう" class="nav-link" data-scroll-target="#ランダムウォークは負の株価を許してしまう"><strong>① ランダムウォークは負の株価を許してしまう</strong></a></li>
+  <li><a href="#実際には自己相関が存在することがある" id="toc-実際には自己相関が存在することがある" class="nav-link" data-scroll-target="#実際には自己相関が存在することがある"><strong>② 実際には自己相関が存在することがある</strong></a></li>
+  <li><a href="#明らかに市場平均を上回り続けた投資家が存在する" id="toc-明らかに市場平均を上回り続けた投資家が存在する" class="nav-link" data-scroll-target="#明らかに市場平均を上回り続けた投資家が存在する"><strong>③ 明らかに市場平均を上回り続けた投資家が存在する</strong></a></li>
+  </ul></li>
+  <li><a href="#市場を実際に打ち負かした実例" id="toc-市場を実際に打ち負かした実例" class="nav-link" data-scroll-target="#市場を実際に打ち負かした実例">4. 市場を実際に“打ち負かした”実例</a>
+  <ul class="collapse">
+  <li><a href="#fidelity-investmentsマゼランファンド-peter-lynch" id="toc-fidelity-investmentsマゼランファンド-peter-lynch" class="nav-link" data-scroll-target="#fidelity-investmentsマゼランファンド-peter-lynch"><strong>① Fidelity Investments（マゼランファンド）– Peter Lynch</strong></a></li>
+  <li><a href="#renaissance-technologies-jim-simons" id="toc-renaissance-technologies-jim-simons" class="nav-link" data-scroll-target="#renaissance-technologies-jim-simons"><strong>② Renaissance Technologies – Jim Simons</strong></a></li>
+  <li><a href="#berkshire-hathaway-warren-buffett" id="toc-berkshire-hathaway-warren-buffett" class="nav-link" data-scroll-target="#berkshire-hathaway-warren-buffett"><strong>③ Berkshire Hathaway – Warren Buffett</strong></a></li>
+  </ul></li>
+  <li><a href="#まとめemh-は完全には正しくない" id="toc-まとめemh-は完全には正しくない" class="nav-link" data-scroll-target="#まとめemh-は完全には正しくない">5. まとめ：EMH は完全には正しくない</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p><a href="https://colab.research.google.com/github/ish66726-a11y/colab-notebooks/blob/main/VaR%2CCDO%2C%E9%87%91%E5%88%A9%E3%83%A2%E3%83%87%E3%83%AB%2CVasicek%E3%83%A2%E3%83%87%E3%83%AB%2C%E9%95%B7%E6%9C%9F%E6%8A%95%E8%B3%87.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<p>#長期投資</p>
+<p>##12-1 長期投資（Long-Term Investing）</p>
+<p>これまでの章では、<br>
+- 債券<br>
+- 為替<br>
+- 現代ポートフォリオ理論<br>
+- CAPM<br>
+- ブラック・ショールズモデル<br>
+- モンテカルロ法<br>
+など、主に <strong>クオンツ（Quantitative）手法</strong> による投資・リスク管理を扱ってきた。</p>
+<p>ここからは、まったく別の視点である <strong>長期投資（Value Investing）</strong> を扱う。</p>
+<hr>
+<section id="長期投資とは何か" class="level2">
+<h2 class="anchored" data-anchor-id="長期投資とは何か">1. 長期投資とは何か？</h2>
+<p>長期投資（Value Investing）は、<strong>アルゴリズム取引の対極</strong>に位置する投資哲学。</p>
+<ul>
+<li><p>アルゴリズム取引：<br>
+→ 「短期の価格変動を数学的・統計的に捉え、利益を積み上げる」</p></li>
+<li><p>長期投資（バリュー投資）：<br>
+→ 「企業の本質的価値に比べて割安な株を買い、長期間保有する」</p></li>
+</ul>
+<section id="代表者" class="level3">
+<h3 class="anchored" data-anchor-id="代表者">代表者</h3>
+<ul>
+<li><strong>Benjamin Graham</strong>（バリュー投資の祖）</li>
+<li><strong>Warren Buffett</strong>（その弟子であり最も有名な実践者）</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="長期投資の基本思想" class="level2">
+<h2 class="anchored" data-anchor-id="長期投資の基本思想">2. 長期投資の基本思想</h2>
+<p>バリュー投資家は次の前提を信じている：</p>
+<blockquote class="blockquote">
+<p>市場は短期的には非合理で、ニュースに過剰反応する。<br>
+しかし長期的には企業価値に収束する。</p>
+</blockquote>
+<p>これは特に暗号資産などで顕著で、<br>
+市場は技術内容を理解しないままニュースで大きく価格変動する。</p>
+<p>例：<br>
+- 新技術の誤解 → 過剰買い<br>
+- 小さな問題の誇張 → 過剰売り</p>
+<hr>
+</section>
+<section id="長期投資の4つの柱" class="level2">
+<h2 class="anchored" data-anchor-id="長期投資の4つの柱">3. 長期投資の4つの柱</h2>
+<section id="企業に投資する株ではなく企業を見る" class="level3">
+<h3 class="anchored" data-anchor-id="企業に投資する株ではなく企業を見る"><strong>① 企業に投資する（株ではなく企業を見る）</strong></h3>
+<p>企業を深く理解し投資する。<br>
+これは <strong>ファンダメンタル分析</strong> と本質的に同じ。</p>
+<ul>
+<li>資産（現金、設備、在庫）</li>
+<li>負債（借入、ローン）</li>
+<li>収益性（売上、利益、営業利益率）</li>
+<li>経営者や組織の質</li>
+<li>製品・サービスの競争力</li>
+<li>財務諸表（BS、PL、CF）</li>
+</ul>
+</section>
+<section id="割安なときに買う" class="level3">
+<h3 class="anchored" data-anchor-id="割安なときに買う"><strong>② 割安なときに買う</strong></h3>
+<p>企業の本質価値（intrinsic value）よりも<br>
+市場価格が十分に低いときだけ買う。</p>
+<p>→ <strong>安全余裕（Margin of Safety）</strong> の概念。</p>
+</section>
+<section id="長期の買い持ちbuy-hold" class="level3">
+<h3 class="anchored" data-anchor-id="長期の買い持ちbuy-hold"><strong>③ 長期の買い持ち（Buy &amp; Hold）</strong></h3>
+<p>短期の市場変動やノイズを気にしない。</p>
+<ul>
+<li>ローソク足やチャートパターンを追わない</li>
+<li>デイトレードや短期のミスプライシングを狙わない</li>
+<li>機械学習で超高頻度の変動を読むような行為はしない</li>
+</ul>
+<p>目線は <strong>5年〜10年、場合によっては永久保有</strong>。</p>
+</section>
+<section id="群衆に流されないignore-the-crowd" class="level3">
+<h3 class="anchored" data-anchor-id="群衆に流されないignore-the-crowd"><strong>④ 群衆に流されない（Ignore the crowd）</strong></h3>
+<p>一般的な投資家の行動：</p>
+<ul>
+<li>上がると買う（Buy High）</li>
+<li>下がると売る（Sell Low）</li>
+</ul>
+<p>価値投資家：</p>
+<ul>
+<li>本質価値 ＞ 市場価格 → 買い<br>
+</li>
+<li>本質価値 ＜ 市場価格 → 売り or 買わない</li>
+</ul>
+<p>「人気」ではなく「価値」で判断する。</p>
+<hr>
+</section>
+</section>
+<section id="クオンツと長期投資の違い" class="level2">
+<h2 class="anchored" data-anchor-id="クオンツと長期投資の違い">4. クオンツと長期投資の違い</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 45%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>視点</th>
+<th>クオンツ投資</th>
+<th>長期投資</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>タイムスケール</td>
+<td>秒〜日〜数ヶ月</td>
+<td>数年〜数十年</td>
+</tr>
+<tr class="even">
+<td>注目するもの</td>
+<td>価格データ・統計・数式</td>
+<td>企業価値・財務・ビジネス</td>
+</tr>
+<tr class="odd">
+<td>目的</td>
+<td>マーケットより速く動き利益を得る</td>
+<td>企業成長と市場の是正による利益</td>
+</tr>
+<tr class="even">
+<td>リスク管理</td>
+<td>数理モデル・ヘッジ・機械学習</td>
+<td>分散・質の高い企業選び</td>
+</tr>
+<tr class="odd">
+<td>投資観</td>
+<td>市場は“データ”</td>
+<td>市場は“感情的で非合理”</td>
+</tr>
+</tbody>
+</table>
+<p>どちらが優れているというより <strong>目的が違う</strong>。</p>
+<p>著者（講義の語り手）も述べていた通り：</p>
+<ul>
+<li>数学的に美しいクオンツモデルも好き<br>
+</li>
+<li>企業理解に基づく長期投資も好き</li>
+</ul>
+<p>というように <strong>両方学ぶのが最強</strong>。</p>
+<hr>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">5. まとめ</h2>
+<ul>
+<li>長期投資は市場価格のノイズではなく <strong>企業の本質価値</strong> を見る手法</li>
+<li>大量のデータや高速取引ではなく <strong>ファンダメンタル分析が中心</strong></li>
+<li>目標は短期の利ざやではなく <strong>企業成長の果実を長期で享受すること</strong></li>
+<li>市場が過剰反応して割安になった時にのみ購入する</li>
+<li>群衆心理に左右されず、理性的に行動することが重要</li>
+</ul>
+<p>##12-2 Efficient Market Hypothesis（効率的市場仮説：EMH）</p>
+<p>本講義では、金融の中心的概念である <strong>効率的市場仮説（Efficient Market Hypothesis: EMH）</strong> について説明する。</p>
+<hr>
+</section>
+<section id="効率的市場仮説とは" class="level2">
+<h2 class="anchored" data-anchor-id="効率的市場仮説とは">1. 効率的市場仮説とは？</h2>
+<p><strong>効率的市場仮説（EMH）</strong> の主張：</p>
+<blockquote class="blockquote">
+<p>「市場価格は常に利用可能なあらゆる情報を完全に織り込んでおり、<br>
+投資家が市場平均を安定的に上回ること（=市場を“打ち負かす”こと）は不可能である」</p>
+</blockquote>
+<p>つまり、</p>
+<ul>
+<li>株価は“適正価格”で取引されている<br>
+</li>
+<li>割安株を見つけることも不可能<br>
+</li>
+<li>テクニカル分析・機械学習・時系列分析による予測も機能しない<br>
+</li>
+<li>市場平均を上回る唯一の方法は「追加のリスクを取ることのみ」</li>
+</ul>
+<hr>
+</section>
+<section id="emh-が意味するもの" class="level2">
+<h2 class="anchored" data-anchor-id="emh-が意味するもの">2. EMH が意味するもの</h2>
+<section id="株価の動きは完全にランダムrandom-walk" class="level3">
+<h3 class="anchored" data-anchor-id="株価の動きは完全にランダムrandom-walk"><strong>① 株価の動きは完全にランダム（Random Walk）</strong></h3>
+<p>EMHに従うと株価はランダムウォーク：</p>
+<ul>
+<li>過去の値動き（トレンド・パターン）は未来を一切予測できない<br>
+</li>
+<li>価格変化は“完全にランダム”</li>
+</ul>
+</section>
+<section id="情報はすべて価格に即座に反映される" class="level3">
+<h3 class="anchored" data-anchor-id="情報はすべて価格に即座に反映される"><strong>② 情報はすべて価格に即座に反映される</strong></h3>
+<ul>
+<li>新しいニュース<br>
+</li>
+<li>経済指標<br>
+</li>
+<li>決算情報<br>
+</li>
+<li>投資家の期待</li>
+</ul>
+<p>→ すべて瞬時に価格に反映されるため、分析する意味がない。</p>
+</section>
+<section id="オートコリレーション自己相関は存在しないはず" class="level3">
+<h3 class="anchored" data-anchor-id="オートコリレーション自己相関は存在しないはず"><strong>③ オートコリレーション（自己相関）は存在しないはず</strong></h3>
+<p>理論上：</p>
+<ul>
+<li>株価リターンの自己相関は ≈ 0<br>
+</li>
+<li>過去の値動きは未来の値動きに影響を与えない</li>
+</ul>
+<p>しかし現実には <strong>自己相関が存在する場合も多い</strong><br>
+→ アルゴリズム取引（ARIMA・GARCH 等）が利益を出せる理由。</p>
+<hr>
+</section>
+</section>
+<section id="emh-の問題点現実との矛盾" class="level2">
+<h2 class="anchored" data-anchor-id="emh-の問題点現実との矛盾">3. EMH の問題点（現実との矛盾）</h2>
+<p>以下の点から <strong>EMH は完全には正しくない</strong> とされる。</p>
+<section id="ランダムウォークは負の株価を許してしまう" class="level3">
+<h3 class="anchored" data-anchor-id="ランダムウォークは負の株価を許してしまう"><strong>① ランダムウォークは負の株価を許してしまう</strong></h3>
+<p>数理モデル上、ランダムウォークは負値をとり得るが、<br>
+現実の株価は決して負にならない。</p>
+</section>
+<section id="実際には自己相関が存在することがある" class="level3">
+<h3 class="anchored" data-anchor-id="実際には自己相関が存在することがある"><strong>② 実際には自己相関が存在することがある</strong></h3>
+<ul>
+<li>ボラティリティ・クラスタリング（GARCH の基礎）</li>
+<li>トレンド継続</li>
+<li>急落後の反転パターン</li>
+</ul>
+<p>などが観測される。</p>
+</section>
+<section id="明らかに市場平均を上回り続けた投資家が存在する" class="level3">
+<h3 class="anchored" data-anchor-id="明らかに市場平均を上回り続けた投資家が存在する"><strong>③ 明らかに市場平均を上回り続けた投資家が存在する</strong></h3>
+<p>後述の例の通り、<br>
+<strong>市場を長年にわたり“打ち負かしてきた”人物やファンドが現実に存在する。</strong></p>
+<hr>
+</section>
+</section>
+<section id="市場を実際に打ち負かした実例" class="level2">
+<h2 class="anchored" data-anchor-id="市場を実際に打ち負かした実例">4. 市場を実際に“打ち負かした”実例</h2>
+<section id="fidelity-investmentsマゼランファンド-peter-lynch" class="level3">
+<h3 class="anchored" data-anchor-id="fidelity-investmentsマゼランファンド-peter-lynch"><strong>① Fidelity Investments（マゼランファンド）– Peter Lynch</strong></h3>
+<ul>
+<li>運用期間：1977–1990<br>
+</li>
+<li>平均年利：<strong>29%</strong><br>
+</li>
+<li>世界最高クラスの実績<br>
+</li>
+<li>徹底した企業調査と長期投資の実例</li>
+</ul>
+<hr>
+</section>
+<section id="renaissance-technologies-jim-simons" class="level3">
+<h3 class="anchored" data-anchor-id="renaissance-technologies-jim-simons"><strong>② Renaissance Technologies – Jim Simons</strong></h3>
+<ul>
+<li>設立：1982<br>
+</li>
+<li>平均年利：<strong>34%</strong>（驚異的）<br>
+</li>
+<li>創業者は理論物理学者<br>
+</li>
+<li>高度な数理モデル・統計学・機械学習・ペアトレードなどを駆使<br>
+</li>
+<li>クオンツファンドの頂点</li>
+</ul>
+<hr>
+</section>
+<section id="berkshire-hathaway-warren-buffett" class="level3">
+<h3 class="anchored" data-anchor-id="berkshire-hathaway-warren-buffett"><strong>③ Berkshire Hathaway – Warren Buffett</strong></h3>
+<ul>
+<li>長期平均年利：約 <strong>22%</strong><br>
+</li>
+<li>14歳で初めて株を購入<br>
+</li>
+<li>バリュー投資（企業価値 ＞ 株価）を徹底<br>
+</li>
+<li>“長期投資は市場に勝てる”ことの生き証人</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="まとめemh-は完全には正しくない" class="level2">
+<h2 class="anchored" data-anchor-id="まとめemh-は完全には正しくない">5. まとめ：EMH は完全には正しくない</h2>
+<p>効率的市場仮説は金融理論の基礎だが、<br>
+現実世界を完全に説明しきれてはいない。</p>
+<p><strong>EMHの主張</strong><br>
+- 市場は完全に合理的<br>
+- 価格はすべての情報を反映<br>
+- 市場に勝つことは不可能</p>
+<p><strong>現実</strong><br>
+- 自己相関やパターンが存在する<br>
+- バリュー投資やクオンツ戦略で市場を上回る事例が多数<br>
+- 人間の感情やバブル・恐慌が相場に影響<br>
+- 完全に効率的な市場は存在しない</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

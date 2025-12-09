@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-inputbc8b9c7d123189a0 – 金融工学ノート</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">金融工学ノート</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./03-portfolio.html"> 
+<span class="menu-text">ポートフォリオ理論</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./04-capm.qmd"> 
+<span class="menu-text">CAPM</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#デリバティブとは" id="toc-デリバティブとは" class="nav-link active" data-scroll-target="#デリバティブとは">デリバティブとは？</a></li>
+  <li><a href="#デリバティブの目的" id="toc-デリバティブの目的" class="nav-link" data-scroll-target="#デリバティブの目的">デリバティブの目的</a></li>
+  <li><a href="#デリバティブの代表的な種類" id="toc-デリバティブの代表的な種類" class="nav-link" data-scroll-target="#デリバティブの代表的な種類">デリバティブの代表的な種類</a></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  <li><a href="#共通点" id="toc-共通点" class="nav-link" data-scroll-target="#共通点">共通点</a></li>
+  <li><a href="#フォワード契約-forwards" id="toc-フォワード契約-forwards" class="nav-link" data-scroll-target="#フォワード契約-forwards">フォワード契約 (Forwards)</a></li>
+  <li><a href="#先物契約-futures" id="toc-先物契約-futures" class="nav-link" data-scroll-target="#先物契約-futures">先物契約 (Futures)</a></li>
+  <li><a href="#具体例" id="toc-具体例" class="nav-link" data-scroll-target="#具体例">具体例</a></li>
+  <li><a href="#まとめ-1" id="toc-まとめ-1" class="nav-link" data-scroll-target="#まとめ-1">まとめ</a></li>
+  <li><a href="#スワップとは" id="toc-スワップとは" class="nav-link" data-scroll-target="#スワップとは">スワップとは</a></li>
+  <li><a href="#金利スワップの目的" id="toc-金利スワップの目的" class="nav-link" data-scroll-target="#金利スワップの目的">金利スワップの目的</a></li>
+  <li><a href="#具体例-1" id="toc-具体例-1" class="nav-link" data-scroll-target="#具体例-1">具体例</a></li>
+  <li><a href="#スワップの仕組み" id="toc-スワップの仕組み" class="nav-link" data-scroll-target="#スワップの仕組み">スワップの仕組み</a></li>
+  <li><a href="#メリット" id="toc-メリット" class="nav-link" data-scroll-target="#メリット">メリット</a></li>
+  <li><a href="#まとめ-2" id="toc-まとめ-2" class="nav-link" data-scroll-target="#まとめ-2">まとめ</a></li>
+  <li><a href="#cdsとは" id="toc-cdsとは" class="nav-link" data-scroll-target="#cdsとは">CDSとは？</a></li>
+  <li><a href="#背景" id="toc-背景" class="nav-link" data-scroll-target="#背景">背景</a></li>
+  <li><a href="#cdsの役割" id="toc-cdsの役割" class="nav-link" data-scroll-target="#cdsの役割">CDSの役割</a></li>
+  <li><a href="#関係者の役割" id="toc-関係者の役割" class="nav-link" data-scroll-target="#関係者の役割">関係者の役割</a></li>
+  <li><a href="#メリット-1" id="toc-メリット-1" class="nav-link" data-scroll-target="#メリット-1">メリット</a></li>
+  <li><a href="#問題点" id="toc-問題点" class="nav-link" data-scroll-target="#問題点">問題点</a></li>
+  <li><a href="#まとめ-3" id="toc-まとめ-3" class="nav-link" data-scroll-target="#まとめ-3">まとめ</a></li>
+  <li><a href="#定義" id="toc-定義" class="nav-link" data-scroll-target="#定義">定義</a></li>
+  <li><a href="#先物futuresとの違い" id="toc-先物futuresとの違い" class="nav-link" data-scroll-target="#先物futuresとの違い">先物（Futures）との違い</a></li>
+  <li><a href="#オプション取引の仕組み例apple株" id="toc-オプション取引の仕組み例apple株" class="nav-link" data-scroll-target="#オプション取引の仕組み例apple株">オプション取引の仕組み（例：Apple株）</a></li>
+  <li><a href="#メリット-2" id="toc-メリット-2" class="nav-link" data-scroll-target="#メリット-2">メリット</a></li>
+  <li><a href="#オプション価格の課題" id="toc-オプション価格の課題" class="nav-link" data-scroll-target="#オプション価格の課題">オプション価格の課題</a></li>
+  <li><a href="#今後の流れ" id="toc-今後の流れ" class="nav-link" data-scroll-target="#今後の流れ">今後の流れ</a></li>
+  <li><a href="#定義-1" id="toc-定義-1" class="nav-link" data-scroll-target="#定義-1">定義</a></li>
+  <li><a href="#主要なパラメータ" id="toc-主要なパラメータ" class="nav-link" data-scroll-target="#主要なパラメータ">主要なパラメータ</a></li>
+  <li><a href="#利用の目的" id="toc-利用の目的" class="nav-link" data-scroll-target="#利用の目的">利用の目的</a></li>
+  <li><a href="#満期時点での価値" id="toc-満期時点での価値" class="nav-link" data-scroll-target="#満期時点での価値">満期時点での価値</a></li>
+  <li><a href="#ペイオフ図payoff-diagram" id="toc-ペイオフ図payoff-diagram" class="nav-link" data-scroll-target="#ペイオフ図payoff-diagram">ペイオフ図（Payoff Diagram）</a></li>
+  <li><a href="#まとめ-4" id="toc-まとめ-4" class="nav-link" data-scroll-target="#まとめ-4">まとめ</a></li>
+  <li><a href="#定義-2" id="toc-定義-2" class="nav-link" data-scroll-target="#定義-2">定義</a></li>
+  <li><a href="#主要なパラメータ-1" id="toc-主要なパラメータ-1" class="nav-link" data-scroll-target="#主要なパラメータ-1">主要なパラメータ</a></li>
+  <li><a href="#利用の目的-1" id="toc-利用の目的-1" class="nav-link" data-scroll-target="#利用の目的-1">利用の目的</a></li>
+  <li><a href="#満期時点での価値-1" id="toc-満期時点での価値-1" class="nav-link" data-scroll-target="#満期時点での価値-1">満期時点での価値</a></li>
+  <li><a href="#ペイオフ図payoff-diagram-1" id="toc-ペイオフ図payoff-diagram-1" class="nav-link" data-scroll-target="#ペイオフ図payoff-diagram-1">ペイオフ図（Payoff Diagram）</a></li>
+  <li><a href="#まとめ-5" id="toc-まとめ-5" class="nav-link" data-scroll-target="#まとめ-5">まとめ</a></li>
+  <li><a href="#アメリカンオプション-american-option" id="toc-アメリカンオプション-american-option" class="nav-link" data-scroll-target="#アメリカンオプション-american-option">アメリカンオプション (American Option)</a></li>
+  <li><a href="#ヨーロピアンオプション-european-option" id="toc-ヨーロピアンオプション-european-option" class="nav-link" data-scroll-target="#ヨーロピアンオプション-european-option">ヨーロピアンオプション (European Option)</a></li>
+  <li><a href="#まとめ-6" id="toc-まとめ-6" class="nav-link" data-scroll-target="#まとめ-6">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p><a href="https://colab.research.google.com/github/ish66726-a11y/colab-notebooks/blob/main/%E3%83%87%E3%83%AA%E3%83%90%E3%83%86%E3%82%A3%E3%83%96.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<p>#5 デリバティブ</p>
+<p>##5-1 デリバティブ入門：基礎と種類</p>
+<section id="デリバティブとは" class="level3">
+<h3 class="anchored" data-anchor-id="デリバティブとは">デリバティブとは？</h3>
+<ul>
+<li><strong>定義</strong>：価格が <strong>原資産（Underlying Asset）</strong> に依存する金融商品<br>
+</li>
+<li><strong>原資産の例</strong>：株式、債券、通貨、金利、商品（原油など）</li>
+<li><strong>価格決定要因</strong>：原資産の価格変動（確率的 → 確率微分方程式が必要）</li>
+</ul>
+<hr>
+</section>
+<section id="デリバティブの目的" class="level3">
+<h3 class="anchored" data-anchor-id="デリバティブの目的">デリバティブの目的</h3>
+<ol type="1">
+<li><strong>リスクヘッジ</strong>
+<ul>
+<li>例：航空会社は燃料費（原油価格）の変動リスクを軽減するためにデリバティブを利用<br>
+</li>
+<li>将来の価格をあらかじめ固定 → 経営の安定化</li>
+<li>保険のように「リスクを回避」</li>
+</ul></li>
+<li><strong>投機（スペキュレーション）</strong>
+<ul>
+<li>将来の価格変動を予測して利益を狙う</li>
+<li>例：原油価格が上昇すると予想 → 先に契約して将来安く買い、高く売ることで利益獲得</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="デリバティブの代表的な種類" class="level3">
+<h3 class="anchored" data-anchor-id="デリバティブの代表的な種類">デリバティブの代表的な種類</h3>
+<ol type="1">
+<li><strong>フォワード契約 (Forward Contracts)</strong>
+<ul>
+<li>2者間で将来、特定の価格で資産を売買する契約<br>
+</li>
+<li>規制なし、非標準化 → 取引所に上場されない<br>
+</li>
+<li>例：航空会社と石油会社が結ぶ長期燃料契約</li>
+</ul></li>
+<li><strong>先物契約 (Futures Contracts)</strong>
+<ul>
+<li>フォワードと同様だが、<strong>規制・標準化</strong> されており、取引所で取引可能</li>
+</ul></li>
+<li><strong>スワップ (Swaps)</strong>
+<ul>
+<li>将来のキャッシュフローを交換する契約<br>
+</li>
+<li>例：金利スワップ（固定金利と変動金利の交換）</li>
+</ul></li>
+<li><strong>オプション (Options)</strong>
+<ul>
+<li><strong>「権利」だが「義務」ではない</strong><br>
+</li>
+<li>特定の価格で将来、原資産を売買できる権利<br>
+</li>
+<li>フォワードとの違い：オプションは行使するかどうかを選べる</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="まとめ" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ">まとめ</h3>
+<ul>
+<li>デリバティブは原資産価格に依存する金融商品<br>
+</li>
+<li>主な用途は「リスク回避（ヘッジ）」と「利益追求（投機）」<br>
+</li>
+<li>種類：フォワード、先物、スワップ、オプション<br>
+</li>
+<li>今後は <strong>ブラック–ショールズモデル</strong> を通じて、オプション評価を中心に解説する</li>
+</ul>
+<p>##5-2 フォワード契約と先物契約</p>
+</section>
+<section id="共通点" class="level3">
+<h3 class="anchored" data-anchor-id="共通点">共通点</h3>
+<ul>
+<li>双方とも「将来の特定時点に、あらかじめ決めた価格で資産を売買する契約」</li>
+<li><strong>目的</strong>：将来の価格変動リスクを回避（ヘッジ）</li>
+</ul>
+<hr>
+</section>
+<section id="フォワード契約-forwards" class="level3">
+<h3 class="anchored" data-anchor-id="フォワード契約-forwards">フォワード契約 (Forwards)</h3>
+<ul>
+<li><strong>特徴</strong>
+<ul>
+<li>当事者同士の <strong>私的な契約</strong></li>
+<li><strong>非標準化・非規制</strong> → 取引所では取引されない</li>
+<li>第三者の保証がない → <strong>相手方が契約を履行しないリスク（信用リスク）</strong> が存在</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="先物契約-futures" class="level3">
+<h3 class="anchored" data-anchor-id="先物契約-futures">先物契約 (Futures)</h3>
+<ul>
+<li><strong>特徴</strong>
+<ul>
+<li>内容はフォワード契約とほぼ同じ</li>
+<li>ただし <strong>標準化・規制</strong> され、<strong>取引所で売買可能</strong></li>
+<li>清算機関（取引所）が間に入り、契約履行を保証 → 信用リスクが低い</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="具体例" class="level3">
+<h3 class="anchored" data-anchor-id="具体例">具体例</h3>
+<ul>
+<li><strong>状況</strong>
+<ul>
+<li>Tom：IBM株 5,000株保有（株価 = $50）<br>
+</li>
+<li>将来の値下がりを懸念<br>
+</li>
+<li>Bob：株価上昇を予想し、買いのポジションを取りたい</li>
+</ul></li>
+<li><strong>契約</strong>
+<ul>
+<li>1年後、BobがTomから <strong>1株あたり$50</strong> で5,000株を購入する先物契約を締結</li>
+</ul></li>
+<li><strong>結果シナリオ</strong>
+<ul>
+<li>株価下落：Tomは価格下落リスクを回避し、$50で売却できる<br>
+</li>
+<li>株価上昇：Bobは$50で買って市場で高値で売却 → 利益を獲得</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-1" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-1">まとめ</h3>
+<ul>
+<li>フォワードと先物の基本的な仕組みは同じ<br>
+</li>
+<li>違いは「規制・標準化」「取引所の有無」「信用リスクの有無」<br>
+</li>
+<li>先物はヘッジにも投機にも広く利用される強力な金融商品</li>
+</ul>
+<p>##5-3 スワップ（Swaps）と金利スワップ</p>
+</section>
+<section id="スワップとは" class="level3">
+<h3 class="anchored" data-anchor-id="スワップとは">スワップとは</h3>
+<ul>
+<li>2者間で <strong>将来のキャッシュフローを交換する金融派生商品</strong></li>
+<li>最初のスワップ取引は1980年代初頭、IBMと世界銀行の間で誕生</li>
+<li>主な種類：
+<ul>
+<li><strong>金利スワップ（Interest Rate Swap）</strong> ← 最も基本的で一般的</li>
+<li><strong>通貨スワップ（Currency Swap）</strong>：異なる通貨建ての元本＋利息を交換</li>
+<li><strong>クレジット・デフォルト・スワップ（CDS）</strong>：債務不履行時に保証（2008年金融危機で重要な役割）</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="金利スワップの目的" class="level3">
+<h3 class="anchored" data-anchor-id="金利スワップの目的">金利スワップの目的</h3>
+<ul>
+<li>市場金利は常に変動し、借入コストに影響する</li>
+<li><strong>固定金利</strong>：返済額が一定<br>
+</li>
+<li><strong>変動金利（例：LIBOR連動）</strong>：市場金利の上下で返済額が変動 → リスク大<br>
+</li>
+<li>金利スワップにより、当事者同士のニーズを調整して <strong>支払条件を有利に変換</strong></li>
+</ul>
+<hr>
+</section>
+<section id="具体例-1" class="level3">
+<h3 class="anchored" data-anchor-id="具体例-1">具体例</h3>
+<ul>
+<li><strong>会社A</strong>：信用度が高い
+<ul>
+<li>固定金利で6%で借入可能<br>
+</li>
+<li>または変動金利（= LIBOR）で借入可能<br>
+</li>
+<li>→ 実際は <strong>変動金利を希望</strong></li>
+</ul></li>
+<li><strong>会社B</strong>：信用度が低い
+<ul>
+<li>固定金利で9%で借入可能<br>
+</li>
+<li>変動金利だと <strong>LIBOR + 1%</strong><br>
+</li>
+<li>→ 実際は <strong>固定金利を希望</strong></li>
+</ul></li>
+<li><strong>投資銀行</strong>：スワップを仲介し手数料を得る</li>
+</ul>
+<hr>
+</section>
+<section id="スワップの仕組み" class="level3">
+<h3 class="anchored" data-anchor-id="スワップの仕組み">スワップの仕組み</h3>
+<ol type="1">
+<li><p><strong>会社B と 投資銀行</strong></p>
+<ul>
+<li>投資銀行 → Bに <strong>LIBORを支払う</strong><br>
+</li>
+<li>B → 投資銀行に <strong>7.5%支払う</strong><br>
+</li>
+<li>B → 銀行に <strong>LIBOR + 1%支払う</strong></li>
+</ul>
+<p>→ 実質支払い = 7.5% + 1% = <strong>8.5%</strong><br>
+（銀行の提示9%より有利）</p></li>
+<li><p><strong>会社A と 投資銀行</strong></p>
+<ul>
+<li>A → 投資銀行に <strong>LIBOR支払う</strong><br>
+</li>
+<li>投資銀行 → Aに <strong>7%支払う</strong><br>
+</li>
+<li>A → 銀行に <strong>固定6%支払う</strong></li>
+</ul>
+<p>→ 実質負担 = LIBOR - 1%<br>
+（直接借入より1%有利）</p></li>
+<li><p><strong>投資銀行</strong></p>
+<ul>
+<li>Aから受け取ったLIBORをBへ渡す<br>
+</li>
+<li>差額 <strong>(7.5% - 7% = 0.5%)</strong> が収益</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="メリット" class="level3">
+<h3 class="anchored" data-anchor-id="メリット">メリット</h3>
+<ul>
+<li><strong>会社A</strong>：LIBOR → LIBOR - 1% へ改善（1%得）<br>
+</li>
+<li><strong>会社B</strong>：固定9% → 実質8.5%に改善（0.5%得）<br>
+</li>
+<li><strong>投資銀行</strong>：差額で <strong>0.5%の利益</strong></li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-2" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-2">まとめ</h3>
+<ul>
+<li>金利スワップは「固定金利を支払いたい企業」と「変動金利を支払いたい企業」の利害を調整し、投資銀行が仲介して全員が得をする仕組み。<br>
+</li>
+<li>1980年代に広まり、現在も企業のリスク管理や資金調達に欠かせない金融手段。</li>
+</ul>
+<p>##5-4 クレジット・デフォルト・スワップ (CDS)</p>
+</section>
+<section id="cdsとは" class="level3">
+<h3 class="anchored" data-anchor-id="cdsとは">CDSとは？</h3>
+<ul>
+<li><strong>定義</strong>：債務不履行（デフォルト）が起きた場合に、投資家（CDSの買い手）を補償する金融派生商品</li>
+<li><strong>仕組み</strong>：
+<ul>
+<li>CDS買い手 → 定期的にプレミアム（保険料のような支払い）を行う<br>
+</li>
+<li>CDS売り手 → 万一、債券発行会社がデフォルトした場合、元本や利息を補償する</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="背景" class="level3">
+<h3 class="anchored" data-anchor-id="背景">背景</h3>
+<ul>
+<li>企業は資金調達のために <strong>社債（Bonds）</strong> を発行<br>
+</li>
+<li>投資家（企業・年金基金など）は社債を購入 → 利息収入を得る<br>
+</li>
+<li><strong>リスク</strong>：発行企業が倒産・債務不履行に陥る可能性</li>
+</ul>
+<hr>
+</section>
+<section id="cdsの役割" class="level3">
+<h3 class="anchored" data-anchor-id="cdsの役割">CDSの役割</h3>
+<ul>
+<li>投資家は「債務不履行リスク」に備えるためにCDSを購入<br>
+</li>
+<li><strong>保険のような仕組み</strong>：
+<ul>
+<li>通常時：投資家 → 投資銀行（CDS売り手）へ定期的に支払い<br>
+</li>
+<li>デフォルト時：投資銀行（CDS売り手） → 投資家へ補償金を支払い</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="関係者の役割" class="level3">
+<h3 class="anchored" data-anchor-id="関係者の役割">関係者の役割</h3>
+<ol type="1">
+<li><strong>債券発行会社（Borrower）</strong>
+<ul>
+<li>資金を得るために債券を発行</li>
+<li>利息と元本を返済する義務がある</li>
+</ul></li>
+<li><strong>投資家（Investor, CDS Buyer）</strong>
+<ul>
+<li>債券を購入し利息収入を得る<br>
+</li>
+<li>デフォルトを懸念しCDSを購入</li>
+</ul></li>
+<li><strong>投資銀行（CDS Seller）</strong>
+<ul>
+<li>CDSを販売してプレミアム収入を得る<br>
+</li>
+<li>デフォルトが発生した場合は補償を行う</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="メリット-1" class="level3">
+<h3 class="anchored" data-anchor-id="メリット-1">メリット</h3>
+<ul>
+<li><strong>投資家</strong>：デフォルトリスクを移転できる（保険効果）<br>
+</li>
+<li><strong>投資銀行</strong>：デフォルト確率が低いと見込み、プレミアム収入を獲得<br>
+</li>
+<li><strong>市場全体</strong>：信用リスクを「取引可能な商品」に変換できる</li>
+</ul>
+<hr>
+</section>
+<section id="問題点" class="level3">
+<h3 class="anchored" data-anchor-id="問題点">問題点</h3>
+<ul>
+<li>CDSが大量に取引されると、<strong>システミックリスク</strong>が拡大<br>
+</li>
+<li>2008年金融危機では、CDSが過度に利用され危機を深刻化させた<br>
+</li>
+<li>信用格付機関（S&amp;P, Moody’s など）の評価が投資判断に大きな影響</li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-3" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-3">まとめ</h3>
+<ul>
+<li>CDSは「社債の信用リスクを保険化」する金融商品<br>
+</li>
+<li>投資家はリスクを減らし、銀行はプレミアムで利益を得る<br>
+</li>
+<li>2008年金融危機で注目を浴びた重要なデリバティブの1つ</li>
+</ul>
+<p>##5-5 オプション（Options）</p>
+</section>
+<section id="定義" class="level3">
+<h3 class="anchored" data-anchor-id="定義">定義</h3>
+<ul>
+<li><strong>オプション</strong>とは：
+<ul>
+<li>将来のある時点で、<strong>あらかじめ決められた価格で資産を売買する「権利」</strong>を与える金融派生商品<br>
+</li>
+<li>ただし <strong>義務はない</strong>（取引するかどうかはホルダーの自由）</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="先物futuresとの違い" class="level3">
+<h3 class="anchored" data-anchor-id="先物futuresとの違い">先物（Futures）との違い</h3>
+<ul>
+<li><strong>先物契約</strong>：
+<ul>
+<li>将来、決められた価格で「必ず」売買する義務</li>
+<li>例：航空会社が原油先物を購入 → 必ず指定日に買わなければならない</li>
+</ul></li>
+<li><strong>オプション</strong>：
+<ul>
+<li>売買する「権利」を持つが、行使するかどうかは自由</li>
+<li>不利なときは放棄可能</li>
+</ul></li>
+</ul>
+<p>👉 <strong>義務があるかどうか</strong>が最大の違い</p>
+<hr>
+</section>
+<section id="オプション取引の仕組み例apple株" class="level3">
+<h3 class="anchored" data-anchor-id="オプション取引の仕組み例apple株">オプション取引の仕組み（例：Apple株）</h3>
+<ol type="1">
+<li>時刻 <span class="math inline">\(t=0\)</span> でオプションを購入（プレミアムを支払う）</li>
+<li>満期 <span class="math inline">\(T\)</span> で株価を確認
+<ul>
+<li>株価が <strong>上昇</strong>していれば：安く買って高く売れる → 利益</li>
+<li>株価が <strong>下落</strong>していれば：権利を放棄 → 損失はオプション料のみ</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="メリット-2" class="level3">
+<h3 class="anchored" data-anchor-id="メリット-2">メリット</h3>
+<ul>
+<li><strong>利益を狙える</strong>：有利な場合のみ権利を行使できる</li>
+<li><strong>損失限定</strong>：最大損失はオプション料（プレミアム）に限定される</li>
+</ul>
+<hr>
+</section>
+<section id="オプション価格の課題" class="level3">
+<h3 class="anchored" data-anchor-id="オプション価格の課題">オプション価格の課題</h3>
+<ul>
+<li>オプションの価値は <strong>基礎資産（株価など）の変動</strong>に依存</li>
+<li>株価は常に変動するため、オプション価格も変動</li>
+<li>→ 数理モデル（<strong>ブラック＝ショールズモデル</strong>）で価格を算出する必要がある</li>
+</ul>
+<hr>
+</section>
+<section id="今後の流れ" class="level3">
+<h3 class="anchored" data-anchor-id="今後の流れ">今後の流れ</h3>
+<ul>
+<li><strong>コールオプション</strong> と <strong>プットオプション</strong> の違いを解説</li>
+<li>その後、<strong>ブラック＝ショールズモデル</strong>でオプション価格の理論を学ぶ</li>
+</ul>
+<p>##5-6 コールオプション (Call Option)</p>
+</section>
+<section id="定義-1" class="level3">
+<h3 class="anchored" data-anchor-id="定義-1">定義</h3>
+<ul>
+<li><strong>コールオプション</strong>：将来、あらかじめ決められた価格で「株式を買う権利」</li>
+<li>原資産（Underlying Asset）：通常は株式</li>
+<li>義務はなく、<strong>行使するかどうかは投資家が決められる</strong></li>
+</ul>
+<hr>
+</section>
+<section id="主要なパラメータ" class="level3">
+<h3 class="anchored" data-anchor-id="主要なパラメータ">主要なパラメータ</h3>
+<ul>
+<li><strong>E (Exercise Price / Strike Price)</strong><br>
+行使価格。例：30ドル<br>
+</li>
+<li><strong>T (Expiry / Maturity)</strong><br>
+満期。例：1か月後<br>
+</li>
+<li><strong>S (Stock Price)</strong><br>
+株価。例：今日のIBM株 = 25ドル<br>
+</li>
+<li><strong>V (Value of Option)</strong><br>
+コールオプションの価格</li>
+</ul>
+<hr>
+</section>
+<section id="利用の目的" class="level3">
+<h3 class="anchored" data-anchor-id="利用の目的">利用の目的</h3>
+<ul>
+<li>株価が <strong>上昇する</strong> と予想するときに購入する<br>
+</li>
+<li>株価が上昇すれば、低い行使価格で株を買い、市場価格で売却 → <strong>利益獲得</strong><br>
+</li>
+<li>株価が行使価格を下回る場合は権利を行使せず、損失はプレミアムに限定</li>
+</ul>
+<hr>
+</section>
+<section id="満期時点での価値" class="level3">
+<h3 class="anchored" data-anchor-id="満期時点での価値">満期時点での価値</h3>
+<p>コールオプションの価値は次の式で表される：</p>
+<p><span class="math display">\[
+V_T = \max(S_T - E, \; 0)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(S_T\)</span>：満期時の株価<br>
+</li>
+<li><span class="math inline">\(E\)</span>：行使価格</li>
+</ul>
+<hr>
+</section>
+<section id="ペイオフ図payoff-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="ペイオフ図payoff-diagram">ペイオフ図（Payoff Diagram）</h3>
+<ul>
+<li>横軸：株価 <span class="math inline">\(S_T\)</span><br>
+</li>
+<li>縦軸：オプション価値 <span class="math inline">\(V_T\)</span><br>
+</li>
+<li>特徴：
+<ul>
+<li><span class="math inline">\(S_T &lt; E\)</span> のとき → <span class="math inline">\(V_T = 0\)</span>（権利を行使しない）<br>
+</li>
+<li><span class="math inline">\(S_T \geq E\)</span> のとき → <span class="math inline">\(V_T = S_T - E\)</span>（利益発生）<br>
+</li>
+<li>初期コスト（オプション料）を考慮すると、最初はマイナスからスタート</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-4" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-4">まとめ</h3>
+<ul>
+<li><strong>コールオプション = 株を買う権利</strong></li>
+<li>株価が行使価格を超えると利益が発生<br>
+</li>
+<li>満期時は簡単な式で評価可能<br>
+</li>
+<li>満期前の価格計算には <strong>ブラック=ショールズモデル</strong> が必要</li>
+</ul>
+<p>##5-7 プットオプション (Put Option)</p>
+</section>
+<section id="定義-2" class="level3">
+<h3 class="anchored" data-anchor-id="定義-2">定義</h3>
+<ul>
+<li><strong>プットオプション</strong>：将来、あらかじめ決められた価格で「株式を売る権利」</li>
+<li><strong>コールオプション</strong>：将来、あらかじめ決められた価格で「株式を買う権利」</li>
+<li>注意：権利のみで義務はない</li>
+</ul>
+<hr>
+</section>
+<section id="主要なパラメータ-1" class="level3">
+<h3 class="anchored" data-anchor-id="主要なパラメータ-1">主要なパラメータ</h3>
+<ul>
+<li><strong>E (Exercise Price / Strike Price)</strong><br>
+行使価格。例：25ドル<br>
+</li>
+<li><strong>T (Expiry / Maturity)</strong><br>
+満期。例：1か月後<br>
+</li>
+<li><strong>S (Stock Price)</strong><br>
+株価。例：今日のIBM株 = 25ドル<br>
+</li>
+<li><strong>V (Value of Option)</strong><br>
+プットオプションの価格</li>
+</ul>
+<hr>
+</section>
+<section id="利用の目的-1" class="level3">
+<h3 class="anchored" data-anchor-id="利用の目的-1">利用の目的</h3>
+<ul>
+<li>株価が <strong>下落する</strong> と予想するときに購入する<br>
+</li>
+<li>株価が行使価格を下回れば、権利を行使して高値で売却 → <strong>利益獲得</strong><br>
+</li>
+<li>株価が行使価格を上回れば権利を放棄、損失はプレミアムに限定</li>
+</ul>
+<hr>
+</section>
+<section id="満期時点での価値-1" class="level3">
+<h3 class="anchored" data-anchor-id="満期時点での価値-1">満期時点での価値</h3>
+<p>プットオプションの価値は次の式で表される：</p>
+<p><span class="math display">\[
+V_T = \max(E - S_T, \; 0)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(S_T\)</span>：満期時の株価<br>
+</li>
+<li><span class="math inline">\(E\)</span>：行使価格</li>
+</ul>
+<hr>
+</section>
+<section id="ペイオフ図payoff-diagram-1" class="level3">
+<h3 class="anchored" data-anchor-id="ペイオフ図payoff-diagram-1">ペイオフ図（Payoff Diagram）</h3>
+<ul>
+<li>横軸：株価 <span class="math inline">\(S_T\)</span><br>
+</li>
+<li>縦軸：オプション価値 <span class="math inline">\(V_T\)</span><br>
+</li>
+<li>特徴：
+<ul>
+<li><span class="math inline">\(S_T &gt; E\)</span> のとき → <span class="math inline">\(V_T = 0\)</span>（権利を行使しない）<br>
+</li>
+<li><span class="math inline">\(S_T \leq E\)</span> のとき → <span class="math inline">\(V_T = E - S_T\)</span>（利益発生）<br>
+</li>
+<li>初期コスト（オプション料）を考慮すると、最初はマイナスからスタート</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-5" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-5">まとめ</h3>
+<ul>
+<li><strong>プットオプション = 株を売る権利</strong></li>
+<li>株価が行使価格を下回ると利益が発生<br>
+</li>
+<li>満期時は簡単な式で評価可能<br>
+</li>
+<li>満期前の価格計算には <strong>ブラック=ショールズモデル</strong> が必要</li>
+</ul>
+<p>##5-8 アメリカンオプションとヨーロピアンオプション</p>
+</section>
+<section id="アメリカンオプション-american-option" class="level3">
+<h3 class="anchored" data-anchor-id="アメリカンオプション-american-option">アメリカンオプション (American Option)</h3>
+<ul>
+<li>満期日 <strong>以前の任意の時点で行使可能</strong></li>
+<li>柔軟性が高い</li>
+<li>例：株価が有利に動いた時点で即行使できる</li>
+</ul>
+<hr>
+</section>
+<section id="ヨーロピアンオプション-european-option" class="level3">
+<h3 class="anchored" data-anchor-id="ヨーロピアンオプション-european-option">ヨーロピアンオプション (European Option)</h3>
+<ul>
+<li><strong>満期日 (T)</strong> にのみ行使可能</li>
+<li>より単純でモデル化しやすい</li>
+<li>ブラック=ショールズモデルは <strong>ヨーロピアンオプションを前提</strong></li>
+</ul>
+<hr>
+</section>
+<section id="まとめ-6" class="level3">
+<h3 class="anchored" data-anchor-id="まとめ-6">まとめ</h3>
+<ul>
+<li>アメリカン: 「いつでも行使できる」<br>
+</li>
+<li>ヨーロピアン: 「満期日にしか行使できない」<br>
+</li>
+<li>数理モデル上はヨーロピアンの方が扱いやすい<br>
+</li>
+<li>実務上はアメリカンの方が柔軟だが、評価が難しい</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

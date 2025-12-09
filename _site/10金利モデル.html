@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-inputc0d87d7d6de3a4c8 – 金融工学ノート</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">金融工学ノート</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./03-portfolio.html"> 
+<span class="menu-text">ポートフォリオ理論</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./04-capm.qmd"> 
+<span class="menu-text">CAPM</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#なぜ金利をモデル化する必要があるのか" id="toc-なぜ金利をモデル化する必要があるのか" class="nav-link active" data-scroll-target="#なぜ金利をモデル化する必要があるのか">1. なぜ金利をモデル化する必要があるのか？</a>
+  <ul class="collapse">
+  <li><a href="#金利は常に変動しているstochastic" id="toc-金利は常に変動しているstochastic" class="nav-link" data-scroll-target="#金利は常に変動しているstochastic">✔ 金利は常に変動している（stochastic）</a></li>
+  <li><a href="#企業の借入コストに直結する" id="toc-企業の借入コストに直結する" class="nav-link" data-scroll-target="#企業の借入コストに直結する">✔ 企業の借入コストに直結する</a></li>
+  <li><a href="#債券価格に必須" id="toc-債券価格に必須" class="nav-link" data-scroll-target="#債券価格に必須">✔ 債券価格に必須</a></li>
+  </ul></li>
+  <li><a href="#株価モデルとの違い" id="toc-株価モデルとの違い" class="nav-link" data-scroll-target="#株価モデルとの違い">2. 株価モデルとの違い</a>
+  <ul class="collapse">
+  <li><a href="#金利は一定の水準へ戻る性質を持つmean-reversion" id="toc-金利は一定の水準へ戻る性質を持つmean-reversion" class="nav-link" data-scroll-target="#金利は一定の水準へ戻る性質を持つmean-reversion">✔ 金利は一定の水準へ戻る性質を持つ（Mean Reversion）</a></li>
+  <li><a href="#オーンシュタインウーレンベック過程ou過程" id="toc-オーンシュタインウーレンベック過程ou過程" class="nav-link" data-scroll-target="#オーンシュタインウーレンベック過程ou過程"><strong>オーンシュタイン＝ウーレンベック過程（OU過程）</strong></a></li>
+  </ul></li>
+  <li><a href="#今後の流れ次の講義" id="toc-今後の流れ次の講義" class="nav-link" data-scroll-target="#今後の流れ次の講義">3. 今後の流れ（次の講義）</a></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  <li><a href="#基礎となる-wiener-過程brownian-motion" id="toc-基礎となる-wiener-過程brownian-motion" class="nav-link" data-scroll-target="#基礎となる-wiener-過程brownian-motion">1. 基礎となる Wiener 過程（Brownian Motion）</a>
+  <ul class="collapse">
+  <li><a href="#独立増分independent-increments" id="toc-独立増分independent-increments" class="nav-link" data-scroll-target="#独立増分independent-increments">✔ 独立増分（Independent Increments）</a></li>
+  <li><a href="#ガウス分布に従うgaussian-increments" id="toc-ガウス分布に従うgaussian-increments" class="nav-link" data-scroll-target="#ガウス分布に従うgaussian-increments">✔ ガウス分布に従う（Gaussian Increments）</a></li>
+  </ul></li>
+  <li><a href="#ou-過程ornsteinuhlenbeck-process" id="toc-ou-過程ornsteinuhlenbeck-process" class="nav-link" data-scroll-target="#ou-過程ornsteinuhlenbeck-process">2. OU 過程（Ornstein–Uhlenbeck Process）</a>
+  <ul class="collapse">
+  <li><a href="#確率微分方程式sde" id="toc-確率微分方程式sde" class="nav-link" data-scroll-target="#確率微分方程式sde">✔ 確率微分方程式（SDE）</a></li>
+  </ul></li>
+  <li><a href="#パラメータの意味" id="toc-パラメータの意味" class="nav-link" data-scroll-target="#パラメータの意味">3. パラメータの意味</a></li>
+  <li><a href="#どんな性質を持つのか" id="toc-どんな性質を持つのか" class="nav-link" data-scroll-target="#どんな性質を持つのか">4. どんな性質を持つのか？</a>
+  <ul class="collapse">
+  <li><a href="#平均回帰性mean-reversion" id="toc-平均回帰性mean-reversion" class="nav-link" data-scroll-target="#平均回帰性mean-reversion">✔ 平均回帰性（Mean Reversion）</a></li>
+  <li><a href="#定常性stationarity" id="toc-定常性stationarity" class="nav-link" data-scroll-target="#定常性stationarity">✔ 定常性（Stationarity）</a></li>
+  </ul></li>
+  <li><a href="#ペアトレードpairs-tradingとの関係" id="toc-ペアトレードpairs-tradingとの関係" class="nav-link" data-scroll-target="#ペアトレードpairs-tradingとの関係">5. ペアトレード（Pairs Trading）との関係</a>
+  <ul class="collapse">
+  <li><a href="#ペアトレードの考え方" id="toc-ペアトレードの考え方" class="nav-link" data-scroll-target="#ペアトレードの考え方">✔ ペアトレードの考え方</a></li>
+  <li><a href="#ou-過程は平均に戻るという性質を数学的に表現" id="toc-ou-過程は平均に戻るという性質を数学的に表現" class="nav-link" data-scroll-target="#ou-過程は平均に戻るという性質を数学的に表現">✔ OU 過程は「平均に戻る」という性質を数学的に表現</a></li>
+  </ul></li>
+  <li><a href="#要点まとめ" id="toc-要点まとめ" class="nav-link" data-scroll-target="#要点まとめ">6. 要点まとめ</a></li>
+  <li><a href="#必要ライブラリ" id="toc-必要ライブラリ" class="nav-link" data-scroll-target="#必要ライブラリ">1. 必要ライブラリ</a></li>
+  <li><a href="#ou-過程のシミュレーション関数" id="toc-ou-過程のシミュレーション関数" class="nav-link" data-scroll-target="#ou-過程のシミュレーション関数">2. OU 過程のシミュレーション関数</a>
+  <ul class="collapse">
+  <li><a href="#実装" id="toc-実装" class="nav-link" data-scroll-target="#実装">✔ 実装</a></li>
+  </ul></li>
+  <li><a href="#シミュレーション結果を可視化" id="toc-シミュレーション結果を可視化" class="nav-link" data-scroll-target="#シミュレーション結果を可視化">3. シミュレーション結果を可視化</a></li>
+  <li><a href="#パラメータを変える例" id="toc-パラメータを変える例" class="nav-link" data-scroll-target="#パラメータを変える例">4. パラメータを変える例</a>
+  <ul class="collapse">
+  <li><a href="#平均を-0.9-に変更揺れを小さくσ-0.05" id="toc-平均を-0.9-に変更揺れを小さくσ-0.05" class="nav-link" data-scroll-target="#平均を-0.9-に変更揺れを小さくσ-0.05">✔ 平均を 0.9 に変更、揺れを小さく（σ = 0.05）</a></li>
+  <li><a href="#ボラティリティを大きくσ-1.0" id="toc-ボラティリティを大きくσ-1.0" class="nav-link" data-scroll-target="#ボラティリティを大きくσ-1.0">✔ ボラティリティを大きく（σ = 1.0）</a></li>
+  </ul></li>
+  <li><a href="#要点まとめ-1" id="toc-要点まとめ-1" class="nav-link" data-scroll-target="#要点まとめ-1">5. 要点まとめ</a></li>
+  <li><a href="#vasicek-モデルとは" id="toc-vasicek-モデルとは" class="nav-link" data-scroll-target="#vasicek-モデルとは">1. Vasicek モデルとは？</a></li>
+  <li><a href="#数理モデル確率微分方程式" id="toc-数理モデル確率微分方程式" class="nav-link" data-scroll-target="#数理モデル確率微分方程式">2. 数理モデル（確率微分方程式）</a>
+  <ul class="collapse">
+  <li><a href="#用語と意味" id="toc-用語と意味" class="nav-link" data-scroll-target="#用語と意味">用語と意味</a></li>
+  </ul></li>
+  <li><a href="#各項の解釈" id="toc-各項の解釈" class="nav-link" data-scroll-target="#各項の解釈">3. 各項の解釈</a>
+  <ul class="collapse">
+  <li><a href="#決定論的項mean-reversion" id="toc-決定論的項mean-reversion" class="nav-link" data-scroll-target="#決定論的項mean-reversion">◆ ① 決定論的項（mean reversion）</a></li>
+  <li><a href="#確率ノイズ項" id="toc-確率ノイズ項" class="nav-link" data-scroll-target="#確率ノイズ項">◆ ② 確率（ノイズ）項 $</a></li>
+  </ul></li>
+  <li><a href="#vasicek-モデルの特徴" id="toc-vasicek-モデルの特徴" class="nav-link" data-scroll-target="#vasicek-モデルの特徴">4. Vasicek モデルの特徴</a>
+  <ul class="collapse">
+  <li><a href="#長所" id="toc-長所" class="nav-link" data-scroll-target="#長所">✔ 長所</a></li>
+  <li><a href="#注意点" id="toc-注意点" class="nav-link" data-scroll-target="#注意点">✔ 注意点</a></li>
+  </ul></li>
+  <li><a href="#vasicek-は-ou-過程そのもの" id="toc-vasicek-は-ou-過程そのもの" class="nav-link" data-scroll-target="#vasicek-は-ou-過程そのもの">5. Vasicek は OU 過程そのもの</a></li>
+  <li><a href="#必要ライブラリ-1" id="toc-必要ライブラリ-1" class="nav-link" data-scroll-target="#必要ライブラリ-1">1. 必要ライブラリ</a></li>
+  <li><a href="#vasicek-モデルを実装する関数" id="toc-vasicek-モデルを実装する関数" class="nav-link" data-scroll-target="#vasicek-モデルを実装する関数">2. Vasicek モデルを実装する関数</a></li>
+  <li><a href="#シミュレーション結果をプロット" id="toc-シミュレーション結果をプロット" class="nav-link" data-scroll-target="#シミュレーション結果をプロット">3. シミュレーション結果をプロット</a></li>
+  <li><a href="#実行例パラメータ典型値" id="toc-実行例パラメータ典型値" class="nav-link" data-scroll-target="#実行例パラメータ典型値">4. 実行例（パラメータ：典型値）</a></li>
+  <li><a href="#挙動の特徴" id="toc-挙動の特徴" class="nav-link" data-scroll-target="#挙動の特徴">5. 挙動の特徴</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p><a href="https://colab.research.google.com/github/ish66726-a11y/colab-notebooks/blob/main/VaR%2CCDO%2C%E9%87%91%E5%88%A9%E3%83%A2%E3%83%87%E3%83%AB%2CVasicek%E3%83%A2%E3%83%87%E3%83%AB%2C%E9%95%B7%E6%9C%9F%E6%8A%95%E8%B3%87.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<p>#金利モデル（Interest Rate Modeling）</p>
+<p>##10-1 金利モデル（Interest Rate Modeling）の導入</p>
+<p>この章からは <strong>金利（interest rates）を将来どのように予測するか</strong> を学ぶ。<br>
+株価モデルとは異なる特徴をもつため、専用の確率過程を扱うことになる。</p>
+<hr>
+<section id="なぜ金利をモデル化する必要があるのか" class="level2">
+<h2 class="anchored" data-anchor-id="なぜ金利をモデル化する必要があるのか">1. なぜ金利をモデル化する必要があるのか？</h2>
+<section id="金利は常に変動しているstochastic" class="level3">
+<h3 class="anchored" data-anchor-id="金利は常に変動しているstochastic">✔ 金利は常に変動している（stochastic）</h3>
+<p>市場金利は日々上下するため、将来値を予測できない。</p>
+</section>
+<section id="企業の借入コストに直結する" class="level3">
+<h3 class="anchored" data-anchor-id="企業の借入コストに直結する">✔ 企業の借入コストに直結する</h3>
+<p>企業は融資を受けると <strong>変動金利</strong> に左右される。</p>
+<ul>
+<li>金利上昇 → 支払利息が増加 → 財務悪化<br>
+→ 金利リスクを管理する必要がある（例：金利スワップ）</li>
+</ul>
+</section>
+<section id="債券価格に必須" class="level3">
+<h3 class="anchored" data-anchor-id="債券価格に必須">✔ 債券価格に必須</h3>
+<p>債券は金利の逆数で現在価値を計算するため：</p>
+<ul>
+<li><p><strong>ゼロクーポン債</strong><br>
+[ PV = ]</p></li>
+<li><p><strong>クーポン債</strong><br>
+クーポンも利回りで割引して現在価値化</p></li>
+</ul>
+<p>金利が変動すると <strong>債券価格も大きく動く</strong>。</p>
+<hr>
+</section>
+</section>
+<section id="株価モデルとの違い" class="level2">
+<h2 class="anchored" data-anchor-id="株価モデルとの違い">2. 株価モデルとの違い</h2>
+<p>株価モデル（幾何ブラウン運動, GBM）<br>
+→ 長期的に「右肩上がり」を仮定</p>
+<p>しかし <strong>金利は上がり続けたりしない</strong>。</p>
+<p>むしろ：</p>
+<section id="金利は一定の水準へ戻る性質を持つmean-reversion" class="level3">
+<h3 class="anchored" data-anchor-id="金利は一定の水準へ戻る性質を持つmean-reversion">✔ 金利は一定の水準へ戻る性質を持つ（Mean Reversion）</h3>
+<p>これを扱う代表的な確率過程が：</p>
+</section>
+<section id="オーンシュタインウーレンベック過程ou過程" class="level3">
+<h3 class="anchored" data-anchor-id="オーンシュタインウーレンベック過程ou過程"><strong>オーンシュタイン＝ウーレンベック過程（OU過程）</strong></h3>
+<p>[ dr_t = (- r_t)dt + dW_t ]</p>
+<ul>
+<li>現在の金利が平均 μ から離れていれば<br>
+→ 平均へ戻る方向に動く（θ が強さ）</li>
+<li>σ はランダム変動</li>
+</ul>
+<p>金利モデルでは <strong>GBM ではなく OU 過程をベース</strong> にする。</p>
+<hr>
+</section>
+</section>
+<section id="今後の流れ次の講義" class="level2">
+<h2 class="anchored" data-anchor-id="今後の流れ次の講義">3. 今後の流れ（次の講義）</h2>
+<ol type="1">
+<li><strong>平均回帰型の確率過程（OU過程）</strong> を詳しく解説<br>
+</li>
+<li>Python で OU 過程をシミュレーションして可視化<br>
+</li>
+<li>最初の金利モデルを実装
+<ul>
+<li>例：<strong>Vasicek モデル</strong>（OU過程ベース）</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<ul>
+<li>金利は企業、債券、金融工学モデルすべてに影響<br>
+</li>
+<li>金利は <strong>平均回帰性</strong> を持つため、株式モデル（GBM）は使えない<br>
+</li>
+<li>代わりに <strong>Ornstein–Uhlenbeck（OU）過程</strong> を採用する<br>
+</li>
+<li>次章から具体的な数理モデルと実装へ進む</li>
+</ul>
+<p>##10-2 Ornstein–Uhlenbeck（OU）過程の理論背景</p>
+<p>この講義では <strong>金利モデル・ペアトレードなどで中心的に使われる確率過程<br>
+「オーンシュタイン＝ウーレンベック過程（OU 過程）」</strong> の理論を整理する。</p>
+<hr>
+</section>
+<section id="基礎となる-wiener-過程brownian-motion" class="level2">
+<h2 class="anchored" data-anchor-id="基礎となる-wiener-過程brownian-motion">1. 基礎となる Wiener 過程（Brownian Motion）</h2>
+<p>OU 過程の「ランダム部分」は <strong>Wiener 過程</strong>（ブラウン運動）によって構成される。</p>
+<section id="独立増分independent-increments" class="level3">
+<h3 class="anchored" data-anchor-id="独立増分independent-increments">✔ 独立増分（Independent Increments）</h3>
+<p>[ W_{t+t} - W_t ] は、過去の値に依存しない。<br>
+未来の動きが過去と独立 → マルコフ性をもつ。</p>
+</section>
+<section id="ガウス分布に従うgaussian-increments" class="level3">
+<h3 class="anchored" data-anchor-id="ガウス分布に従うgaussian-increments">✔ ガウス分布に従う（Gaussian Increments）</h3>
+<p>[ W_{t+t} - W_t (0,;t) ]</p>
+<ul>
+<li>平均：0<br>
+</li>
+<li>分散：Δt</li>
+</ul>
+<p>→ <strong>正規乱数</strong> を使えば簡単にシミュレーションできる。</p>
+<hr>
+</section>
+</section>
+<section id="ou-過程ornsteinuhlenbeck-process" class="level2">
+<h2 class="anchored" data-anchor-id="ou-過程ornsteinuhlenbeck-process">2. OU 過程（Ornstein–Uhlenbeck Process）</h2>
+<p>金利や為替、ペアトレードなどで用いられる <strong>平均回帰型の確率過程</strong>。</p>
+<section id="確率微分方程式sde" class="level3">
+<h3 class="anchored" data-anchor-id="確率微分方程式sde">✔ 確率微分方程式（SDE）</h3>
+<p>[ dX_t = (- X_t)dt + , dW_t ]</p>
+<hr>
+</section>
+</section>
+<section id="パラメータの意味" class="level2">
+<h2 class="anchored" data-anchor-id="パラメータの意味">3. パラメータの意味</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>記号</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mu\)</span></td>
+<td>平均（平衡点, long-term mean）</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>平均へ戻る強さ（speed of reversion）</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma\)</span></td>
+<td>ランダム変動の大きさ（volatility）</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(dW_t\)</span></td>
+<td>Wiener 過程の微小変動（正規分布）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="どんな性質を持つのか" class="level2">
+<h2 class="anchored" data-anchor-id="どんな性質を持つのか">4. どんな性質を持つのか？</h2>
+<section id="平均回帰性mean-reversion" class="level3">
+<h3 class="anchored" data-anchor-id="平均回帰性mean-reversion">✔ 平均回帰性（Mean Reversion）</h3>
+<ul>
+<li><span class="math inline">\(X_t\)</span> が平均から離れるほど、<strong>平均へ戻る方向に強く動く</strong></li>
+<li>株価モデル（GBM）のように「無限に増え続ける」ことはない</li>
+</ul>
+</section>
+<section id="定常性stationarity" class="level3">
+<h3 class="anchored" data-anchor-id="定常性stationarity">✔ 定常性（Stationarity）</h3>
+<ul>
+<li>分布が時間とともに変化しない<br>
+</li>
+<li>Brownian motion は非定常なので、この点が大きく異なる</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ペアトレードpairs-tradingとの関係" class="level2">
+<h2 class="anchored" data-anchor-id="ペアトレードpairs-tradingとの関係">5. ペアトレード（Pairs Trading）との関係</h2>
+<section id="ペアトレードの考え方" class="level3">
+<h3 class="anchored" data-anchor-id="ペアトレードの考え方">✔ ペアトレードの考え方</h3>
+<p>相関の強い2銘柄（例：コカ・コーラ vs ペプシ）を組み合わせると<br>
+<strong>差分やスプレッドが OU 過程に従う</strong> ことが多い。</p>
+<p>つまり：</p>
+<ul>
+<li>平均から大きく外れたら → <strong>平均に戻るはず</strong><br>
+</li>
+<li>よって「売り／買い」で仕掛けられる
+<ul>
+<li>平均より高い → 売り<br>
+</li>
+<li>平均より低い → 買い<br>
+</li>
+</ul></li>
+<li>市場全体の動きに影響されにくく <strong>マーケットニュートラル戦略</strong> になる</li>
+</ul>
+</section>
+<section id="ou-過程は平均に戻るという性質を数学的に表現" class="level3">
+<h3 class="anchored" data-anchor-id="ou-過程は平均に戻るという性質を数学的に表現">✔ OU 過程は「平均に戻る」という性質を数学的に表現</h3>
+<p>これが多くのクオンツ戦略の基礎になる。</p>
+<hr>
+</section>
+</section>
+<section id="要点まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="要点まとめ">6. 要点まとめ</h2>
+<ul>
+<li>OU 過程は <strong>平均へ戻る動きを持つ確率過程</strong></li>
+<li>ランダム部分（<span class="math inline">\(dW_t\)</span>）は <strong>正規分布の Wiener 過程</strong></li>
+<li>金利モデル（例：Vasicek）やペアトレードの基礎</li>
+<li>パラメータ θ, μ, σ がプロセスの性質を決める</li>
+<li>次回は <strong>Python による OU 過程のシミュレーション</strong> を行う</li>
+</ul>
+<p>##10-3 Ornstein–Uhlenbeck（OU）過程のシミュレーション実装</p>
+<p>前回は OU 過程の理論を説明した。<br>
+本講義では <strong>Python を用いて OU 過程を実際にシミュレーション（数値解法）</strong> する。</p>
+<hr>
+</section>
+<section id="必要ライブラリ" class="level2">
+<h2 class="anchored" data-anchor-id="必要ライブラリ">1. 必要ライブラリ</h2>
+<ul>
+<li>numpy<br>
+</li>
+<li>matplotlib<br>
+</li>
+<li>正規乱数（Wiener increment を近似）</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="ou-過程のシミュレーション関数" class="level2">
+<h2 class="anchored" data-anchor-id="ou-過程のシミュレーション関数">2. OU 過程のシミュレーション関数</h2>
+<p>離散近似式：</p>
+<p>$ X_{t+t} = X_t + (- X_t)t + ,Z_t $</p>
+<p>ここで<br>
+- $( Z_t (0,1) $)<br>
+- OU 過程の離散化（Euler–Maruyama 法）</p>
+<section id="実装" class="level3">
+<h3 class="anchored" data-anchor-id="実装">✔ 実装</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_process(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    theta<span class="op">=</span><span class="fl">1.2</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    mu<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    sigma<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    n_steps<span class="op">=</span><span class="dv">10000</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 初期値 X(0) = 0</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.zeros(n_steps)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n_steps):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ガウス分布（平均0, 標準偏差 √dt）</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        dW <span class="op">=</span> np.random.normal(<span class="dv">0</span>, np.sqrt(dt))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># OU 過程の離散近似</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        x[t] <span class="op">=</span> x[t<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> theta <span class="op">*</span> (mu <span class="op">-</span> x[t<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span> dt <span class="op">+</span> sigma <span class="op">*</span> dW</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="シミュレーション結果を可視化" class="level2">
+<h2 class="anchored" data-anchor-id="シミュレーション結果を可視化">3. シミュレーション結果を可視化</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> generate_process(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        dt<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        theta<span class="op">=</span><span class="fl">1.2</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        mu<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        sigma<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        n_steps<span class="op">=</span><span class="dv">10000</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    plt.plot(data)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"t"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"X(t)"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Ornstein–Uhlenbeck Process Simulation"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="パラメータを変える例" class="level2">
+<h2 class="anchored" data-anchor-id="パラメータを変える例">4. パラメータを変える例</h2>
+<section id="平均を-0.9-に変更揺れを小さくσ-0.05" class="level3">
+<h3 class="anchored" data-anchor-id="平均を-0.9-に変更揺れを小さくσ-0.05">✔ 平均を 0.9 に変更、揺れを小さく（σ = 0.05）</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> generate_process(mu<span class="op">=</span><span class="fl">0.9</span>, sigma<span class="op">=</span><span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>→ 平均 0.9 に強く引き寄せられ、小さく上下する。</p>
+</section>
+<section id="ボラティリティを大きくσ-1.0" class="level3">
+<h3 class="anchored" data-anchor-id="ボラティリティを大きくσ-1.0">✔ ボラティリティを大きく（σ = 1.0）</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> generate_process(mu<span class="op">=</span><span class="fl">0.5</span>, sigma<span class="op">=</span><span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>→ 平均は同じだが、上下の振れ幅が激しくなる。</p>
+<hr>
+</section>
+</section>
+<section id="要点まとめ-1" class="level2">
+<h2 class="anchored" data-anchor-id="要点まとめ-1">5. 要点まとめ</h2>
+<ul>
+<li>OU 過程は <strong>平均回帰（mean reversion）</strong> を持つ確率過程</li>
+<li>シミュレーションには <strong>Euler–Maruyama 法</strong> が使われる</li>
+<li>ノイズ項は Wiener 過程：<br>
+<span class="math inline">\([
+dW_t \sim \mathcal{N}(0,\sqrt{\Delta t})\)</span>]</li>
+<li>θ が大きい → 強く平均へ戻る<br>
+</li>
+<li>σ が大きい → ランダムな揺れが増える</li>
+<li>金利モデル（Vasicek）、ペアトレードのスプレッドなどで必須</li>
+</ul>
+<p>##10-4 Vasicek モデル（短金利モデル）の理論まとめ</p>
+<p>前回は Ornstein–Uhlenbeck（OU）過程の理論と実装を学んだ。<br>
+今回はそれを <strong>金利モデルに応用した代表的モデル：Vasicek（ワセチェック）モデル</strong> を整理する。</p>
+<hr>
+</section>
+<section id="vasicek-モデルとは" class="level2">
+<h2 class="anchored" data-anchor-id="vasicek-モデルとは">1. Vasicek モデルとは？</h2>
+<ul>
+<li>1977 年に提案された <strong>短金利（short rate）モデル</strong></li>
+<li>金利 $( r_t $) の時間変化を <strong>平均回帰（mean reversion）</strong> をもつ確率過程で記述する</li>
+<li><strong>債券価格・デリバティブ価格・モーゲージモデル</strong> に利用される</li>
+<li>政策金利や景気など多くの要因が絡むため<br>
+<em>金利モデリングは本質的に難しい</em><br>
+→ しかし Vasicek は <strong>最もシンプルで強力</strong> なモデルのひとつ</li>
+</ul>
+<hr>
+</section>
+<section id="数理モデル確率微分方程式" class="level2">
+<h2 class="anchored" data-anchor-id="数理モデル確率微分方程式">2. 数理モデル（確率微分方程式）</h2>
+<p>$ dr_t = (- r_t),dt + , dW_t $</p>
+<section id="用語と意味" class="level3">
+<h3 class="anchored" data-anchor-id="用語と意味">用語と意味</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>記号</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>$( r_t $)</td>
+<td>短金利（short rate）</td>
+</tr>
+<tr class="even">
+<td>$( $)</td>
+<td>平均回帰速度（speed of mean reversion）</td>
+</tr>
+<tr class="odd">
+<td>$( $)</td>
+<td>金利の長期平均（long-term mean）</td>
+</tr>
+<tr class="even">
+<td>$( $)</td>
+<td>ボラティリティ（変動性）</td>
+</tr>
+<tr class="odd">
+<td>$( dW_t $)</td>
+<td>Wiener（ブラウン運動）過程の微小変化</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="各項の解釈" class="level2">
+<h2 class="anchored" data-anchor-id="各項の解釈">3. 各項の解釈</h2>
+<section id="決定論的項mean-reversion" class="level3">
+<h3 class="anchored" data-anchor-id="決定論的項mean-reversion">◆ ① 決定論的項（mean reversion）</h3>
+<p>$ (- r_t),dt $</p>
+<ul>
+<li>金利が平均 $( $) に戻る力</li>
+<li><span class="math inline">\((\kappa\)</span>) が大きいほど、急速に平均へ吸収される</li>
+<li>金利が高すぎれば <em>下に引っ張られ</em>、低すぎれば <em>上に戻される</em></li>
+</ul>
+<hr>
+</section>
+<section id="確率ノイズ項" class="level3">
+<h3 class="anchored" data-anchor-id="確率ノイズ項">◆ ② 確率（ノイズ）項 $</h3>
+<p>, dW_t $</p>
+<ul>
+<li>ランダム変動（市場ショック、景気ニュースなど）</li>
+<li><span class="math inline">\((dW_t\sim N(0,dt)\)</span>) → 正規分布で揺れる</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="vasicek-モデルの特徴" class="level2">
+<h2 class="anchored" data-anchor-id="vasicek-モデルの特徴">4. Vasicek モデルの特徴</h2>
+<section id="長所" class="level3">
+<h3 class="anchored" data-anchor-id="長所">✔ 長所</h3>
+<ul>
+<li>数学的に扱いやすい（解析解が存在）</li>
+<li>計算が速く、債券価格式も closed-form</li>
+<li>金利の平均回帰を自然に表現できる</li>
+</ul>
+</section>
+<section id="注意点" class="level3">
+<h3 class="anchored" data-anchor-id="注意点">✔ 注意点</h3>
+<ul>
+<li><strong>金利が負になる可能性がある</strong><br>
+→ 近年は実際にマイナス金利が存在したため問題は小さい場合もある</li>
+<li>実務では Hull–White モデル（拡張版）がよく使われる</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="vasicek-は-ou-過程そのもの" class="level2">
+<h2 class="anchored" data-anchor-id="vasicek-は-ou-過程そのもの">5. Vasicek は OU 過程そのもの</h2>
+<p>OU 過程の一般式：</p>
+<p>$ dX_t = (- X_t), dt + dW_t $</p>
+<p>金利を $( X_t = r_t $) とすれば<br>
+<strong>Vasicek = OU 過程の金利バージョン</strong><br>
+だから前回 OU 過程を学んだわけだ。</p>
+<p>#16-5 Vasicek（ワセチェック）モデルの実装</p>
+<p>前回は Vasicek モデル（短金利モデル）の理論を学んだ。<br>
+今回はその <strong>Python 実装：金利パスのシミュレーション（Monte Carlo）</strong> を行う。</p>
+<hr>
+</section>
+<section id="必要ライブラリ-1" class="level2">
+<h2 class="anchored" data-anchor-id="必要ライブラリ-1">1. 必要ライブラリ</h2>
+<ul>
+<li><code>numpy</code>（計算）</li>
+<li><code>matplotlib</code>（可視化）</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="vasicek-モデルを実装する関数" class="level2">
+<h2 class="anchored" data-anchor-id="vasicek-モデルを実装する関数">2. Vasicek モデルを実装する関数</h2>
+<p>確率微分方程式：</p>
+<p>$ dr_t = (- r_t)dt + dW_t $</p>
+<p>これを <strong>オイラー近似</strong> で離散化してシミュレーションする。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vasicek_model(r0, kappa, theta, sigma, T, N):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Vasicek 金利モデルのシミュレーション</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    r0 : 初期金利</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    kappa : 平均回帰速度</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    theta : 長期平均</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    sigma : ボラティリティ</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    T : 期間（年）</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    N : サンプル数</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T <span class="op">/</span> <span class="bu">float</span>(N)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 金利パスを格納する配列</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    rates <span class="op">=</span> [r0]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        dr <span class="op">=</span> (</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            kappa <span class="op">*</span> (theta <span class="op">-</span> rates[<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span> dt</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> sigma <span class="op">*</span> np.sqrt(dt) <span class="op">*</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        rates.append(rates[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dr)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t, np.array(rates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="シミュレーション結果をプロット" class="level2">
+<h2 class="anchored" data-anchor-id="シミュレーション結果をプロット">3. シミュレーション結果をプロット</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_vasicek(t, r):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(t, r)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Interest Rate"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Vasicek Model Simulation"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="実行例パラメータ典型値" class="level2">
+<h2 class="anchored" data-anchor-id="実行例パラメータ典型値">4. 実行例（パラメータ：典型値）</h2>
+<ul>
+<li>初期金利：1.3%</li>
+<li>平均回帰速度：0.9</li>
+<li>長期平均：1.5%</li>
+<li>ボラティリティ：0.05</li>
+<li>期間：1年</li>
+<li>ステップ数：10000</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    r0 <span class="op">=</span> <span class="fl">0.013</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    kappa <span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> <span class="fl">0.015</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    t, r <span class="op">=</span> vasicek_model(r0, kappa, theta, sigma, T, N)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    plot_vasicek(t, r)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="挙動の特徴" class="level2">
+<h2 class="anchored" data-anchor-id="挙動の特徴">5. 挙動の特徴</h2>
+<ul>
+<li><strong>kappa が大きい</strong> → 平均への回帰が速い</li>
+<li><strong>sigma が大きい</strong> → 金利の揺れ幅が大きくなる</li>
+<li><strong>theta に向かって収束</strong>するのが Vasicek の特徴</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

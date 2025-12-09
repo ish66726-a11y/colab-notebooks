@@ -1,0 +1,1878 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "金融工学ノート\nこのサイトでは、金融工学の基礎モデルから応用までをまとめています。\n\nポートフォリオ理論\nCAPM\nブラックショールズ\nリスク管理\n金利モデル"
+  },
+  {
+    "objectID": "11Vasicekモデル.html",
+    "href": "11Vasicekモデル.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#Vasicek（ワセチェック）モデル\n##11-1 Vasicek（ワセチェック）モデルを使った債券価格の算出\nMonte Carlo によるゼロクーポン債のプライシング"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#ゼロクーポン債の基本",
+    "href": "11Vasicekモデル.html#ゼロクーポン債の基本",
+    "title": "金融工学ノート",
+    "section": "1. ゼロクーポン債の基本",
+    "text": "1. ゼロクーポン債の基本\n額面（Face Value）を \\(X\\)、満期を \\(T\\) とすると\n金利が一定 の場合の現在価値は\n$ P(0,T) = X e^{-rT} $\n例：\n- 額面 $1000\n- 金利 \\(r=0.10\\)\n- 満期 \\(T=2\\)\nなら\n$ P(0,2)=1000 e^{-0.1} $"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#金利がランダムに動く場合",
+    "href": "11Vasicekモデル.html#金利がランダムに動く場合",
+    "title": "金融工学ノート",
+    "section": "2. 金利がランダムに動く場合",
+    "text": "2. 金利がランダムに動く場合\n以前の章で学んだとおり、金利 \\(r_t\\) は実際には 常に変動する。\nそこで金利に対して Vasicek モデルを使う。"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#vasicek-モデル金利の確率微分方程式",
+    "href": "11Vasicekモデル.html#vasicek-モデル金利の確率微分方程式",
+    "title": "金融工学ノート",
+    "section": "3. Vasicek モデル（金利の確率微分方程式）",
+    "text": "3. Vasicek モデル（金利の確率微分方程式）\n$ dr_t = (- r_t),dt + , dW_t $\nここで：\n\n\n\n変数\n意味\n\n\n\n\n\\(\\kappa\\)\n平均回帰速度（Mean reversion speed）\n\n\n\\(\\theta\\)\n長期平均金利\n\n\n\\(\\sigma\\)\nボラティリティ\n\n\n\\(W_t\\)\nWiener 過程（標準ブラウン運動）\n\n\n\n重要点：\n\n金利は 平均 \\(\\theta\\) に戻ろうとする\nその強さが \\(\\kappa\\)\nノイズ（不確実性）の大きさが \\(\\sigma\\)"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#金利が確率的に変動する場合の債券価格",
+    "href": "11Vasicekモデル.html#金利が確率的に変動する場合の債券価格",
+    "title": "金融工学ノート",
+    "section": "4. 金利が確率的に変動する場合の債券価格",
+    "text": "4. 金利が確率的に変動する場合の債券価格\n本来の現在価値は\n$ P(0,T) = $\nただし積分は金利パス \\(r_t\\) に依存する。\n解析的に厳しいので Monte Carlo 法を使う。"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#monte-carlo-法による債券価格の考え方",
+    "href": "11Vasicekモデル.html#monte-carlo-法による債券価格の考え方",
+    "title": "金融工学ノート",
+    "section": "5. Monte Carlo 法による債券価格の考え方",
+    "text": "5. Monte Carlo 法による債券価格の考え方\n\nVasicek SDE を用いて金利パスを多数生成する\n\n\\(r_t^{(1)}, r_t^{(2)}, \\dots , r_t^{(N)}\\)\n\n各パスで割引因子を計算する：\n\n$ D^{(i)} = e^{- _0^T r_t^{(i)} dt } $\n\nその平均を取る：\n\n$ P(0,T) = X _{i=1}^N D^{(i)} $"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#なぜ-monte-carlo-を使うのか",
+    "href": "11Vasicekモデル.html#なぜ-monte-carlo-を使うのか",
+    "title": "金融工学ノート",
+    "section": "6. なぜ Monte Carlo を使うのか？",
+    "text": "6. なぜ Monte Carlo を使うのか？\n\n金利がランダムなので解析的に解くのが困難\nVasicek は SDE（確率微分方程式）なので数値解が必要\nMonte Carlo は複雑なモデルでも扱える\nシミュレーション回数を増やすと精度が上がる"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#次に実装する内容",
+    "href": "11Vasicekモデル.html#次に実装する内容",
+    "title": "金融工学ノート",
+    "section": "7. 次に実装する内容",
+    "text": "7. 次に実装する内容\n次章ではいよいよ Python で Vasicek を使って債券価格をシミュレーション計算する。\n実装では次のステップを行う：\n\nVasicek モデルで金利パスを多数生成\n\n各パスで \\(\\int_0^T r_t dt\\) を数値積分\n\n割引因子を計算\n\n平均を取って債券価格を算出\n\n##11-2 Vasicek（ワセチェック）モデルを用いた債券価格の Monte Carlo 実装"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#モデルの目的",
+    "href": "11Vasicekモデル.html#モデルの目的",
+    "title": "金融工学ノート",
+    "section": "1. モデルの目的",
+    "text": "1. モデルの目的\n\n金利 \\(r_t\\) は変動するため、将来の金利パスを多数生成し、債券価格を計算する必要がある\nVasicek モデルを用いて金利プロセスをシミュレーションし、\n生成した金利パスを使って、ゼロクーポン債の割引現在価値を求める"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#シミュレーション設定",
+    "href": "11Vasicekモデル.html#シミュレーション設定",
+    "title": "金融工学ノート",
+    "section": "2. シミュレーション設定",
+    "text": "2. シミュレーション設定\n\nシミュレーション回数：\\(N_\\text{sim} = 1000\\)\n\n1パスあたりの金利点数：\\(N_\\text{points} = 200\\)\n\n各パスは Vasicek モデルで生成\n\n完成形データは「1000 × 201」の行列（最初の時点を含むため）"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#vasicek-モデルの離散化式",
+    "href": "11Vasicekモデル.html#vasicek-モデルの離散化式",
+    "title": "金融工学ノート",
+    "section": "3. Vasicek モデルの離散化式",
+    "text": "3. Vasicek モデルの離散化式\nVasicek の連続 SDE：\n\\[\ndr_t = \\kappa(\\theta - r_t)\\,dt + \\sigma\\, dW_t\n\\]\nこれを時間刻み \\(\\Delta t\\) で離散化すると：\n\\[\n\\Delta r_t = \\kappa(\\theta - r_t)\\Delta t + \\sigma \\sqrt{\\Delta t} \\; Z\n\\]\nここで \\(Z \\sim N(0,1)\\)"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#bond-pricing-monte-carlo-の流れ",
+    "href": "11Vasicekモデル.html#bond-pricing-monte-carlo-の流れ",
+    "title": "金融工学ノート",
+    "section": "4. Bond Pricing Monte Carlo の流れ",
+    "text": "4. Bond Pricing Monte Carlo の流れ\n\n初期金利 \\(r_0\\) をセット\n\nVasicek モデルで金利パスを \\(N_\\text{sim}\\) 回生成\n\n各パスについて割引因子を計算\n\n平均して現在価値を得る"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#実装コードワセチェック金利シミュレーション",
+    "href": "11Vasicekモデル.html#実装コードワセチェック金利シミュレーション",
+    "title": "金融工学ノート",
+    "section": "5. 実装コード（ワセチェック金利シミュレーション）",
+    "text": "5. 実装コード（ワセチェック金利シミュレーション）\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# --- シミュレーション設定 ---\nN_simulations = 1000      # 金利パスの数\nN_points = 200            # 1パスあたりの時点数\n\n\n# --- Bond Pricing Monte Carlo 関数 ---\ndef vasicek_monte_carlo(X, r0, kappa, theta, sigma, T=1.0):\n    \"\"\"\n    X     : 債券の額面（例：1000）\n    r0    : 初期金利\n    kappa : 平均回帰速度\n    theta : 長期平均金利\n    sigma : ボラティリティ\n    T     : 満期（年）\n    \"\"\"\n\n    dt = T / float(N_points)\n    results = []\n\n    # --- 金利パスを N_simulations 本生成 ---\n    for _ in range(N_simulations):\n        rates = [r0]\n\n        for _ in range(N_points):\n            dr = kappa * (theta - rates[-1]) * dt \\\n                 + sigma * np.sqrt(dt) * np.random.normal()\n            rates.append(rates[-1] + dr)\n\n        results.append(rates)\n\n    return results"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#メイン処理シミュレーションの実行と可視化",
+    "href": "11Vasicekモデル.html#メイン処理シミュレーションの実行と可視化",
+    "title": "金融工学ノート",
+    "section": "6. メイン処理（シミュレーションの実行と可視化）",
+    "text": "6. メイン処理（シミュレーションの実行と可視化）\nif __name__ == \"__main__\":\n    # パラメータ（例）\n    X = 1000       # 額面\n    r0 = 0.01      # 初期金利\n    kappa = 0.3\n    theta = 0.05\n    sigma = 0.02\n\n    # Monte Carlo 実行\n    result = vasicek_monte_carlo(X, r0, kappa, theta, sigma)\n\n    # pandas DataFrame に変換\n    df = pd.DataFrame(result)\n    print(df)\n\n    # プロットのために転置\n    df_T = df.T\n\n    # プロット\n    df_T.plot(legend=False)\n    plt.title(\"Vasicek Interest Rate Simulations\")\n    plt.xlabel(\"Time Step\")\n    plt.ylabel(\"Interest Rate\")\n    plt.show()"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#出力されるシミュレーションのイメージ",
+    "href": "11Vasicekモデル.html#出力されるシミュレーションのイメージ",
+    "title": "金融工学ノート",
+    "section": "7. 出力されるシミュレーションのイメージ",
+    "text": "7. 出力されるシミュレーションのイメージ\n\n行：金利パス（シミュレーション番号）\n列：時間ステップ\n転置後（プロット用）：\n\n縦：金利\n横：時間\n\n\n複数の金利パスが広がりながら 平均 \\(\\theta\\) の周りに回帰する様子 が見える。"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#次に行うこと",
+    "href": "11Vasicekモデル.html#次に行うこと",
+    "title": "金融工学ノート",
+    "section": "8. 次に行うこと",
+    "text": "8. 次に行うこと\n次章では：\n\n生成した金利パスを使って\n\\[P(0,T) = X \\cdot e^{-\\int_0^T r_t\\, dt}\\]\nを数値的に評価し、\nゼロクーポン債価格を Monte Carlo で算出します。\n\n##11-3 Vasicek（ワセチェック）モデルによる債券価格の計算（続編）\n前回は Vasicek モデルを使って 未来の金利パスを大量生成する ところまでを実装しました。\n今回はこの続きとして：\n\n生成した金利パスを用いて\n\nゼロクーポン債の価格を Monte Carlo により算出する\n\nという部分をまとめます。"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#生成した金利パスを使って何をするのか",
+    "href": "11Vasicekモデル.html#生成した金利パスを使って何をするのか",
+    "title": "金融工学ノート",
+    "section": "1. 生成した金利パスを使って何をするのか？",
+    "text": "1. 生成した金利パスを使って何をするのか？\nゼロクーポン債の価格は、以下のように 割引因子の積分 を用いて表される：\n\\[\nP(0,T) = X \\cdot \\mathbb{E}\\left[\\exp\\left(-\\int_0^T r_t\\, dt\\right)\\right]\n\\]\nここで：\n\n\\(X\\)：額面（例：1000ドル）\n\\(r_t\\)：Vasicek モデルで生成した金利パス\n\\(\\int_0^T r_t dt\\)：金利の積分（面積）\n\n積分は 矩形近似（リーマン和）で計算する：\n\\[\n\\int_0^T r_t dt \\approx \\sum_{i=0}^{N-1} r_i \\, \\Delta t\n\\]"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#債券価格に必要なステップ",
+    "href": "11Vasicekモデル.html#債券価格に必要なステップ",
+    "title": "金融工学ノート",
+    "section": "2. 債券価格に必要なステップ",
+    "text": "2. 債券価格に必要なステップ\n\nVasicek モデルで金利パスを多数生成\n\n각金利パスごとに\n\\[\nI = \\sum r_i \\Delta t\n\\] を計算\n\nさらに\n\\[\ne^{-I}\n\\] を計算\n\n全シミュレーションで平均し\n\\[\nP(0,T) = X \\cdot \\text{mean}(e^{-I})\n\\] を求める"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#実装vasicek-シミュレーション債券価格計算",
+    "href": "11Vasicekモデル.html#実装vasicek-シミュレーション債券価格計算",
+    "title": "金融工学ノート",
+    "section": "3. 実装（Vasicek シミュレーション＋債券価格計算）",
+    "text": "3. 実装（Vasicek シミュレーション＋債券価格計算）\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# --- シミュレーション設定 ---\nN_simulations = 1000     # 金利パス数\nN_points = 200           # 金利パスの点数\n\n\ndef vasicek_monte_carlo(X, r0, kappa, theta, sigma, T=1.0):\n    \"\"\"\n    X     : 債券の額面\n    r0    : 初期金利\n    kappa : 平均回帰速度\n    theta : 長期平均\n    sigma : ボラティリティ\n    T     : 満期（年）\n    \"\"\"\n    dt = T / float(N_points)\n    results = []\n\n    # --- 金利パスを多数生成 ---\n    for _ in range(N_simulations):\n        rates = [r0]\n\n        for _ in range(N_points):\n            dr = kappa * (theta - rates[-1]) * dt \\\n                 + sigma * np.sqrt(dt) * np.random.normal()\n            rates.append(rates[-1] + dr)\n\n        results.append(rates)\n\n    return np.array(results)  # shape: (N_sim, N_points+1)\n\n\nif __name__ == \"__main__\":\n    # パラメータ例\n    X = 1000\n    r0 = 0.05\n    kappa = 0.3\n    theta = 0.09\n    sigma = 0.02\n    T = 1.0\n\n    # --- 金利シミュレーション ---\n    rates = vasicek_monte_carlo(X, r0, kappa, theta, sigma, T)\n\n    # DataFrame に変換（任意）\n    df = pd.DataFrame(rates)\n    print(df.head())\n\n    # --- 債券価格の計算 ---\n    dt = T / float(N_points)\n\n    # 積分（リーマン和）\n    integral_sum = rates.sum(axis=1) * dt\n\n    # 割引因子の計算\n    discount_factors = np.exp(-integral_sum)\n\n    # 平均を取る（Monte Carlo）\n    bond_price = X * np.mean(discount_factors)\n\n    print(f\"Bond Price (Monte Carlo): ${bond_price:,.2f}\")\n\n    # --- プロット ---\n    df.T.plot(legend=False)\n    plt.title(\"Vasicek Interest Rate Simulations\")\n    plt.xlabel(\"Time Step\")\n    plt.ylabel(\"Interest Rate\")\n    plt.show()"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#計算結果の例",
+    "href": "11Vasicekモデル.html#計算結果の例",
+    "title": "金融工学ノート",
+    "section": "4. 計算結果の例",
+    "text": "4. 計算結果の例\n\n初期金利が高い → 割引が強くなる → 債券価格は低い\n\n初期金利が低い → 割引が弱い → 債券価格は高い\n\n例：\n\n\n\nr0\ntheta\nBond Price\n\n\n\n\n0.10\n0.09\n約 $570\n\n\n0.01\n0.03\n約 $880"
+  },
+  {
+    "objectID": "11Vasicekモデル.html#まとめ",
+    "href": "11Vasicekモデル.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "5. まとめ",
+    "text": "5. まとめ\n\nVasicek モデルは 平均回帰する金利を表現できるため債券価格モデルに適している\n\nMonte Carlo により\n\\[\n\\mathbb{E}[e^{-\\int r_t dt}]\n\\] を直接推定できる\n\n実装は比較的シンプルで、拡張もしやすい"
+  },
+  {
+    "objectID": "09CDOs.html",
+    "href": "09CDOs.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#Collateralized Debt Obligations(CDOs)\n##9-1 Collateralized Debt Obligations（CDO）とは何か？\n2007–2008年の金融危機を引き起こした中心的存在となった金融商品"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-の誕生と拡大",
+    "href": "09CDOs.html#cdo-の誕生と拡大",
+    "title": "金融工学ノート",
+    "section": "1. CDO の誕生と拡大",
+    "text": "1. CDO の誕生と拡大\n\n誕生：1987年\n\n10年以内に：デリバティブ市場の主要商品へ成長\n\n本質：\n→ 複数のローン（債権）を束ねることで作られた複雑な金融商品\n\nウォーレン・バフェット曰く：\n&gt; “CDOs and other credit derivatives are financial weapons of mass destruction.”\n（CDO などの信用派生商品は金融破壊兵器である）\n理由：\n内容の把握が極めて難しく、数学的にも不透明性が高い。"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-の中身何が束ねられている",
+    "href": "09CDOs.html#cdo-の中身何が束ねられている",
+    "title": "金融工学ノート",
+    "section": "2. CDO の中身：何が束ねられている？",
+    "text": "2. CDO の中身：何が束ねられている？\n典型的には 商業銀行が保有するローン（債務） が材料となる：\n\n学生ローン\n→ 米国では 65% が借入、卒業時平均 $30,000 の債務\nクレジットカードローン\n→ 平均負債 約 $6,000\n住宅ローン（Mortgage）\n→ 全米の約 60% が住宅ローンを保有\n自動車ローン\n→ 約 1億件のアカウントが存在\n\n銀行はこれらのローンを保有しているが…"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-がどのように作られるか",
+    "href": "09CDOs.html#cdo-がどのように作られるか",
+    "title": "金融工学ノート",
+    "section": "3. CDO がどのように作られるか",
+    "text": "3. CDO がどのように作られるか\n\nStep 1：商業銀行がローンを発行\n学生ローン・住宅ローン・カードローン・自動車ローンなど。\n\n\nStep 2：投資銀行がローンをまとめて買い取る\n例：\n- JPMorgan\n- Goldman Sachs\n- Deutsche Bank\n- Citigroup\n- Morgan Stanley\nなど。\n\n\nStep 3：投資銀行がローンを「再パッケージ化」し CDO を作る\nローンを束ねて 1つの金融商品に変換。\n\n\nStep 4：投資家に販売\n投資家は 国債や社債より高いリターン が得られると信じて CDO を購入した。"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-が危険と言われる理由",
+    "href": "09CDOs.html#cdo-が危険と言われる理由",
+    "title": "金融工学ノート",
+    "section": "4. CDO が危険と言われる理由",
+    "text": "4. CDO が危険と言われる理由\n\n多数のローンを束ねているため 依存関係・相関の計算が極めて難しい\n数理モデルが複雑で、内容を理解できる人が少ない\nリスクが過小評価されやすい構造"
+  },
+  {
+    "objectID": "09CDOs.html#本章の方向性",
+    "href": "09CDOs.html#本章の方向性",
+    "title": "金融工学ノート",
+    "section": "5. 本章の方向性",
+    "text": "5. 本章の方向性\nこの章では、\n\nCDO の仕組み\n\nトランシェ構造\n\n信用リスクと相関の問題\n\nサブプライム危機との接続\n\n数理モデル（ガウスコピュラモデルなど）\n\nを順番に解説していく。\n##9-2 CDO と「分散（Diversification）」の重要性 本章では、CDO においてなぜ 分散（Diversification） が重要なのかを解説する。"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-はローンの束プールでできている",
+    "href": "09CDOs.html#cdo-はローンの束プールでできている",
+    "title": "金融工学ノート",
+    "section": "1. CDO はローンの束（プール）でできている",
+    "text": "1. CDO はローンの束（プール）でできている\n商業銀行が発行するさまざまなローン：\n\n学生ローン\n\nクレジットカードローン\n\n自動車ローン\n\n住宅ローン（Mortgage）\n\nこれらは投資銀行に売却され、その後 CDO に再構成される。\nポイント：\nローンの返済（毎月の支払い）は、もはや銀行ではなく CDO 保有者が受け取る。"
+  },
+  {
+    "objectID": "09CDOs.html#ローンにはデフォルト確率がある",
+    "href": "09CDOs.html#ローンにはデフォルト確率がある",
+    "title": "金融工学ノート",
+    "section": "2. ローンには「デフォルト確率」がある",
+    "text": "2. ローンには「デフォルト確率」がある\nどのローンにも、\n\n返済できなくなるリスク（デフォルト）\n\nが存在する。\n→ しかし通常は デフォルト確率はかなり低い\n→ だからこそ “分散すれば安全になる” と考えられていた。"
+  },
+  {
+    "objectID": "09CDOs.html#分散の基本原理相関の低い資産を混ぜると安全になる",
+    "href": "09CDOs.html#分散の基本原理相関の低い資産を混ぜると安全になる",
+    "title": "金融工学ノート",
+    "section": "3. 分散の基本原理：相関の低い資産を混ぜると安全になる",
+    "text": "3. 分散の基本原理：相関の低い資産を混ぜると安全になる\nモダンポートフォリオ理論（Markowitz）と同じく：\n\n相関が低い（ほぼ無関係な）資産を組み合わせるとリスクが下がる\n\n\n例（良い CDO）\n[Mortgage]    [Car Loan]    [Student Loan]\n     │              │               │\n相関 ≈ 0      相関 ≈ 0        相関 ≈ 0\nこのように 異なる種類のローンを混ぜれば、\n同時に全員が返済不能になる可能性は極めて低くなる。\n→ リスクが大幅に減り、安全な CDO が完成する。"
+  },
+  {
+    "objectID": "09CDOs.html#相関が高いと分散は崩壊する",
+    "href": "09CDOs.html#相関が高いと分散は崩壊する",
+    "title": "金融工学ノート",
+    "section": "4. 相関が高いと分散は崩壊する",
+    "text": "4. 相関が高いと分散は崩壊する\n問題はここ。\n\n多くの CDO は実際こうだった\n[Mortgage]  [Mortgage]  [Mortgage]  [Mortgage]  [Mortgage]\n     │          │          │           │           │\n  高い相関   高い相関   高い相関   高い相関    高い相関\nほぼ 全部が住宅ローン（特にサブプライム） だった。\n住宅市場が下落すると…\n\nすべてのローンが同時に破綻する\n→ CDO全体が大爆発する\n\nという事態が発生。\nこれは「分散」が完全に失敗する典型例。"
+  },
+  {
+    "objectID": "09CDOs.html#危機の核心",
+    "href": "09CDOs.html#危機の核心",
+    "title": "金融工学ノート",
+    "section": "5. 2007–2008危機の核心",
+    "text": "5. 2007–2008危機の核心\nCDO の中身が住宅ローンに偏りすぎていたため：\n\n見かけ上は「安全に見える」\n\n実際は 相関100%に近い爆弾\n\nだった。\n→ 住宅価格が下がった瞬間にシステムが連鎖崩壊した。"
+  },
+  {
+    "objectID": "09CDOs.html#まとめ",
+    "href": "09CDOs.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "6.まとめ",
+    "text": "6.まとめ\n\nCDO の安全性は 内部の資産がどれだけ相関しているか に依存する\n\n異種ローン（学生・自動車・カード）は本来相関が低い → 安全\n\n2007–2008危機の CDO は 住宅ローンに偏りすぎていた\n\n相関が高いと分散は機能しない\n\n「分散したつもり」が最大のリスクになる\n\n##9-3 CDO のトランシェ構造（Senior / Junior / Equity）\n前章では、銀行が発行したローンを投資銀行がまとめて CDO を作る仕組みを学んだ。\nしかし CDO は単なるローンの束ではなく、内部が “トランシェ（層構造）” に分けられている。\n本章では、その中身を詳しく解説する。"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-は3つの層に分かれている",
+    "href": "09CDOs.html#cdo-は3つの層に分かれている",
+    "title": "金融工学ノート",
+    "section": "1. CDO は「3つの層」に分かれている",
+    "text": "1. CDO は「3つの層」に分かれている\nCDO はリスクとリターンに応じて 3階建ての構造 になっている：\n ┌───────────────────────┐\n │   Senior Tranche（AA A）  ← 最も安全・低利回り   │\n ├───────────────────────┤\n │   Junior / Mezzanine（BBB）  ← 中程度のリスク     │\n ├───────────────────────┤\n │   Equity / Equity Tranche  ← 最も危険・高利回り │\n └───────────────────────┘"
+  },
+  {
+    "objectID": "09CDOs.html#senior-trancheシニア層",
+    "href": "09CDOs.html#senior-trancheシニア層",
+    "title": "金融工学ノート",
+    "section": "2. Senior Tranche（シニア層）",
+    "text": "2. Senior Tranche（シニア層）\n\n最も安全\nAAA 評価（S&P / Moody’s）\n利回り：4% 前後（低い）\nローン返済（キャッシュフロー）を最優先で受け取る\n\n\n理由：\nローンの支払いは まずシニア層へ → その後で他の層に回される\n➡ 損失が発生しても影響を受けにくい"
+  },
+  {
+    "objectID": "09CDOs.html#junior-mezzanine-trancheジュニア層",
+    "href": "09CDOs.html#junior-mezzanine-trancheジュニア層",
+    "title": "金融工学ノート",
+    "section": "3. Junior / Mezzanine Tranche（ジュニア層）",
+    "text": "3. Junior / Mezzanine Tranche（ジュニア層）\n\n中程度のリスク\nBBB 評価\n利回り：7% 前後（中くらい）\n支払いは シニア層の後に受け取る\n\n\n特徴\n\nシニアよりリスクは高いが、まだ「比較的安全」と信じられていた\n\n2007–2008年危機では ここが大量に破綻 した"
+  },
+  {
+    "objectID": "09CDOs.html#equityエクイティtranche",
+    "href": "09CDOs.html#equityエクイティtranche",
+    "title": "金融工学ノート",
+    "section": "4. Equity（エクイティ）Tranche",
+    "text": "4. Equity（エクイティ）Tranche\n\n最も危険\n無格付または非常に低格付\n利回り：10% 以上の高利回り\n支払いは 最後\n\n損失は 最初にここが吸収する\n\n\n特徴\n\n典型的に ヘッジファンド が購入\n\n超高リスク・高リターン"
+  },
+  {
+    "objectID": "09CDOs.html#トランシェの仕組みキャッシュフローの流れ",
+    "href": "09CDOs.html#トランシェの仕組みキャッシュフローの流れ",
+    "title": "金融工学ノート",
+    "section": "5. トランシェの仕組み（キャッシュフローの流れ）",
+    "text": "5. トランシェの仕組み（キャッシュフローの流れ）\nローンの返済（キャッシュフロー）\n        ↓\n[① Senior に優先的に支払う]\n        ↓\n[② 残りが Junior に支払われる]\n        ↓\n[③ 最後に Equity へ]\n損失が出た場合の吸収順序（ウォーターフォール方式）：\n損失はまず Equity が吸収  \n→ 次に Junior  \n→ 最後に Senior\nだから 安全性と利回りが反比例 する。"
+  },
+  {
+    "objectID": "09CDOs.html#投資家はどれを買うべき",
+    "href": "09CDOs.html#投資家はどれを買うべき",
+    "title": "金融工学ノート",
+    "section": "6. 投資家はどれを買うべき？",
+    "text": "6. 投資家はどれを買うべき？\n\n\n\nTranche\nリスク\nリターン\n主な購入者\n\n\n\n\nSenior (AAA)\n低\n4%\n保守的な投資家、年金、保険会社\n\n\nJunior (BBB)\n中\n7%\nバランス型ファンド\n\n\nEquity\n高\n10%+\nヘッジファンド"
+  },
+  {
+    "objectID": "09CDOs.html#なぜこれが問題になったのか",
+    "href": "09CDOs.html#なぜこれが問題になったのか",
+    "title": "金融工学ノート",
+    "section": "7. なぜこれが問題になったのか？",
+    "text": "7. なぜこれが問題になったのか？\n2007–2008危機では：\n\n格付機関が 過剰に AAA を付けた\n実際は 同じ種類の資産（住宅ローン）ばかりで相関が高すぎた\nJunior と Equity が連鎖的に破綻\n\n最後は Senior すら影響を受ける巨大崩壊に\n\n##9-4 サブプライム危機（2007–2008）と CDO 崩壊のメカニズム\n前章では CDO（Collateralized Debt Obligation）の仕組みを理解した。\nしかし 2007–2008 年の金融危機では、この CDO が「爆心地」となった。\nこの章では、なぜ CDO が破綻し、世界的な金融危機を引き起こしたのかを整理する。"
+  },
+  {
+    "objectID": "09CDOs.html#危機前すべてが順調だった",
+    "href": "09CDOs.html#危機前すべてが順調だった",
+    "title": "金融工学ノート",
+    "section": "1. 危機前：すべてが順調だった",
+    "text": "1. 危機前：すべてが順調だった\n2000 年代初頭、CDO システムは完全に機能していた。\n\n\n\n\n\n\n\n参加者\n得していた理由\n\n\n\n\n商業銀行\n住宅ローン・学生ローン・自動車ローンなどを 投資銀行へ売却し利益を得る\n\n\n投資銀行\nローンを束ねて CDO を作り、投資家へ売却して大きな利益\n\n\n投資家\nシニア 4%、ジュニア 7%、エクイティ 10% など 高い利回りを得る\n\n\n\nすべてが「Win-Win」のように見えた。"
+  },
+  {
+    "objectID": "09CDOs.html#問題もっとローンが必要になった",
+    "href": "09CDOs.html#問題もっとローンが必要になった",
+    "title": "金融工学ノート",
+    "section": "2. 問題：もっとローンが必要になった",
+    "text": "2. 問題：もっとローンが必要になった\nCDO は大量のローンを必要とするため、\n銀行はローンの基準をどんどん緩くした。\nその結果生まれたのが サブプライムローン（Subprime Mortgage）。\n\nサブプライムとは？\n\n返済能力が低い人に対する住宅ローン\n低収入、返済実績なし、クレジットスコアが低い層にも貸し出し\n「どうせ家の値段は上がるから大丈夫」という安易な前提"
+  },
+  {
+    "objectID": "09CDOs.html#なぜ銀行はリスクを無視したのか",
+    "href": "09CDOs.html#なぜ銀行はリスクを無視したのか",
+    "title": "金融工学ノート",
+    "section": "3. なぜ銀行はリスクを無視したのか？",
+    "text": "3. なぜ銀行はリスクを無視したのか？\n\n✔ 住宅価格はずっと上がると信じられていた\nもし借り手が返済不能になっても： - 銀行は家を差し押さえる\n- 家の価格は上昇し続けていた\n→ 売れば利益が出ると考えられていた\n\n\n✔ ローンは投資銀行へ売却できる\n銀行はローンを保有し続けないため、 返済不能のリスクを自分で負わなかった。"
+  },
+  {
+    "objectID": "09CDOs.html#cdo-が危険化した-2-つの理由",
+    "href": "09CDOs.html#cdo-が危険化した-2-つの理由",
+    "title": "金融工学ノート",
+    "section": "4. CDO が危険化した 2 つの理由",
+    "text": "4. CDO が危険化した 2 つの理由\n\n① サブプライムローンの大量発生 → デフォルト確率の爆増\n返済能力が低い層へ無理に貸し出した結果：\n\n返済不能（default）が急増\n\nCDO のキャッシュフローが激減\n\n投資家へ支払いが行われない状態に\n\n\n\n\n② CDO が「同じ種類のローン」ばかりに偏った\n本来、CDO の安全性は 分散 によって支えられていた。\nしかし現実は：\n理想の CDO（多様なローン）\n- 住宅ローン\n- 自動車ローン\n- 学生ローン\n- クレジットカードローン\n(相関が低い → 安全)\n危機前の CDO（サブプライムだらけ）\n- 住宅ローン（x1000）\n(相関が極めて高い → 全部同時に崩れる)\n➡ 相関が高いと、一つ崩れれば全部崩れる\nこの「分散の崩壊」が最大の問題だった。"
+  },
+  {
+    "objectID": "09CDOs.html#投資家に何が起きたか",
+    "href": "09CDOs.html#投資家に何が起きたか",
+    "title": "金融工学ノート",
+    "section": "5. 投資家に何が起きたか？",
+    "text": "5. 投資家に何が起きたか？\nCDO には AAA（最上位の信用格付）が与えられていたが…\n\nサブプライム層の大量デフォルト\n多数の CDO からキャッシュフローが消失\nAAA のはずのシニアトランシェですら損失\n\n投資家は 「安全資産だと思って買ったのに支払いが来ない」 という状況に陥った。"
+  },
+  {
+    "objectID": "09CDOs.html#システム全体が凍結credit-crunch",
+    "href": "09CDOs.html#システム全体が凍結credit-crunch",
+    "title": "金融工学ノート",
+    "section": "6. システム全体が凍結（Credit Crunch）",
+    "text": "6. システム全体が凍結（Credit Crunch）\n投資家が CDO を信用しなくなると：\n\n投資家：CDO を買わない\n\n投資銀行：CDO を売れない\n\n商業銀行：ローンを投資銀行へ売れない\n\nローン審査が突然厳しくなる\n\n住宅価格が下落（需要 evaporates）\n\nサブプライム層がさらに返済不能\n\nCDO の損失が雪だるま式に増える\n\n→ 信用が連鎖的に消えていく “信用収縮（Credit Crunch）”"
+  },
+  {
+    "objectID": "09CDOs.html#そして-2008-年大崩壊へ",
+    "href": "09CDOs.html#そして-2008-年大崩壊へ",
+    "title": "金融工学ノート",
+    "section": "7. そして 2008 年、大崩壊へ",
+    "text": "7. そして 2008 年、大崩壊へ\n\nレバレッジ（借金による投資）を使って CDO を大量に保有していた投資銀行が次々破綻\n\nLehman Brothers（リーマン・ブラザーズ）の破綻\n\n世界中の金融市場がパニックに\n\nこれが 2007–2008 の世界金融危機 だった。"
+  },
+  {
+    "objectID": "09CDOs.html#まとめ-1",
+    "href": "09CDOs.html#まとめ-1",
+    "title": "金融工学ノート",
+    "section": "まとめ",
+    "text": "まとめ\n\nCDO 自体は金融工学的に美しい構造だった\n\nしかし サブプライムの大量投入 + 分散の崩壊 + 格付けの誤り が連鎖破綻を起こした\n\n住宅価格が永遠に上がるという幻想が崩れた瞬間、システム全体が瓦解した"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html",
+    "href": "07ブラックショールズモデル.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#7 ブラックショールズモデル\n##7-1 ブラック＝ショールズモデル入門：リスク中立戦略とデルタヘッジ\nこの章では、これまで学んだ\n- ブラウン運動\n- 幾何ブラウン運動\n- 伊藤の補題（Ito’s Lemma）\n- 確率微分方程式（SDE）\nといった準備をもとに、ブラック＝ショールズ（Black-Scholes）モデル の直前までを整理する。\nBlack–Scholes（Black & Scholes, 1973）は、金融工学革命の中心にある理論であり、\n「オプション価格を満期前にどう評価するか？」という問題を解いた。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ブラックショールズモデルの目的",
+    "href": "07ブラックショールズモデル.html#ブラックショールズモデルの目的",
+    "title": "金融工学ノート",
+    "section": "1. ブラック＝ショールズモデルの目的",
+    "text": "1. ブラック＝ショールズモデルの目的\nオプションは「将来のある時点（満期 T）での価値」は明確に分かる。\n\nコール：\\(\\max(S_T - K, 0)\\)\n\nプット：\\(\\max(K - S_T, 0)\\)\n\nしかし知りたいのは T より前の時点（t &lt; T）での公正価値。\nBlack–Scholes の目的は：\n\n満期前のオプション価格を理論的に決めること"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#驚くべき発見リスク資産を組み合わせるとリスクが消える",
+    "href": "07ブラックショールズモデル.html#驚くべき発見リスク資産を組み合わせるとリスクが消える",
+    "title": "金融工学ノート",
+    "section": "2. 驚くべき発見：「リスク資産を組み合わせるとリスクが消える」",
+    "text": "2. 驚くべき発見：「リスク資産を組み合わせるとリスクが消える」\n一般的な金融理論（モダンポートフォリオ理論、CAPM）は：\n\n株価はランダムに動く\n\nリスクは不可避\n\n分散投資で「銘柄固有のリスク」は消せるが\n市場全体のリスク（systematic risk）は消せない\n\nという前提だった。\nしかし Black-Scholes モデルでは次を示した：\n\nリスク資産を特定の割合で組み合わせると、\n市場リスクすら完全に消える（＝無リスク化）\n\nこれは非常に革命的だった。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#オプション価格が依存する要素",
+    "href": "07ブラックショールズモデル.html#オプション価格が依存する要素",
+    "title": "金融工学ノート",
+    "section": "3. オプション価格が依存する要素",
+    "text": "3. オプション価格が依存する要素\nオプション価格 \\(V(S, t)\\) は複数の要因に依存する。\n\n変数（状態量）\n\n\\(S\\): 基礎資産（株価）\n\\(t\\): 時間\n\n\n\nパラメータ（モデル特性）\n\n\\(\\mu\\): 株の期待成長率\n\n\\(\\sigma\\): ボラティリティ\n\n\\(K\\): 権利行使価格（ストライク）\n\n\\(T\\): 満期\n\n\\(r\\): 無リスク金利"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#コールオプションとプットオプションの性質",
+    "href": "07ブラックショールズモデル.html#コールオプションとプットオプションの性質",
+    "title": "金融工学ノート",
+    "section": "4. コールオプションとプットオプションの性質",
+    "text": "4. コールオプションとプットオプションの性質\n\nコール（Call）\n\n権利：未来に 買う 権利\n価値：\\(S\\) が上がるほど上昇\n→ 基礎資産と正の相関\n\n\n\nプット（Put）\n\n権利：未来に 売る 権利\n価値：\\(S\\) が下がるほど上昇\n→ 基礎資産と負の相関\n\nこの「相関」がデルタヘッジの根幹となる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#リスクを消すための特別なポートフォリオ",
+    "href": "07ブラックショールズモデル.html#リスクを消すための特別なポートフォリオ",
+    "title": "金融工学ノート",
+    "section": "5. リスクを消すための特別なポートフォリオ",
+    "text": "5. リスクを消すための特別なポートフォリオ\nブラック＝ショールズが考えたのは以下の組み合わせ：\n[ = V - S ]\nつまり、\n\nオプションをロング（買い）\n株を Δ だけショート（売り）\n\nというポートフォリオ。\n重要な点：\n\nコールでは \\(V\\) と \\(S\\) の動きは 同じ方向（正相関）\n\n適切な Δ を選ぶと、\nオプションのランダムな変動を株の反対売買で完全に打ち消せる\n\nこれを デルタヘッジ（Delta Hedging） という。\n結果：\n\nポートフォリオが無リスク化される → 無リスク金利 r で成長するに決まっている\n\nここからブラック＝ショールズ偏微分方程式が導かれる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ",
+    "href": "07ブラックショールズモデル.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "6.まとめ",
+    "text": "6.まとめ\n\nブラック＝ショールズモデルの目的は「満期前のオプション価格」を決定すること\n\nランダムな価格変動を持つ株とオプションを組み合わせると\nリスクを完全に除去できる（デルタヘッジ）\n\nこれは市場リスクすら消えるため、非常に革命的な発見\n\n次章では、このデルタヘッジを数学的に扱い、\nブラック＝ショールズ偏微分方程式（PDE） を導く\n\n##7-2 ブラック＝ショールズモデル：デルタヘッジによるリスク消去の仕組み\n前章では、ブラック＝ショールズの発想の中心となる\n「オプションと株を組み合わせるとリスクを消せる」\nという驚くべきアイデアの背景を見た。\n本章では、その具体的な数学的メカニズム、特に\nポートフォリオの変化量とデルタヘッジの導出\nを詳しく解説する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#前提株価のモデル幾何ブラウン運動",
+    "href": "07ブラックショールズモデル.html#前提株価のモデル幾何ブラウン運動",
+    "title": "金融工学ノート",
+    "section": "1. 前提：株価のモデル（幾何ブラウン運動）",
+    "text": "1. 前提：株価のモデル（幾何ブラウン運動）\n基礎資産 \\(S(t)\\) は次の確率微分方程式（SDE）に従う：\n\\[\ndS = \\mu S\\, dt + \\sigma S\\, dW\n\\]\n\n\\(\\mu S dt\\)：決定論的な平均成長\n\n\\(\\sigma S dW\\)：ランダム変動\n\n\\(dW\\)：Wiener 過程の微小変化"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#特別なポートフォリオの構築",
+    "href": "07ブラックショールズモデル.html#特別なポートフォリオの構築",
+    "title": "金融工学ノート",
+    "section": "2. 特別なポートフォリオの構築",
+    "text": "2. 特別なポートフォリオの構築\nブラック＝ショールズの核心は次の組み合わせ：\n\\[\n\\Pi = V - \\Delta S\n\\]\n\n\\(V(S,t)\\)：オプション価格\n\n\\(S\\)：基礎資産\n\n\\(\\Delta\\)：ショートする株数\n\nオプションをロングし、株を \\(\\Delta\\) だけショートする。\n目標：\n\nこのポートフォリオのリスク（確率的成分）を完全に消すこと"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ポートフォリオの変化dpi",
+    "href": "07ブラックショールズモデル.html#ポートフォリオの変化dpi",
+    "title": "金融工学ノート",
+    "section": "3. ポートフォリオの変化：\\(d\\Pi\\)",
+    "text": "3. ポートフォリオの変化：\\(d\\Pi\\)\nポートフォリオの微小変化は：\n\\[\nd\\Pi = dV - \\Delta\\, dS\n\\]\nここで、\\(V\\) も \\(S\\) も確率変数 → \\(dV\\) を求めるために 伊藤の補題 が必要。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#伊藤の補題二変数版による-dv",
+    "href": "07ブラックショールズモデル.html#伊藤の補題二変数版による-dv",
+    "title": "金融工学ノート",
+    "section": "4. 伊藤の補題（二変数版）による \\(dV\\)",
+    "text": "4. 伊藤の補題（二変数版）による \\(dV\\)\nオプション価格 \\(V(S,t)\\) に伊藤の補題を適用すると：\n\\[\ndV = V_t dt + V_S dS + \\frac{1}{2} V_{SS} (dS)^2\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ds2-の計算",
+    "href": "07ブラックショールズモデル.html#ds2-の計算",
+    "title": "金融工学ノート",
+    "section": "5. \\((dS)^2\\) の計算",
+    "text": "5. \\((dS)^2\\) の計算\n株価の SDE：\n\\[\ndS = \\mu S dt + \\sigma S dW\n\\]\nこれを二乗して小さい項を無視すると：\n\n\\((dt)^2\\) → 無視\n\n\\(dt \\cdot dW\\) → 無視\n\n\\((dW)^2 = dt\\)\n\nよって、\n\\[\n(dS)^2 \\approx \\sigma^2 S^2 dt\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#dv-を具体的な形に展開",
+    "href": "07ブラックショールズモデル.html#dv-を具体的な形に展開",
+    "title": "金融工学ノート",
+    "section": "6. \\(dV\\) を具体的な形に展開",
+    "text": "6. \\(dV\\) を具体的な形に展開\n\\[\ndV\n= \\left( V_t + \\mu S V_S + \\frac{1}{2}\\sigma^2 S^2 V_{SS} \\right) dt\n\\;+\\;\n\\sigma S V_S\\, dW\n\\]\n右端の \\(dW\\) が 確率的ゆらぎ（リスク）。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ポートフォリオの変化-dpi",
+    "href": "07ブラックショールズモデル.html#ポートフォリオの変化-dpi",
+    "title": "金融工学ノート",
+    "section": "7. ポートフォリオの変化 \\(d\\Pi\\)",
+    "text": "7. ポートフォリオの変化 \\(d\\Pi\\)\n\\[\nd\\Pi = dV - \\Delta dS\n\\]\n$ dS = S dt + S dW $ を入れると：\n\\[\nd\\Pi =\n\\left( V_t + \\mu S V_S + \\frac12 \\sigma^2 S^2 V_{SS} - \\Delta \\mu S \\right) dt\n+\n\\left( \\sigma S V_S - \\Delta \\sigma S \\right) dW\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#確率項の消去デルタヘッジ",
+    "href": "07ブラックショールズモデル.html#確率項の消去デルタヘッジ",
+    "title": "金融工学ノート",
+    "section": "8. 確率項の消去：デルタヘッジ",
+    "text": "8. 確率項の消去：デルタヘッジ\n確率的成分（\\(dW\\) の係数）は：\n\\[\n\\sigma S V_S - \\Delta \\sigma S\n\\]\nこれを 0 にすれば 完全にリスクが消える。\n\\[\n\\sigma S V_S - \\Delta \\sigma S = 0\n\\]\nしたがって：\n\\[\n\\Delta = V_S\n\\]\nこれが デルタヘッジ。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#デルタヘッジの意味",
+    "href": "07ブラックショールズモデル.html#デルタヘッジの意味",
+    "title": "金融工学ノート",
+    "section": "9. デルタヘッジの意味",
+    "text": "9. デルタヘッジの意味\n\n\\(\\Delta = V_S\\)：オプション価格の株価に対する感応度\n\nこれだけ株をショートすると、オプションの確率変動と正確に相殺される\n\nつまり：\n\n2つのリスク資産を組み合わせることで、リスクゼロの資産を「人工的に」作れる\n\nこれがブラック＝ショールズの革命。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#デルタは動的に変化する",
+    "href": "07ブラックショールズモデル.html#デルタは動的に変化する",
+    "title": "金融工学ノート",
+    "section": "10. デルタは「動的に」変化する",
+    "text": "10. デルタは「動的に」変化する\n\\(\\Delta = V_S\\) は時間とともに必ず変わる。\n\n\\(S\\) が変わる\n\n\\(t\\) が進む\n\n\\(\\sigma\\) や他の条件も影響\n\nそのため：\n\nヘッジは常に調整されねばならない → 動的デルタヘッジ"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#次章へ",
+    "href": "07ブラックショールズモデル.html#次章へ",
+    "title": "金融工学ノート",
+    "section": "11. 次章へ",
+    "text": "11. 次章へ\nデルタヘッジによりポートフォリオは無リスクになる。\n→ 無リスク資産なら期待収益率は 必ず無リスク金利 \\(r\\)。\nこの性質を用いて、\n\nブラック＝ショールズ偏微分方程式（PDE）が導かれる\n\nさらに閉形式解（Black–Scholes 公式）へつながる\n\n次章ではその PDE を実際に導出する。\n##7-3 ブラック＝ショールズ方程式（Black–Scholes PDE）への導出\n## ノーアービトラージ原理から導く決定論的ポートフォリオの変化\n前章では、次の重要な事実を確認した：\n\nオプションと株を適切に組み合わせたポートフォリオ\n\n伊藤の補題による \\(dV\\) の展開\n\nデルタ \\(\\Delta = V_S\\) を選ぶことで確率項 \\(dW\\) が完全に消える（デルタヘッジ）\n\nその結果：\n\nポートフォリオの変化 \\(d\\Pi\\) は “完全に決定論的” になる（リスクゼロ）。\n\nこの章では、その決定論的変化を ノーアービトラージ原理 と結びつけて、\nブラック＝ショールズ偏微分方程式（PDE）を導く。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#リスクを消した結果ポートフォリオは完全に確定的になる",
+    "href": "07ブラックショールズモデル.html#リスクを消した結果ポートフォリオは完全に確定的になる",
+    "title": "金融工学ノート",
+    "section": "1. リスクを消した結果：ポートフォリオは完全に「確定的」になる",
+    "text": "1. リスクを消した結果：ポートフォリオは完全に「確定的」になる\nデルタヘッジ後のポートフォリオ：\n\\[\n\\Pi = V - \\Delta S\n\\]\nデルタ \\(\\Delta = V_S\\) を選ぶと、\n\\[\nd\\Pi \\text{ から確率項 } dW \\text{ が完全に消える}\n\\]\nつまり：\n\nこのポートフォリオは “リスクゼロの資産” として振る舞う。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ノーアービトラージ原理no-arbitrage-principle",
+    "href": "07ブラックショールズモデル.html#ノーアービトラージ原理no-arbitrage-principle",
+    "title": "金融工学ノート",
+    "section": "2. ノーアービトラージ原理（No-Arbitrage Principle）",
+    "text": "2. ノーアービトラージ原理（No-Arbitrage Principle）\n金融の基本原則：\n\nリスクゼロの資産は、常にリスクフリー金利 \\(r\\) で成長しなければならない。\n\n理由：\n\nリスクなしで市場平均以上の収益が得られたら\n→ 誰でも借金して投資し無限に儲けられてしまう\n\nこれは アービトラージ（無リスク裁定） であり\n→ 市場はそれを許さない（瞬時に解消される）\n\nしたがって、\n\\[\nd\\Pi = r \\Pi\\, dt\n\\]\nでなければならない。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ポートフォリオの決定論的変化",
+    "href": "07ブラックショールズモデル.html#ポートフォリオの決定論的変化",
+    "title": "金融工学ノート",
+    "section": "3. ポートフォリオの決定論的変化",
+    "text": "3. ポートフォリオの決定論的変化\n前章の結果より、デルタヘッジ後の \\(d\\Pi\\) の決定論的成分は：\n\\[\nd\\Pi\n=\n\\left( V_t\n+ \\frac12 \\sigma^2 S^2 V_{SS}\n+ \\mu S V_S\n- \\Delta \\mu S\n\\right) dt\n\\]\nデルタ \\(\\Delta = V_S\\) を代入すると、\\(\\mu\\) の項が消える：\n\\[\nd\\Pi\n=\n\\left(\nV_t + \\frac12 \\sigma^2 S^2 V_{SS}\n\\right) dt\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ノーアービトラージ条件と結びつける",
+    "href": "07ブラックショールズモデル.html#ノーアービトラージ条件と結びつける",
+    "title": "金融工学ノート",
+    "section": "4. ノーアービトラージ条件と結びつける",
+    "text": "4. ノーアービトラージ条件と結びつける\nポートフォリオ \\(\\Pi = V - V_S S\\) を使い、\n\\[\nd\\Pi = r \\Pi\\, dt\n\\]\nすなわち：\n\\[\nV_t + \\frac12 \\sigma^2 S^2 V_{SS}\n=\nr (V - S V_S)\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ブラックショールズ偏微分方程式blackscholes-pde",
+    "href": "07ブラックショールズモデル.html#ブラックショールズ偏微分方程式blackscholes-pde",
+    "title": "金融工学ノート",
+    "section": "5. ブラック＝ショールズ偏微分方程式（Black–Scholes PDE）",
+    "text": "5. ブラック＝ショールズ偏微分方程式（Black–Scholes PDE）\n式を整理すると：\n\\[\nV_t + \\frac12 \\sigma^2 S^2 V_{SS}\n+ r S V_S - r V = 0\n\\]\nこれは金融工学で最も重要な PDE の一つ：\n\nブラック＝ショールズ方程式（Black–Scholes PDE）"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#なぜこの方程式は重要なのか",
+    "href": "07ブラックショールズモデル.html#なぜこの方程式は重要なのか",
+    "title": "金融工学ノート",
+    "section": "6. なぜこの方程式は重要なのか？",
+    "text": "6. なぜこの方程式は重要なのか？\n\nこの PDE の解がヨーロピアン・オプション価格\n\n数学的に厳密に導かれたモデル\n\n市場が「裁定機会なし」であるための 唯一の価格 を与える\n\nこれに境界条件（満期でのペイオフ）を入れて解くと\n→ 有名なブラック＝ショールズ closed-form solution が得られる"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#本章のまとめ",
+    "href": "07ブラックショールズモデル.html#本章のまとめ",
+    "title": "金融工学ノート",
+    "section": "7. 本章のまとめ",
+    "text": "7. 本章のまとめ\n\nデルタヘッジによりポートフォリオは確率項が消え、リスクゼロになる\n\nノーアービトラージ原理より、その成長率は必ず \\(r\\)\n\nこの条件を満たすことが、ブラック＝ショールズ PDE を強制する\n\nPDE の解がオプション価格そのものになる"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#次章へ-1",
+    "href": "07ブラックショールズモデル.html#次章へ-1",
+    "title": "金融工学ノート",
+    "section": "8. 次章へ",
+    "text": "8. 次章へ\n次章ではこの PDE を実際に解き、\nブラック＝ショールズ公式（closed-form solution）\nを導いていく。\n##7-4 ブラック＝ショールズ公式（Black–Scholes Closed-Form Solution） ## PDE の解としてのコール・プット価格公式\n前章では、デルタヘッジとノーアービトラージ原理から\nブラック＝ショールズ方程式（PDE） を導いた。\n本章では、その PDE の「解」がどのような形になるのかを説明する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ブラックショールズ方程式おさらい",
+    "href": "07ブラックショールズモデル.html#ブラックショールズ方程式おさらい",
+    "title": "金融工学ノート",
+    "section": "1. ブラック＝ショールズ方程式（おさらい）",
+    "text": "1. ブラック＝ショールズ方程式（おさらい）\nオプション価格 \\(V(S,t)\\) は次の PDE を満たす：\n\\[\nV_t + \\frac12 \\sigma^2 S^2 V_{SS} + r S V_S - r V = 0\n\\]\nこれは数学的には 線形・パラボリック型 PDE。\n\n代表例：熱方程式（heat equation）、拡散方程式（diffusion equation）\n\n金融数学においても同じ数学構造が出てくる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#pde-を解く必要は実務ではない",
+    "href": "07ブラックショールズモデル.html#pde-を解く必要は実務ではない",
+    "title": "金融工学ノート",
+    "section": "2. PDE を解く必要は実務では「ない」",
+    "text": "2. PDE を解く必要は実務では「ない」\nブラック＝ショールズ方程式の解法は高度な数学を含む：\n\n伊藤積分\n変数変換\n\n熱方程式への写像\nガウス積分\n\nしかし、最終結果（closed-form solution）は非常にシンプルで、\n実務ではこれをそのまま使えばよい。\n講義でも強調された通り：\n\nオプション価格の計算では、SDE や伊藤の補題を理解していなくても\n最終式さえ使えれば問題ない。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#標準正規分布-nx-の定義",
+    "href": "07ブラックショールズモデル.html#標準正規分布-nx-の定義",
+    "title": "金融工学ノート",
+    "section": "3. 標準正規分布 \\(N(x)\\) の定義",
+    "text": "3. 標準正規分布 \\(N(x)\\) の定義\nブラック＝ショールズ公式では 標準正規分布の累積分布関数（CDF） を使う：\n\\[\nN(x) = \\frac{1}{\\sqrt{2\\pi}}\n\\int_{-\\infty}^{x} e^{-z^2 / 2} \\, dz\n\\]\n実装では NumPy や SciPy に含まれているので、自分で積分する必要はない。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#必要となるパラメータ-d_1-と-d_2",
+    "href": "07ブラックショールズモデル.html#必要となるパラメータ-d_1-と-d_2",
+    "title": "金融工学ノート",
+    "section": "4. 必要となるパラメータ \\(d_1\\) と \\(d_2\\)",
+    "text": "4. 必要となるパラメータ \\(d_1\\) と \\(d_2\\)\nブラック＝ショールズ公式では、まず次の二つを計算する：\n\n\\(d_1\\) の定義\n\\[\nd_1 =\n\\frac{\n\\ln\\left(\\frac{S}{K}\\right)\n+ \\left(\nr + \\frac12 \\sigma^2\n\\right)(T - t)\n}{\n\\sigma \\sqrt{T - t}\n}\n\\]\n\n\n\\(d_2\\) の定義\n\\[\nd_2 = d_1 - \\sigma \\sqrt{T - t}\n\\]\n意味：\n\n\\(\\ln(S/K)\\)：現在の株価と行使価格の相対関係\n\n\\(r\\)：無リスク金利\n\n\\(\\sigma\\)：ボラティリティ\n\n\\(T-t\\)：満期までの時間"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#コールオプションcallの価格",
+    "href": "07ブラックショールズモデル.html#コールオプションcallの価格",
+    "title": "金融工学ノート",
+    "section": "5. コールオプション（Call）の価格",
+    "text": "5. コールオプション（Call）の価格\nブラック＝ショールズ公式：\n\\[\nC = S\\, N(d_1) - K e^{-r(T - t)} N(d_2)\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#プットオプションputの価格",
+    "href": "07ブラックショールズモデル.html#プットオプションputの価格",
+    "title": "金融工学ノート",
+    "section": "6. プットオプション（Put）の価格",
+    "text": "6. プットオプション（Put）の価格\n同様に、プットの価格は：\n\\[\nP = K e^{-r(T - t)} N(-d_2) - S\\, N(-d_1)\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#公式さえあれば実装はシンプル",
+    "href": "07ブラックショールズモデル.html#公式さえあれば実装はシンプル",
+    "title": "金融工学ノート",
+    "section": "7. 公式さえあれば実装はシンプル",
+    "text": "7. 公式さえあれば実装はシンプル\n重要ポイント：\n\nPDE や SDE を知らなくても\n\\(d_1\\)、\\(d_2\\)、\\(N(\\cdot)\\) を計算するだけで良い\nNumPy / SciPy に CDF がある\n\n計算式は短く、実務実装は非常に簡単\n\n次章では、これらの公式を Python（クラスベース）で実装する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ-1",
+    "href": "07ブラックショールズモデル.html#まとめ-1",
+    "title": "金融工学ノート",
+    "section": "まとめ",
+    "text": "まとめ\n\nブラック＝ショールズ PDE は高度だが、最終解は単純\n\n標準正規分布の累積分布関数 \\(N(x)\\) が重要\n\n\\(d_1\\)・\\(d_2\\) を計算し、コール/プット公式に代入するだけ\n\n実務ではこの closed-form solution がそのまま使われる\n\n##7-5 オプション価格の感応度指標 ― Greeks（グリークス）\nブラック＝ショールズモデルを理解したら、次に重要となるのが\nGreeks（グリークス） と呼ばれる感応度指標である。\nGreeks は、オプション価格が何に対してどれだけ敏感かを測る尺度であり、\nヘッジング・リスク管理・ポートフォリオ最適化で中心的な役割を果たす。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#deltaデルタ",
+    "href": "07ブラックショールズモデル.html#deltaデルタ",
+    "title": "金融工学ノート",
+    "section": "1. Delta（デルタ）",
+    "text": "1. Delta（デルタ）\n\n定義\nデルタはオプション価格 \\(V\\) の株価 \\(S\\) に対する一次微分：\n\\[\n\\Delta = \\frac{\\partial V}{\\partial S}\n\\]\n意味：\n- オプションの価格が、株価のわずかな変化に対してどれくらい変わるか - オプションの「株的感応度」\n\n\n重要な性質\nブラック＝ショールズのデルタヘッジで登場したように：\n\n\\(\\Delta\\) を株のショート量として用いると、リスクが完全に消える（\\(dW\\) が消える）\n\nすなわち：\n\nポートフォリオ\n\\(\\Pi = V - \\Delta S\\)\nの確率項を 0 にできる\n\nデルタヘッジは リスクの完全除去 を目的とした戦略"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#gammaガンマ",
+    "href": "07ブラックショールズモデル.html#gammaガンマ",
+    "title": "金融工学ノート",
+    "section": "2. Gamma（ガンマ）",
+    "text": "2. Gamma（ガンマ）\n\n定義\nガンマはオプション価格の二次微分：\n\\[\n\\Gamma = \\frac{\\partial^2 V}{\\partial S^2}\n\\]\n意味：\n\nデルタが株価の変化に対してどれだけ変わるか（デルタの感応度）\nデルタの変化率（カーブの強さ）\n\n\n\nガンマの役割\n\nガンマが大きいほど、デルタ値が急激に変動する\n\nつまり ヘッジの調整頻度が増える\nデルタヘッジが「動的」でなければいけない理由"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#thetaセータ",
+    "href": "07ブラックショールズモデル.html#thetaセータ",
+    "title": "金融工学ノート",
+    "section": "3. Theta（セータ）",
+    "text": "3. Theta（セータ）\n\n定義\nオプション価格の時間に対する微分：\n\\[\n\\Theta = \\frac{\\partial V}{\\partial t}\n\\]\n意味：\n\n時間の経過によって、オプション価格がどれだけ減少するか\n特にオプションは時間価値を持つため、多くの場合 \\(\\Theta &lt; 0\\)\n\n別名：\n- タイムディケイ（Time decay）"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#vegaベガ",
+    "href": "07ブラックショールズモデル.html#vegaベガ",
+    "title": "金融工学ノート",
+    "section": "4. Vega（ベガ）",
+    "text": "4. Vega（ベガ）\n\n定義\nボラティリティ \\(\\sigma\\) に対する感応度：\n\\[\n\\text{Vega} = \\frac{\\partial V}{\\partial \\sigma}\n\\]\n意味：\n\nボラティリティが変わるとオプション価格がどれだけ動くか\n\nポイント：\n\nボラティリティは市場予測で大きくブレる\n\nそのため ボラティリティリスクは非常に重要"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#rhoロー補足",
+    "href": "07ブラックショールズモデル.html#rhoロー補足",
+    "title": "金融工学ノート",
+    "section": "5. Rho（ロー）（補足）",
+    "text": "5. Rho（ロー）（補足）\n金利 \\(r\\) に対する感応度：\n\\[\n\\rho = \\frac{\\partial V}{\\partial r}\n\\]\n金利変化がオプション価格に与える影響を示す。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ブラックショールズ-pde-を-greeks-で書き換える",
+    "href": "07ブラックショールズモデル.html#ブラックショールズ-pde-を-greeks-で書き換える",
+    "title": "金融工学ノート",
+    "section": "6. ブラック＝ショールズ PDE を Greeks で書き換える",
+    "text": "6. ブラック＝ショールズ PDE を Greeks で書き換える\nブラック＝ショールズ PDE：\n\\[\nV_t + \\frac12\\sigma^2 S^2 V_{SS} + r S V_S - rV = 0\n\\]\nGreeks を用いると：\n\n\\(V_t = \\Theta\\)\n\n\\(V_S = \\Delta\\)\n\n\\(V_{SS} = \\Gamma\\)\n\nこれにより、\n\\[\n\\Theta + \\frac12 \\sigma^2 S^2 \\Gamma + r S \\Delta - rV = 0\n\\]\nこのように、PDE を「Greeks の組み合わせ」として表現できる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#greeks-のまとめ",
+    "href": "07ブラックショールズモデル.html#greeks-のまとめ",
+    "title": "金融工学ノート",
+    "section": "7. Greeks のまとめ",
+    "text": "7. Greeks のまとめ\n\n\n\n\n\n\n\n\nGreek\n数式\n意味\n\n\n\n\n\\(\\Delta\\)\n\\(\\partial V / \\partial S\\)\n株価への感応度（一次）\n\n\n\\(\\Gamma\\)\n\\(\\partial^2 V / \\partial S^2\\)\nデルタの感応度（二次）\n\n\n\\(\\Theta\\)\n\\(\\partial V / \\partial t\\)\n時間経過の影響（タイムディケイ）\n\n\nVega\n\\(\\partial V / \\partial \\sigma\\)\nボラティリティの影響\n\n\n\\(\\rho\\)\n\\(\\partial V / \\partial r\\)\n金利の影響\n\n\n\n\n##7-6 Black–Scholes モデルで “どう儲けるか？”\nここまでの章では、ブラック＝ショールズ方程式の導出、解法、Python 実装、\nさらにモンテカルロ・シミュレーションまで扱ってきた。\n本章では、より実践的なテーマとして：\n\nBlack–Scholes モデルを使ってどう利益を出すのか？\n\nについて整理する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#blackscholes-モデルの用途は儲けだけではない",
+    "href": "07ブラックショールズモデル.html#blackscholes-モデルの用途は儲けだけではない",
+    "title": "金融工学ノート",
+    "section": "1. Black–Scholes モデルの用途は「儲け」だけではない",
+    "text": "1. Black–Scholes モデルの用途は「儲け」だけではない\nまず重要なのは、すべての投資家が “儲ける目的” でこのモデルを使うわけではない。\n多くのプロ投資家の主目的は リスクの除去（ヘッジ） である。\n例：\n\nポートフォリオ全体のリスク管理\n\nデルタやガンマを毎日計算してヘッジ量を調整\n\n市場変動に対してポジションを中立にする\n\nつまり、Black–Scholes モデルは 利益よりもリスク制御のために使われることが多い。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#blackscholes-を使った利益の取り方は",
+    "href": "07ブラックショールズモデル.html#blackscholes-を使った利益の取り方は",
+    "title": "金融工学ノート",
+    "section": "2. Black–Scholes を使った「利益の取り方」は？",
+    "text": "2. Black–Scholes を使った「利益の取り方」は？\nもちろん 儲けるために使う ことも可能である。\n\n2.1. 方法①：ミスプライス（誤価格）を見つける\n市場で取引されているオプション価格 \\(P_\\text{market}\\) が\nBlack–Scholes が導く理論価格 \\(P_\\text{BS}\\) と異なる場合、\n\\[\nP_\\text{market} \\neq P_\\text{BS}\n\\]\nという ミスプライス（誤価格） が存在する。\n\n例：\n\n市場価格が理論価格より安い\n→ 価値より安いので 買い（期待値プラス）\n\n市場価格が理論価格より高い\n→ 過大評価されているので 売り（またはショート）\n\nミスプライスは常に発生しており、\n多くのトレーダーはブラック＝ショールズを用いて “適正価格との差” を監視している。\n\n\n\n\n2.2. 方法②：ボラティリティの歪みを利用する（IV アービトラージ）\n市場では、銘柄・満期・ストライクによって\nインプライド・ボラティリティ(IV) に歪みがある。\n同じ銘柄なのに  \n・コールとプットで IV が違う  \n・満期の違いで IV が不自然に上下する  \nこうした歪みを使うと：\n\n安い IV のオプションを買う\n\n高い IV のオプションを売る\n\nなどの戦略で利益を狙える。\n\n\n\n2.3. 方法③：ブラック＝ショールズを基準にした統計的裁定取引\n株式でやった「ペアトレード」や\nFX で学んだ「ベルマン–フォード法でのアービトラージ検出」と同様に、\nオプション市場にも統計的・構造的な歪みが存在するため\n\nモデル vs 市場のズレ\n\n複数オプション間の価格関係の不整合\n\nなどを利用して利益を狙うことができる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#どのように利益を確定させるのか",
+    "href": "07ブラックショールズモデル.html#どのように利益を確定させるのか",
+    "title": "金融工学ノート",
+    "section": "3. どのように利益を確定させるのか？",
+    "text": "3. どのように利益を確定させるのか？\n\n3.1. 株式での利益方法との比較\n株で儲ける方法は基本的に：\n\n上がると思ったら買う → 上がったら売る\n\n下がると思ったら売る → 下がったら買い戻す\n\nだがオプションの場合は、\n\n価格の “適正さ” を判断できる\n\nボラティリティの歪みも利用できる\n\nという点で株より多くの戦略が存在する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#blackscholes-モデルでの儲けのまとめ",
+    "href": "07ブラックショールズモデル.html#blackscholes-モデルでの儲けのまとめ",
+    "title": "金融工学ノート",
+    "section": "4. Black–Scholes モデルでの「儲け」のまとめ",
+    "text": "4. Black–Scholes モデルでの「儲け」のまとめ\n\n\n\n方法\n説明\n\n\n\n\nミスプライスの発見\n市場価格と理論価格の差で裁定\n\n\nIV（ボラティリティ）の歪み利用\n高いIVを売り、安いIVを買う\n\n\n統計的アービトラージ\n複数オプションの価格関係の歪み利用\n\n\nリスク除去（ヘッジ）\n利益というより損失回避が目的"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#結論",
+    "href": "07ブラックショールズモデル.html#結論",
+    "title": "金融工学ノート",
+    "section": "5. 結論",
+    "text": "5. 結論\nBlack–Scholes モデルは、\nオプションの“正しい価値”を教えてくれる道具 であり、\n\nリスク管理（ヘッジ）\n価格の歪み発見（アービトラージ）\nボラティリティ取引\n\nなど、プログラミングと数学を活かした高度な投資方法につながる。\n##7-7 Long-Term Capital Management（LTCM）と量的金融モデルの成功\nこの章では、1990年代に大成功し、同時に劇的な崩壊を経験した\nLTCM（Long-Term Capital Management） という伝説的ヘッジファンドについてまとめる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ltcm-とは",
+    "href": "07ブラックショールズモデル.html#ltcm-とは",
+    "title": "金融工学ノート",
+    "section": "1. LTCM とは？",
+    "text": "1. LTCM とは？\nLTCM は 1994 年に設立されたヘッジファンドで、メンバーの多くがアカデミック出身だった。\n\nSalomon Brothers 副会長：John Meriwether\n\nノーベル経済学賞受賞者：Myron Scholes、Robert C. Merton\n\n彼らは高度な数量モデルを積極的に使用した：\n\nペアトレード（Pairs Trading）\nBlack–Scholes モデル\n統計的裁定取引（Statistical Arbitrage）\n\n\n驚異のリターン：年率 40%\n銀行預金の金利（1–2%）と比較すると異常な高さ。\n米国債（T-Bill）でも 4–5%。\nLTCM は 3年以上連続で 40% のリターンを実現 した。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#なぜそれほど儲かったのか",
+    "href": "07ブラックショールズモデル.html#なぜそれほど儲かったのか",
+    "title": "金融工学ノート",
+    "section": "2. なぜそれほど儲かったのか？",
+    "text": "2. なぜそれほど儲かったのか？\n\n→ 答え：市場リスクすらヘッジする戦略を構築したから\n現代ポートフォリオ理論（MPT）では：\n\n分散投資で 非システマティックリスク（企業固有リスク）は削減可能\nシステマティックリスク（市場全体のリスク）は避けられない\n→ CAPM のベータがその尺度\n\nLTCM が革新的だったのは：\n\n市場リスク（システマティックリスク）すらヘッジしたこと\n\nつまり、\n\n非システマティックリスク\n\nシステマティックリスク\n\n両方のリスクをほぼゼロに近づけた。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#どうやって市場リスクまで消したのか",
+    "href": "07ブラックショールズモデル.html#どうやって市場リスクまで消したのか",
+    "title": "金融工学ノート",
+    "section": "3. どうやって市場リスクまで消したのか？",
+    "text": "3. どうやって市場リスクまで消したのか？\n\n➤ 市場中立戦略（Market Neutral Strategy）\nLTCM の中心となった戦略は次の2つ：\n\nBlack–Scholes モデルによるデルタヘッジ\nペアトレード（Pairs Trading）\n\nどちらも 長期ポジション（Long）と短期ポジション（Short）を同時に持つ\nというのが特徴。\n\n\n3.1 Black–Scholes のデルタヘッジ\nオプション価格と基礎資産（株価）は強い相関を持つ。\n\nコールオプション → 正の相関\n\nプットオプション → 負の相関\n\nこの相関を利用し、\n\nロング：オプション\nショート：基礎株式の一定量（デルタ分）\n\nというポートフォリオを作ると、\nランダムな価格変動（リスク）を完全に打ち消すことができる。\n\n\n3.2 ペアトレード（Pairs Trading）\n類似企業（コカコーラ vs ペプシのような）の株価には\n歴史的な強い相関がある。\n例：\n\nペプシの株価だけ急上昇\n\nコカコーラは変化なし\n\n→ このとき：\n\n割高（上がりすぎ）＝ペプシをショート\n割安（出遅れ）＝コカコーラをロング\n\n相関が戻ると価格差が縮まり利益になる。\nこれも 市場リスクを打ち消す典型的な市場中立戦略。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#なぜ崩壊したのか1998年",
+    "href": "07ブラックショールズモデル.html#なぜ崩壊したのか1998年",
+    "title": "金融工学ノート",
+    "section": "4. なぜ崩壊したのか？（1998年）",
+    "text": "4. なぜ崩壊したのか？（1998年）\nアジア通貨危機・ロシア金融危機によって市場構造が急変し、\n\n相関が崩壊\n\n流動性が消滅\n\n超レバレッジ（30倍以上）が裏目に出る\n\n結果として LTCM は破綻し、連邦準備制度（FRB）が救済に介入した。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめltcm-から学べること",
+    "href": "07ブラックショールズモデル.html#まとめltcm-から学べること",
+    "title": "金融工学ノート",
+    "section": "5. まとめ：LTCM から学べること",
+    "text": "5. まとめ：LTCM から学べること\n\n✔ 成功の理由\n\n高度な数量モデル\n\n市場中立戦略を極限まで洗練\n\n市場リスクさえヘッジ可能と考えた\n\n\n\n✔ 失敗の理由\n\n市場相関が永遠に続くと仮定\n\n過度なレバレッジ\n\n想定外のストレス環境に耐えられなかった"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#結論-1",
+    "href": "07ブラックショールズモデル.html#結論-1",
+    "title": "金融工学ノート",
+    "section": "結論",
+    "text": "結論\nLTCM は金融工学史上もっとも象徴的な例であり、\n\n「数学だけで勝てるわけではない」\n「相関は永遠ではない」\n「レバレッジは両刃の剣」\n\nという重要な教訓を残した。\n#ブラックショールズモデルの実装\n##7-8 ブラック＝ショールズモデル実装（Python）\nこの章では、ブラック＝ショールズモデルの理論背景を踏まえつつ、\nPython によるブラック＝ショールズ方程式の実装を行う。\nSciPy の正規分布関数を利用することで、数学的な導出の複雑さを意識せずとも\nシンプルに実装できることがポイント。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#必要ライブラリの読み込み",
+    "href": "07ブラックショールズモデル.html#必要ライブラリの読み込み",
+    "title": "金融工学ノート",
+    "section": "1. 必要ライブラリの読み込み",
+    "text": "1. 必要ライブラリの読み込み\nブラック＝ショールズモデルの公式は、正規分布の累積分布関数（CDF）を使用するため、\nSciPy の stats.norm.cdf を使う。また NumPy の log, exp, sqrt も利用する。\nfrom scipy import stats\nfrom numpy import log, exp, sqrt"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#d1-d2-の計算式",
+    "href": "07ブラックショールズモデル.html#d1-d2-の計算式",
+    "title": "金融工学ノート",
+    "section": "2. D1, D2 の計算式",
+    "text": "2. D1, D2 の計算式\nブラック＝ショールズモデルでは、まず以下の 2 つの値を計算する：\n\n\\(D_1\\)\n\\(D_1 = \\frac{\\ln(S/K) + (r + \\frac{1}{2}\\sigma^2)T}{\\sigma\\sqrt{T}}\\)\n\\(D_2\\)\n\\(D_2 = D_1 - \\sigma\\sqrt{T}\\)\n\nここで\n\n\\(S\\) … 現在の株価\n\n\\(K\\) … 権利行使価格（ストライク）\n\n\\(T\\) … 残存期間（年）\n\n\\(r\\) … 無リスク金利\n\n\\(\\sigma\\) … ボラティリティ"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#コールオプション価格の実装",
+    "href": "07ブラックショールズモデル.html#コールオプション価格の実装",
+    "title": "金融工学ノート",
+    "section": "3. コールオプション価格の実装",
+    "text": "3. コールオプション価格の実装\nブラック＝ショールズのコール価格公式：\n\\(C = S\\,N(D_1)\\;-\\;K e^{-rT} N(D_2)\\)\ndef call_option_price(S, K, T, r, sigma):\n    # D1\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    # D2\n    d2 = d1 - sigma * sqrt(T)\n\n    # コールオプション価格\n    call = S * stats.norm.cdf(d1) - K * exp(-r * T) * stats.norm.cdf(d2)\n    return call"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#プットオプション価格の実装",
+    "href": "07ブラックショールズモデル.html#プットオプション価格の実装",
+    "title": "金融工学ノート",
+    "section": "4. プットオプション価格の実装",
+    "text": "4. プットオプション価格の実装\nブラック＝ショールズのプット価格公式：\n\\(P = K e^{-rT} N(-D_2)\\;-\\;S\\,N(-D_1)\\)\ndef put_option_price(S, K, T, r, sigma):\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    d2 = d1 - sigma * sqrt(T)\n\n    put = K * exp(-r * T) * stats.norm.cdf(-d2) - S * stats.norm.cdf(-d1)\n    return put"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#メイン処理実行例",
+    "href": "07ブラックショールズモデル.html#メイン処理実行例",
+    "title": "金融工学ノート",
+    "section": "5. メイン処理（実行例）",
+    "text": "5. メイン処理（実行例）\n以下の例では、ブラック＝ショールズ公式が正しく機能しているかを確認する。\nif __name__ == \"__main__\":\n    S = 100      # 現在の株価\n    K = 100      # ストライク\n    T = 1        # 残存期間（1年）\n    r = 0.05     # 金利5%\n    sigma = 0.20 # ボラティリティ20%\n\n    call = call_option_price(S, K, T, r, sigma)\n    put = put_option_price(S, K, T, r, sigma)\n\n    print(\"D1 and D2 are calculated internally.\")\n    print(f\"Black–Scholes Call Price = {call:.4f}\")\n    print(f\"Black–Scholes Put Price  = {put:.4f}\")"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#動作確認他サイトとの一致",
+    "href": "07ブラックショールズモデル.html#動作確認他サイトとの一致",
+    "title": "金融工学ノート",
+    "section": "6. 動作確認（他サイトとの一致）",
+    "text": "6. 動作確認（他サイトとの一致）\nGoodCalculators などのオンライン計算ツールで\n同じ値を計算すると次と一致する：\n\nCall ≈ 10.45\nPut ≈ 5.57\n\nこれにより、実装が正しく機能していることが確認できる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#ブラックショールズモデルが強力な理由",
+    "href": "07ブラックショールズモデル.html#ブラックショールズモデルが強力な理由",
+    "title": "金融工学ノート",
+    "section": "7. ブラック＝ショールズモデルが強力な理由",
+    "text": "7. ブラック＝ショールズモデルが強力な理由\n数学的導出は\n\n確率微分方程式 (SDE)\n\n幾何ブラウン運動\n\nIto の補題\n\nPDE（偏微分方程式）\n\nなど高度な内容が含まれるが、\n実際の実装はわずか数行で済む。\nだからこそ、実務の現場ではブラック＝ショールズは\n非常に強力で使われ続けている。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ-2",
+    "href": "07ブラックショールズモデル.html#まとめ-2",
+    "title": "金融工学ノート",
+    "section": "8. まとめ",
+    "text": "8. まとめ\n\n\\(D_1\\)、\\(D_2\\) の計算が最初のステップ\n\nSciPy により正規分布は自前実装不要\n\nPython でコール/プット価格が簡潔に実装できる\n\n複雑な数学的背景を意識せず利用可能\n\n実務的にも非常に使われる標準モデル\n\n以上がブラック＝ショールズモデルの完全な Python 実装。\n\nfrom scipy import stats\nfrom numpy import log, exp, sqrt\n\ndef call_option_price(S, K, T, r, sigma):\n    # D1\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    # D2\n    d2 = d1 - sigma * sqrt(T)\n\n    # コールオプション価格\n    call = S * stats.norm.cdf(d1) - K * exp(-r * T) * stats.norm.cdf(d2)\n    return call\n\ndef put_option_price(S, K, T, r, sigma):\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    d2 = d1 - sigma * sqrt(T)\n\n    put = K * exp(-r * T) * stats.norm.cdf(-d2) - S * stats.norm.cdf(-d1)\n    return put\n\nif __name__ == \"__main__\":\n    S = 100      # 現在の株価\n    K = 100      # ストライク\n    T = 1        # 残存期間（1年）\n    r = 0.05     # 金利5%\n    sigma = 0.20 # ボラティリティ20%\n\n    call = call_option_price(S, K, T, r, sigma)\n    put = put_option_price(S, K, T, r, sigma)\n\n    print(\"D1 and D2 are calculated internally.\")\n    print(f\"Black–Scholes Call Price = {call:.4f}\")\n    print(f\"Black–Scholes Put Price  = {put:.4f}\")\n\nD1 and D2 are calculated internally.\nBlack–Scholes Call Price = 10.4506\nBlack–Scholes Put Price  = 5.5735\n\n\n##7-9 モンテカルロシミュレーションの理論背景\nこの章では、ブラック–ショールズモデルをモンテカルロ法で数値的に解くための\n理論背景（Monte Carlo Simulation） を整理します。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#モンテカルロ法とは",
+    "href": "07ブラックショールズモデル.html#モンテカルロ法とは",
+    "title": "金融工学ノート",
+    "section": "1. モンテカルロ法とは？",
+    "text": "1. モンテカルロ法とは？\nモンテカルロ法は 1940 年代、マンハッタン計画（Los Alamos） において\n複雑すぎる核物理の問題を「確率的手法」で解くために開発された方法です。\nポイント\n- 本来は解析解の存在しない複雑な問題を\nランダムサンプリング（乱数） によって数値的に近似する手法\n- 「確率的アプローチで決定論的問題を解く」"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#例円の面積をモンテカルロで求める",
+    "href": "07ブラックショールズモデル.html#例円の面積をモンテカルロで求める",
+    "title": "金融工学ノート",
+    "section": "2. 例：円の面積をモンテカルロで求める",
+    "text": "2. 例：円の面積をモンテカルロで求める\n通常、円の面積は\n$ A = r^2 $\nで求められますが、モンテカルロ法では以下のように求められます：\n\n正方形内（\\([0, A] \\times [0, A]\\)）に乱数で点を大量に打つ\n\nそのうち「円の内部に入った点」の比率を求める\n\n\\[\n   \\text{円の面積} \\approx A^2 \\times \\frac{\\text{円の内部の点数}}{\\text{全点数}}\n   \\]\n\nπも式も不要。\n確率と乱数だけで面積を推定できる → これがモンテカルロ法の本質。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#基本原理重要",
+    "href": "07ブラックショールズモデル.html#基本原理重要",
+    "title": "金融工学ノート",
+    "section": "3. 基本原理（重要）",
+    "text": "3. 基本原理（重要）\n\n不確定な事象の結果を多数生成し、その平均で近似値を得る\n\n試行回数 \\(N\\) が大きいほど精度が高くなる\n\n少ない試行では誤差が大きくなる（大数の法則）"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#株価推定にも応用可能",
+    "href": "07ブラックショールズモデル.html#株価推定にも応用可能",
+    "title": "金融工学ノート",
+    "section": "4. 株価推定にも応用可能",
+    "text": "4. 株価推定にも応用可能\n株価は近似的に 幾何ブラウン運動（GBM） に従う：\n\\[\ndS(t) = \\mu S(t)\\,dt + \\sigma S(t)\\,dW(t)\n\\]\nよって、未来の株価を推定したいなら：\n\nランダムウォーク（GBM）を何万回もシミュレーションする\n各シミュレーションの結果を平均する\n\n→ すると「最も確率の高い株価の推移」を推定できる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#イメージ図概念",
+    "href": "07ブラックショールズモデル.html#イメージ図概念",
+    "title": "金融工学ノート",
+    "section": "5. イメージ図（概念）",
+    "text": "5. イメージ図（概念）\n1 回のシミュレーション：\n「1 本の株価パス」\n数万回のシミュレーション：\n大量のギザギザのパスが重なる\nその平均値：\n「将来株価の予測線」に相当"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#実際の流れ重要",
+    "href": "07ブラックショールズモデル.html#実際の流れ重要",
+    "title": "金融工学ノート",
+    "section": "6. 実際の流れ（重要）",
+    "text": "6. 実際の流れ（重要）\n\n初期株価 \\(S_0\\) を決める\n\n歴史データから \\(\\mu\\)（平均リターン）、\\(\\sigma\\)（ボラティリティ）を推定\n\nGBM に従って 1 回のランダムパス を生成\n\nこれを 数万回繰り返す\n\nすべてのシミュレーションの平均を取り、株価を推定する"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ-3",
+    "href": "07ブラックショールズモデル.html#まとめ-3",
+    "title": "金融工学ノート",
+    "section": "7. まとめ",
+    "text": "7. まとめ\n\nモンテカルロ法は「乱数」を使って複雑な問題を近似する方法\n\n核物理から金融まで幅広く使われている\n\n株価のモデル（GBM）は確率的なので相性が良い\n\n多数のパスを生成して平均することで、将来株価の推計ができる\n\nこの理論を使って、次の章から ブラック–ショールズモデルのモンテカルロ実装 に入ります。\n##7-10 モンテカルロ法による将来株価シミュレーション\nこの資料では、講義で説明された\n「幾何ブラウン運動（GBM）を用いた将来株価のシミュレーション」\nをコード付きでわかりやすくまとめます。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#株価モデル幾何ブラウン運動gbm",
+    "href": "07ブラックショールズモデル.html#株価モデル幾何ブラウン運動gbm",
+    "title": "金融工学ノート",
+    "section": "1. 株価モデル：幾何ブラウン運動（GBM）",
+    "text": "1. 株価モデル：幾何ブラウン運動（GBM）\n株価 \\(S(t)\\) の動きは次の確率微分方程式（SDE）で表されます。\n\\[\ndS_t = \\mu S_t\\,dt + \\sigma S_t\\,dW_t\n\\]\nここで：\n\n\\(\\mu\\)：期待リターン（平均的な上昇率）\n\\(\\sigma\\)：ボラティリティ（変動の大きさ）\n\\(W_t\\)：ウィーナー過程（ブラウン運動）\n\nこの SDE を Itô の補題で解くと、解析解は次になります。\n\\[\nS(t) = S_0 \\exp\\left[(\\mu - \\frac{1}{2}\\sigma^2)t + \\sigma W_t\\right]\n\\]\nこれを使えば、将来株価をランダムに生成できます。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#シミュレーションの考え方",
+    "href": "07ブラックショールズモデル.html#シミュレーションの考え方",
+    "title": "金融工学ノート",
+    "section": "2. シミュレーションの考え方",
+    "text": "2. シミュレーションの考え方\nモンテカルロ法では、\n\nGBM のランダムパスを何本も生成\n各パスの平均を取ることで、最も確率が高い経路を推定\n\nします。\n1本のパスは次の式で生成できます。\n\\[\nS_{t+1} = S_t \\times \\exp\\left[(\\mu - \\frac12 \\sigma^2) + \\sigma Z\\right]\n\\]\nただし\n\\(Z \\sim N(0,1)\\)（標準正規分布）"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#python実装モンテカルロ株価シミュレーション",
+    "href": "07ブラックショールズモデル.html#python実装モンテカルロ株価シミュレーション",
+    "title": "金融工学ノート",
+    "section": "3. Python実装：モンテカルロ株価シミュレーション",
+    "text": "3. Python実装：モンテカルロ株価シミュレーション\n以下は、講義内容を完全に再現した実装です。\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# --- Monte Carlo Stock Price Simulation ---\nNUM_SIMULATIONS = 1000\n\ndef stock_montecarlo(S0, mu, sigma, n_days, sims=NUM_SIMULATIONS):\n    \"\"\"\n    幾何ブラウン運動による株価のモンテカルロシミュレーション\n    S0 : 初期株価\n    mu : 平均リターン\n    sigma : ボラティリティ\n    n_days : 生成する日数\n    sims : シミュレーション回数\n    \"\"\"\n    results = []\n\n    for _ in range(sims):\n        prices = [S0]\n\n        for _ in range(n_days):\n            prev_price = prices[-1]\n\n            # 1日のGBMモデル → dt = 1 と仮定\n            next_price = prev_price * np.exp(\n                (mu - 0.5 * sigma**2) + sigma * np.random.normal(0, 1)\n            )\n            prices.append(next_price)\n\n        results.append(prices)\n\n    df = pd.DataFrame(results).T  # 列＝シミュレーション1本\n    return df\n\n\n# --- メイン処理 ---\nif __name__ == \"__main__\":\n    S0 = 50        # 初期株価\n    mu = 0.00002   # 平均リターン（小さい値）\n    sigma = 0.01   # ボラティリティ\n    n_days = 252   # 1年分の取引日数\n\n    sim_data = stock_montecarlo(S0, mu, sigma, n_days)\n\n    # すべてのパスをプロット\n    sim_data.plot(legend=False, figsize=(10,5), alpha=0.3)\n    plt.title(\"Monte Carlo Simulation of Future Stock Prices\")\n    plt.xlabel(\"Days\")\n    plt.ylabel(\"Price\")\n    plt.show()\n\n    # 平均パスを計算\n    sim_data[\"mean\"] = sim_data.mean(axis=1)\n\n    # 平均パスをプロット\n    sim_data[\"mean\"].plot(figsize=(10,5), color=\"red\", linewidth=2)\n    plt.title(\"Mean Path of Monte Carlo Simulation\")\n    plt.xlabel(\"Days\")\n    plt.ylabel(\"Price\")\n    plt.show()\n\n    # 1年後の株価予測\n    prediction = sim_data[\"mean\"].iloc[-1]\n    print(f\"Prediction for future stock price after 1 year: ${prediction:.2f}\")"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#シミュレーション結果の見方",
+    "href": "07ブラックショールズモデル.html#シミュレーション結果の見方",
+    "title": "金融工学ノート",
+    "section": "4. シミュレーション結果の見方",
+    "text": "4. シミュレーション結果の見方\n\n細い線：多数の GBM パス（ランダムな未来を表す）\n赤の太線（mean）：最も確率の高い軌道（平均パス）\n最後の値：1年後の株価予測値（統計的な推定）"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#この方法の利点と注意点",
+    "href": "07ブラックショールズモデル.html#この方法の利点と注意点",
+    "title": "金融工学ノート",
+    "section": "5. この方法の利点と注意点",
+    "text": "5. この方法の利点と注意点\n\n利点\n\n解析的に解けない問題も近似可能\n\nボラティリティを変えることでリスクシナリオを作れる\n\nBlack–Scholes の理論と整合性がある\n\n\n\n注意点\n\n平均リターンと \\(\\sigma\\) の推定に依存する\n\nあくまで確率的予測であり、保証ではない\n\nシミュレーション回数を増やすと精度は上がるが計算量が増える"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ-4",
+    "href": "07ブラックショールズモデル.html#まとめ-4",
+    "title": "金融工学ノート",
+    "section": "6. まとめ",
+    "text": "6. まとめ\n\n株価は 幾何ブラウン運動（GBM） でモデル化できる\n\nその解析解を使えば 将来株価のモンテカルロシミュレーション が可能\n\n多数のパスを生成し、平均を取ることで未来の最尤経路を推定できる\n\nPython では数十行で実装可能\n\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# --- Monte Carlo Stock Price Simulation ---\nNUM_SIMULATIONS = 1000\n\ndef stock_montecarlo(S0, mu, sigma, n_days, sims=NUM_SIMULATIONS):\n    \"\"\"\n    幾何ブラウン運動による株価のモンテカルロシミュレーション\n    S0 : 初期株価\n    mu : 平均リターン\n    sigma : ボラティリティ\n    n_days : 生成する日数\n    sims : シミュレーション回数\n    \"\"\"\n    results = []\n\n    for _ in range(sims):\n        prices = [S0]\n\n        for _ in range(n_days):\n            prev_price = prices[-1]\n\n            # 1日のGBMモデル → dt = 1 と仮定\n            next_price = prev_price * np.exp(\n                (mu - 0.5 * sigma**2) + sigma * np.random.normal(0, 1)\n            )\n            prices.append(next_price)\n\n        results.append(prices)\n\n    df = pd.DataFrame(results).T  # 列＝シミュレーション1本\n    return df\n\n\n# --- メイン処理 ---\nif __name__ == \"__main__\":\n    S0 = 50        # 初期株価\n    mu = 0.00002   # 平均リターン（小さい値）\n    sigma = 0.01   # ボラティリティ\n    n_days = 252   # 1年分の取引日数\n\n    sim_data = stock_montecarlo(S0, mu, sigma, n_days)\n\n    # すべてのパスをプロット\n    sim_data.plot(legend=False, figsize=(10,5), alpha=0.3)\n    plt.title(\"Monte Carlo Simulation of Future Stock Prices\")\n    plt.xlabel(\"Days\")\n    plt.ylabel(\"Price\")\n    plt.show()\n\n    # 平均パスを計算\n    sim_data[\"mean\"] = sim_data.mean(axis=1)\n\n    # 平均パスをプロット\n    sim_data[\"mean\"].plot(figsize=(10,5), color=\"red\", linewidth=2)\n    plt.title(\"Mean Path of Monte Carlo Simulation\")\n    plt.xlabel(\"Days\")\n    plt.ylabel(\"Price\")\n    plt.show()\n\n    # 1年後の株価予測\n    prediction = sim_data[\"mean\"].iloc[-1]\n    print(f\"Prediction for future stock price after 1 year: ${prediction:.2f}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrediction for future stock price after 1 year: $50.46\n\n\n##7-11 モンテカルロ法によるオプション価格計算の準備（理論編）\n前回は「将来の株価をモンテカルロ法で推定する方法」を説明した。\n今回の内容は オプション価格のモンテカルロ計算 に進むための理論的準備となる。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#基本アイデア将来の株価が必要",
+    "href": "07ブラックショールズモデル.html#基本アイデア将来の株価が必要",
+    "title": "金融工学ノート",
+    "section": "1. 基本アイデア：将来の株価が必要",
+    "text": "1. 基本アイデア：将来の株価が必要\nオプション価格は、将来の株価に依存する。\n\nコール：\\(\\max(S_T - K, 0)\\)\n\nプット：\\(\\max(K - S_T, 0)\\)\n\nここで \\(S_T\\) は 満期 \\(T\\) の株価。\n➡️ よって Monte Carlo Simulation で \\(S_T\\) を大量に生成する必要がある。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#株価のモデル幾何ブラウン運動gbm",
+    "href": "07ブラックショールズモデル.html#株価のモデル幾何ブラウン運動gbm",
+    "title": "金融工学ノート",
+    "section": "2. 株価のモデル：幾何ブラウン運動（GBM）",
+    "text": "2. 株価のモデル：幾何ブラウン運動（GBM）\n株価は次の 確率微分方程式（SDE） に従うと仮定：\n\\[\ndS_t = \\mu S_t\\,dt + \\sigma S_t\\,dW_t\n\\]\nこの解は 指数関数（ログ正規分布） になり：\n\\[\nS_T = S_0 \\exp\\!\\left[\n\\left( \\mu - \\frac12\\sigma^2 \\right)T\n+ \\sigma \\sqrt{T} Z\n\\right]\n\\]\nここで \\(Z \\sim N(0,1)\\)。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#リスク中立化mu-を-r-に置き換える",
+    "href": "07ブラックショールズモデル.html#リスク中立化mu-を-r-に置き換える",
+    "title": "金融工学ノート",
+    "section": "3. リスク中立化：\\(\\mu\\) を \\(r\\) に置き換える",
+    "text": "3. リスク中立化：\\(\\mu\\) を \\(r\\) に置き換える\nブラック–ショールズの考え方では、\n\n現実世界の平均リターン \\(\\mu\\)\n（企業成長、投資家期待など）\n\nではなく、\n\nリスクフリーレート \\(r\\)\n\nを使う必要がある（リスク中立測度）。\n従って、計算に使う式は：\n\\[\nS_T = S_0 \\exp\\!\\left[\n\\left( r - \\frac12\\sigma^2 \\right)T\n+ \\sigma \\sqrt{T} Z\n\\right]\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#monte-carlo-でやること",
+    "href": "07ブラックショールズモデル.html#monte-carlo-でやること",
+    "title": "金融工学ノート",
+    "section": "4. Monte Carlo でやること",
+    "text": "4. Monte Carlo でやること\n満期における株価 \\(S_T\\) を多数生成する：\nfor i in range(N_simulations):\n    Z = 標準正規乱数\n    S_T[i] = S0 * exp((r - 0.5σ²)T + σ√T Z)\n\n● コールオプション\n\\[\n\\text{Payoff}_i = \\max(S_T^{(i)} - K,\\; 0)\n\\]\n\n\n● プットオプション\n\\[\n\\text{Payoff}_i = \\max(K - S_T^{(i)},\\; 0)\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#割引して現在価値にする",
+    "href": "07ブラックショールズモデル.html#割引して現在価値にする",
+    "title": "金融工学ノート",
+    "section": "5. 割引して現在価値にする",
+    "text": "5. 割引して現在価値にする\n未来のキャッシュフローを現在価値へ割り引く：\n\\[\nC_0 = e^{-rT} \\cdot \\frac{1}{N}\\sum_{i=1}^N \\text{Payoff}_i\n\\]\n➡ これが Monte Carlo によるオプション価格。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#なぜ-monte-carlo-が必要か",
+    "href": "07ブラックショールズモデル.html#なぜ-monte-carlo-が必要か",
+    "title": "金融工学ノート",
+    "section": "6. なぜ Monte Carlo が必要か？",
+    "text": "6. なぜ Monte Carlo が必要か？\n\nブラック–ショールズ解析解が使えないケースに対応（例：アメリカンオプション）\nペイオフが非線形でも問題なし\nパス依存型（Asian, Barrier, Lookback など）にも適用可能\n\n→ 複雑な条件付きデリバティブでは Monte Carlo が標準ツール"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#まとめ-5",
+    "href": "07ブラックショールズモデル.html#まとめ-5",
+    "title": "金融工学ノート",
+    "section": "まとめ",
+    "text": "まとめ\n\n株価は GBM（幾何ブラウン運動） でモデル化される\n\nリスク中立測度では 平均リターン \\(\\mu\\) → 金利 \\(r\\) に置換\n\nMonte Carlo で大量の \\(S_T\\) を生成\n\nペイオフを計算し、割引平均して 現在価値＝オプション価格 を得る\n\n##7-12 Monte Carlo によるコールオプション価格シミュレーション（Python実装）\nこの章では、講義で説明された Monte Carlo を使ったオプション価格計算 を\nPython クラスとして実装します。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#モデル式gbm-の解析解",
+    "href": "07ブラックショールズモデル.html#モデル式gbm-の解析解",
+    "title": "金融工学ノート",
+    "section": "1. モデル式（GBM の解析解）",
+    "text": "1. モデル式（GBM の解析解）\nMonte Carlo では幾何ブラウン運動（GBM）の解析解を使って満期株価 \\(S_T\\) を生成します：\n\\[\nS_T = S_0 \\exp\\left( (r - 0.5\\sigma^2)T + \\sigma\\sqrt{T}\\,Z \\right),\n\\quad Z\\sim N(0,1)\n\\]\n\n\\(S_0\\)：初期株価\n\n\\(r\\)：無リスク金利（リスク中立測度のドリフト）\n\n\\(\\sigma\\)：ボラティリティ\n\n\\(T\\)：満期\n\n\\(Z\\)：標準正規乱数"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#コールオプションの-payoff",
+    "href": "07ブラックショールズモデル.html#コールオプションの-payoff",
+    "title": "金融工学ノート",
+    "section": "2. コールオプションの payoff",
+    "text": "2. コールオプションの payoff\nコールオプションの場合：\n\\[\n\\text{Payoff} = \\max(S_T - K,\\;0)\n\\]"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#現在価値へ割引",
+    "href": "07ブラックショールズモデル.html#現在価値へ割引",
+    "title": "金融工学ノート",
+    "section": "3. 現在価値へ割引",
+    "text": "3. 現在価値へ割引\n未来の payoff を現在価値に変換：\n\\[\nC_0 = e^{-rT} \\cdot \\mathbb{E}[\\text{Payoff}]\n\\]\nMonte Carlo では\n多数のパスを生成 → payoff の平均 → 割引\nで求める。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#python-実装クラスベース",
+    "href": "07ブラックショールズモデル.html#python-実装クラスベース",
+    "title": "金融工学ノート",
+    "section": "4. Python 実装（クラスベース）",
+    "text": "4. Python 実装（クラスベース）\nimport numpy as np\n\nclass OptionPricingMonteCarlo:\n\n    def __init__(self, S0, K, T, r, sigma, iterations):\n        \"\"\"\n        Monte Carlo 法によるオプション価格計算クラス\n        S0 : 初期株価\n        K  : 標準価格（ストライク）\n        T  : 満期（年）\n        r  : 無リスク金利\n        sigma : ボラティリティ\n        iterations : シミュレーション回数\n        \"\"\"\n        self.S0 = S0\n        self.K = K\n        self.T = T\n        self.r = r\n        self.sigma = sigma\n        self.iterations = iterations\n\n    def call_option_simulation(self):\n        \"\"\"\n        Monte Carlo によるコールオプション価格の近似\n        \"\"\"\n\n        # --- 1. 標準正規乱数（Z） ---\n        Z = np.random.normal(0, 1, self.iterations)\n\n        # --- 2. GBM による満期株価 S_T ---\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # --- 3. payoff = max(S_T - K, 0) ---\n        payoff = np.maximum(S_T - self.K, 0)\n\n        # --- 4. 平均値 ---\n        payoff_mean = payoff.mean()\n\n        # --- 5. 割引（現在価値） ---\n        call_price = np.exp(-self.r * self.T) * payoff_mean\n\n        return call_price\n##5 実装例\nif __name__ == \"__main__\":\n    model = OptionPricingMonteCarlo(\n        S0=100,     # 株価\n        K=100,      # 標準価格\n        T=1,        # 1年\n        r=0.05,     # 無リスク金利 5%\n        sigma=0.2,  # ボラティリティ 20%\n        iterations=1000\n    )\n\n    price = model.call_option_simulation()\n    print(\"Call Option Price (Monte Carlo):\", price)\n##6まとめ - 株価は 幾何ブラウン運動（GBM） でモデル化できる\n- リスク中立測度ではドリフトは \\(\\mu\\) ではなく \\(r\\) に置き換える\n- Monte Carlo 法では \\(S_T\\) を大量生成して payoff を平均する\n- 割引して現在価値にすることで オプション価格 が得られる\n\nimport numpy as np\n\nclass OptionPricingMonteCarlo:\n\n    def __init__(self, S0, K, T, r, sigma, iterations):\n        \"\"\"\n        Monte Carlo 法によるオプション価格計算クラス\n        S0 : 初期株価\n        K  : 標準価格（ストライク）\n        T  : 満期（年）\n        r  : 無リスク金利\n        sigma : ボラティリティ\n        iterations : シミュレーション回数\n        \"\"\"\n        self.S0 = S0\n        self.K = K\n        self.T = T\n        self.r = r\n        self.sigma = sigma\n        self.iterations = iterations\n\n    def call_option_simulation(self):\n        \"\"\"\n        Monte Carlo によるコールオプション価格の近似\n        \"\"\"\n\n        # --- 1. 標準正規乱数（Z） ---\n        Z = np.random.normal(0, 1, self.iterations)\n\n        # --- 2. GBM による満期株価 S_T ---\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # --- 3. payoff = max(S_T - K, 0) ---\n        payoff = np.maximum(S_T - self.K, 0)\n\n        # --- 4. 平均値 ---\n        payoff_mean = payoff.mean()\n\n        # --- 5. 割引（現在価値） ---\n        call_price = np.exp(-self.r * self.T) * payoff_mean\n\n        return call_price\nif __name__ == \"__main__\":\n    model = OptionPricingMonteCarlo(\n        S0=100,     # 株価\n        K=100,      # 標準価格\n        T=1,        # 1年\n        r=0.05,     # 無リスク金利 5%\n        sigma=0.2,  # ボラティリティ 20%\n        iterations=1000\n    )\n\n    price = model.call_option_simulation()\n    print(\"Call Option Price (Monte Carlo):\", price)\n\nCall Option Price (Monte Carlo): 10.469311701740208\n\n\n##7-13 Monte Carlo によるプットオプション価格計算\n前回は コールオプション価格 を Monte Carlo 法で計算したが、\n今回は プットオプション価格 を同じ要領で計算する。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#コールとプットの違い",
+    "href": "07ブラックショールズモデル.html#コールとプットの違い",
+    "title": "金融工学ノート",
+    "section": "1. コールとプットの違い",
+    "text": "1. コールとプットの違い\nコールオプション\n\\[\\text{Payoff} = \\max(S_T - K,\\;0)\\]\nプットオプション\n\\[\\text{Payoff} = \\max(K - S_T,\\;0)\\]\n違いは \\(S_T - K\\) を使うか、\\(K - S_T\\) を使うか のみ。"
+  },
+  {
+    "objectID": "07ブラックショールズモデル.html#python-実装クラス構造",
+    "href": "07ブラックショールズモデル.html#python-実装クラス構造",
+    "title": "金融工学ノート",
+    "section": "2. Python 実装（クラス構造）",
+    "text": "2. Python 実装（クラス構造）\n下記は前回のクラスをベースにし、\nput_option_simulation() を追加した完全版コード。\nimport numpy as np\n\nclass OptionPricing:\n    def __init__(self, S0, K, T, r, sigma, iterations):\n        self.S0 = S0          # 初期株価\n        self.K = K            # ストライク\n        self.T = T            # 満期\n        self.r = r            # 無リスク金利\n        self.sigma = sigma    # ボラティリティ\n        self.iter = iterations\n\n    # --- コールオプション ---\n    def call_option_simulation(self):\n        # 標準正規乱数\n        Z = np.random.normal(0, 1, self.iter)\n\n        # GBM による S_T の生成\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # コールのペイオフ\n        payoff = np.maximum(S_T - self.K, 0)\n\n        # 割引して現在価値へ\n        price = np.exp(-self.r * self.T) * np.mean(payoff)\n        return price\n\n    # --- プットオプション ---\n    def put_option_simulation(self):\n        # 標準正規乱数\n        Z = np.random.normal(0, 1, self.iter)\n\n        # 将来株価 S_T を生成\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # プットのペイオフ（唯一の違い）\n        payoff = np.maximum(self.K - S_T, 0)\n\n        # 現在価値に割引\n        price = np.exp(-self.r * self.T) * np.mean(payoff)\n        return price\n\n\n# --- メイン処理 ---\nif __name__ == \"__main__\":\n    model = OptionPricing(\n        S0=100,     # 初期株価\n        K=100,      # ストライク\n        T=1,        # 満期1年\n        r=0.05,     # 無リスク金利 5%\n        sigma=0.2,  # ボラティリティ\n        iterations=10000  # シミュレーション回数\n    )\n\n    call_price = model.call_option_simulation()\n    put_price = model.put_option_simulation()\n\n    print(f\"Call Option Price  = ${call_price:.2f}\")\n    print(f\"Put Option Price   = ${put_price:.2f}\")\n##3 出力例（典型値）\nCall Option Price = 10.05\nPut Option Price = 5.40\n（※ シミュレーション回数を増やすとさらに精度が向上する）\n\n##4 まとめ\n\nコールとプットの違いは ペイオフ関数のみ\nGBM（幾何ブラウン運動）の株価モデル式：\n\n\\[\nS_T = S_0 \\exp\\left[(r - \\tfrac{1}{2}\\sigma^2)T + \\sigma\\sqrt{T}\\,Z\\right]\n\\]\n\nMonte Carlo では大量の \\(S_T\\) を生成\n\nペイオフを平均し、最後に \\(e^{-rT}\\) で割り引く → 現在価値 = オプション価格\n\n\nimport numpy as np\n\nclass OptionPricing:\n    def __init__(self, S0, K, T, r, sigma, iterations):\n        self.S0 = S0          # 初期株価\n        self.K = K            # ストライク\n        self.T = T            # 満期\n        self.r = r            # 無リスク金利\n        self.sigma = sigma    # ボラティリティ\n        self.iter = iterations\n\n    # --- コールオプション ---\n    def call_option_simulation(self):\n        # 標準正規乱数\n        Z = np.random.normal(0, 1, self.iter)\n\n        # GBM による S_T の生成\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # コールのペイオフ\n        payoff = np.maximum(S_T - self.K, 0)\n\n        # 割引して現在価値へ\n        price = np.exp(-self.r * self.T) * np.mean(payoff)\n        return price\n\n    # --- プットオプション ---\n    def put_option_simulation(self):\n        # 標準正規乱数\n        Z = np.random.normal(0, 1, self.iter)\n\n        # 将来株価 S_T を生成\n        S_T = self.S0 * np.exp(\n            (self.r - 0.5 * self.sigma**2) * self.T\n            + self.sigma * np.sqrt(self.T) * Z\n        )\n\n        # プットのペイオフ（唯一の違い）\n        payoff = np.maximum(self.K - S_T, 0)\n\n        # 現在価値に割引\n        price = np.exp(-self.r * self.T) * np.mean(payoff)\n        return price\n\n\n# --- メイン処理 ---\nif __name__ == \"__main__\":\n    model = OptionPricing(\n        S0=100,     # 初期株価\n        K=100,      # ストライク\n        T=1,        # 満期1年\n        r=0.05,     # 無リスク金利 5%\n        sigma=0.2,  # ボラティリティ\n        iterations=10000  # シミュレーション回数\n    )\n\n    call_price = model.call_option_simulation()\n    put_price = model.put_option_simulation()\n\n    print(f\"Call Option Price  = ${call_price:.2f}\")\n    print(f\"Put Option Price   = ${put_price:.2f}\")\n\nCall Option Price  = $10.66\nPut Option Price   = $5.43"
+  },
+  {
+    "objectID": "05デリバティブ.html",
+    "href": "05デリバティブ.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#5 デリバティブ\n##5-1 デリバティブ入門：基礎と種類\n\nデリバティブとは？\n\n定義：価格が 原資産（Underlying Asset） に依存する金融商品\n\n原資産の例：株式、債券、通貨、金利、商品（原油など）\n価格決定要因：原資産の価格変動（確率的 → 確率微分方程式が必要）\n\n\n\n\nデリバティブの目的\n\nリスクヘッジ\n\n例：航空会社は燃料費（原油価格）の変動リスクを軽減するためにデリバティブを利用\n\n将来の価格をあらかじめ固定 → 経営の安定化\n保険のように「リスクを回避」\n\n投機（スペキュレーション）\n\n将来の価格変動を予測して利益を狙う\n例：原油価格が上昇すると予想 → 先に契約して将来安く買い、高く売ることで利益獲得\n\n\n\n\n\nデリバティブの代表的な種類\n\nフォワード契約 (Forward Contracts)\n\n2者間で将来、特定の価格で資産を売買する契約\n\n規制なし、非標準化 → 取引所に上場されない\n\n例：航空会社と石油会社が結ぶ長期燃料契約\n\n先物契約 (Futures Contracts)\n\nフォワードと同様だが、規制・標準化 されており、取引所で取引可能\n\nスワップ (Swaps)\n\n将来のキャッシュフローを交換する契約\n\n例：金利スワップ（固定金利と変動金利の交換）\n\nオプション (Options)\n\n「権利」だが「義務」ではない\n\n特定の価格で将来、原資産を売買できる権利\n\nフォワードとの違い：オプションは行使するかどうかを選べる\n\n\n\n\n\nまとめ\n\nデリバティブは原資産価格に依存する金融商品\n\n主な用途は「リスク回避（ヘッジ）」と「利益追求（投機）」\n\n種類：フォワード、先物、スワップ、オプション\n\n今後は ブラック–ショールズモデル を通じて、オプション評価を中心に解説する\n\n##5-2 フォワード契約と先物契約\n\n\n共通点\n\n双方とも「将来の特定時点に、あらかじめ決めた価格で資産を売買する契約」\n目的：将来の価格変動リスクを回避（ヘッジ）\n\n\n\n\nフォワード契約 (Forwards)\n\n特徴\n\n当事者同士の 私的な契約\n非標準化・非規制 → 取引所では取引されない\n第三者の保証がない → 相手方が契約を履行しないリスク（信用リスク） が存在\n\n\n\n\n\n先物契約 (Futures)\n\n特徴\n\n内容はフォワード契約とほぼ同じ\nただし 標準化・規制 され、取引所で売買可能\n清算機関（取引所）が間に入り、契約履行を保証 → 信用リスクが低い\n\n\n\n\n\n具体例\n\n状況\n\nTom：IBM株 5,000株保有（株価 = $50）\n\n将来の値下がりを懸念\n\nBob：株価上昇を予想し、買いのポジションを取りたい\n\n契約\n\n1年後、BobがTomから 1株あたり$50 で5,000株を購入する先物契約を締結\n\n結果シナリオ\n\n株価下落：Tomは価格下落リスクを回避し、$50で売却できる\n\n株価上昇：Bobは$50で買って市場で高値で売却 → 利益を獲得\n\n\n\n\n\nまとめ\n\nフォワードと先物の基本的な仕組みは同じ\n\n違いは「規制・標準化」「取引所の有無」「信用リスクの有無」\n\n先物はヘッジにも投機にも広く利用される強力な金融商品\n\n##5-3 スワップ（Swaps）と金利スワップ\n\n\nスワップとは\n\n2者間で 将来のキャッシュフローを交換する金融派生商品\n最初のスワップ取引は1980年代初頭、IBMと世界銀行の間で誕生\n主な種類：\n\n金利スワップ（Interest Rate Swap） ← 最も基本的で一般的\n通貨スワップ（Currency Swap）：異なる通貨建ての元本＋利息を交換\nクレジット・デフォルト・スワップ（CDS）：債務不履行時に保証（2008年金融危機で重要な役割）\n\n\n\n\n\n金利スワップの目的\n\n市場金利は常に変動し、借入コストに影響する\n固定金利：返済額が一定\n\n変動金利（例：LIBOR連動）：市場金利の上下で返済額が変動 → リスク大\n\n金利スワップにより、当事者同士のニーズを調整して 支払条件を有利に変換\n\n\n\n\n具体例\n\n会社A：信用度が高い\n\n固定金利で6%で借入可能\n\nまたは変動金利（= LIBOR）で借入可能\n\n→ 実際は 変動金利を希望\n\n会社B：信用度が低い\n\n固定金利で9%で借入可能\n\n変動金利だと LIBOR + 1%\n\n→ 実際は 固定金利を希望\n\n投資銀行：スワップを仲介し手数料を得る\n\n\n\n\nスワップの仕組み\n\n会社B と 投資銀行\n\n投資銀行 → Bに LIBORを支払う\n\nB → 投資銀行に 7.5%支払う\n\nB → 銀行に LIBOR + 1%支払う\n\n→ 実質支払い = 7.5% + 1% = 8.5%\n（銀行の提示9%より有利）\n会社A と 投資銀行\n\nA → 投資銀行に LIBOR支払う\n\n投資銀行 → Aに 7%支払う\n\nA → 銀行に 固定6%支払う\n\n→ 実質負担 = LIBOR - 1%\n（直接借入より1%有利）\n投資銀行\n\nAから受け取ったLIBORをBへ渡す\n\n差額 (7.5% - 7% = 0.5%) が収益\n\n\n\n\n\nメリット\n\n会社A：LIBOR → LIBOR - 1% へ改善（1%得）\n\n会社B：固定9% → 実質8.5%に改善（0.5%得）\n\n投資銀行：差額で 0.5%の利益\n\n\n\n\nまとめ\n\n金利スワップは「固定金利を支払いたい企業」と「変動金利を支払いたい企業」の利害を調整し、投資銀行が仲介して全員が得をする仕組み。\n\n1980年代に広まり、現在も企業のリスク管理や資金調達に欠かせない金融手段。\n\n##5-4 クレジット・デフォルト・スワップ (CDS)\n\n\nCDSとは？\n\n定義：債務不履行（デフォルト）が起きた場合に、投資家（CDSの買い手）を補償する金融派生商品\n仕組み：\n\nCDS買い手 → 定期的にプレミアム（保険料のような支払い）を行う\n\nCDS売り手 → 万一、債券発行会社がデフォルトした場合、元本や利息を補償する\n\n\n\n\n\n背景\n\n企業は資金調達のために 社債（Bonds） を発行\n\n投資家（企業・年金基金など）は社債を購入 → 利息収入を得る\n\nリスク：発行企業が倒産・債務不履行に陥る可能性\n\n\n\n\nCDSの役割\n\n投資家は「債務不履行リスク」に備えるためにCDSを購入\n\n保険のような仕組み：\n\n通常時：投資家 → 投資銀行（CDS売り手）へ定期的に支払い\n\nデフォルト時：投資銀行（CDS売り手） → 投資家へ補償金を支払い\n\n\n\n\n\n関係者の役割\n\n債券発行会社（Borrower）\n\n資金を得るために債券を発行\n利息と元本を返済する義務がある\n\n投資家（Investor, CDS Buyer）\n\n債券を購入し利息収入を得る\n\nデフォルトを懸念しCDSを購入\n\n投資銀行（CDS Seller）\n\nCDSを販売してプレミアム収入を得る\n\nデフォルトが発生した場合は補償を行う\n\n\n\n\n\nメリット\n\n投資家：デフォルトリスクを移転できる（保険効果）\n\n投資銀行：デフォルト確率が低いと見込み、プレミアム収入を獲得\n\n市場全体：信用リスクを「取引可能な商品」に変換できる\n\n\n\n\n問題点\n\nCDSが大量に取引されると、システミックリスクが拡大\n\n2008年金融危機では、CDSが過度に利用され危機を深刻化させた\n\n信用格付機関（S&P, Moody’s など）の評価が投資判断に大きな影響\n\n\n\n\nまとめ\n\nCDSは「社債の信用リスクを保険化」する金融商品\n\n投資家はリスクを減らし、銀行はプレミアムで利益を得る\n\n2008年金融危機で注目を浴びた重要なデリバティブの1つ\n\n##5-5 オプション（Options）\n\n\n定義\n\nオプションとは：\n\n将来のある時点で、あらかじめ決められた価格で資産を売買する「権利」を与える金融派生商品\n\nただし 義務はない（取引するかどうかはホルダーの自由）\n\n\n\n\n\n先物（Futures）との違い\n\n先物契約：\n\n将来、決められた価格で「必ず」売買する義務\n例：航空会社が原油先物を購入 → 必ず指定日に買わなければならない\n\nオプション：\n\n売買する「権利」を持つが、行使するかどうかは自由\n不利なときは放棄可能\n\n\n👉 義務があるかどうかが最大の違い\n\n\n\nオプション取引の仕組み（例：Apple株）\n\n時刻 \\(t=0\\) でオプションを購入（プレミアムを支払う）\n満期 \\(T\\) で株価を確認\n\n株価が 上昇していれば：安く買って高く売れる → 利益\n株価が 下落していれば：権利を放棄 → 損失はオプション料のみ\n\n\n\n\n\nメリット\n\n利益を狙える：有利な場合のみ権利を行使できる\n損失限定：最大損失はオプション料（プレミアム）に限定される\n\n\n\n\nオプション価格の課題\n\nオプションの価値は 基礎資産（株価など）の変動に依存\n株価は常に変動するため、オプション価格も変動\n→ 数理モデル（ブラック＝ショールズモデル）で価格を算出する必要がある\n\n\n\n\n今後の流れ\n\nコールオプション と プットオプション の違いを解説\nその後、ブラック＝ショールズモデルでオプション価格の理論を学ぶ\n\n##5-6 コールオプション (Call Option)\n\n\n定義\n\nコールオプション：将来、あらかじめ決められた価格で「株式を買う権利」\n原資産（Underlying Asset）：通常は株式\n義務はなく、行使するかどうかは投資家が決められる\n\n\n\n\n主要なパラメータ\n\nE (Exercise Price / Strike Price)\n行使価格。例：30ドル\n\nT (Expiry / Maturity)\n満期。例：1か月後\n\nS (Stock Price)\n株価。例：今日のIBM株 = 25ドル\n\nV (Value of Option)\nコールオプションの価格\n\n\n\n\n利用の目的\n\n株価が 上昇する と予想するときに購入する\n\n株価が上昇すれば、低い行使価格で株を買い、市場価格で売却 → 利益獲得\n\n株価が行使価格を下回る場合は権利を行使せず、損失はプレミアムに限定\n\n\n\n\n満期時点での価値\nコールオプションの価値は次の式で表される：\n\\[\nV_T = \\max(S_T - E, \\; 0)\n\\]\n\n\\(S_T\\)：満期時の株価\n\n\\(E\\)：行使価格\n\n\n\n\nペイオフ図（Payoff Diagram）\n\n横軸：株価 \\(S_T\\)\n\n縦軸：オプション価値 \\(V_T\\)\n\n特徴：\n\n\\(S_T &lt; E\\) のとき → \\(V_T = 0\\)（権利を行使しない）\n\n\\(S_T \\geq E\\) のとき → \\(V_T = S_T - E\\)（利益発生）\n\n初期コスト（オプション料）を考慮すると、最初はマイナスからスタート\n\n\n\n\n\nまとめ\n\nコールオプション = 株を買う権利\n株価が行使価格を超えると利益が発生\n\n満期時は簡単な式で評価可能\n\n満期前の価格計算には ブラック=ショールズモデル が必要\n\n##5-7 プットオプション (Put Option)\n\n\n定義\n\nプットオプション：将来、あらかじめ決められた価格で「株式を売る権利」\nコールオプション：将来、あらかじめ決められた価格で「株式を買う権利」\n注意：権利のみで義務はない\n\n\n\n\n主要なパラメータ\n\nE (Exercise Price / Strike Price)\n行使価格。例：25ドル\n\nT (Expiry / Maturity)\n満期。例：1か月後\n\nS (Stock Price)\n株価。例：今日のIBM株 = 25ドル\n\nV (Value of Option)\nプットオプションの価格\n\n\n\n\n利用の目的\n\n株価が 下落する と予想するときに購入する\n\n株価が行使価格を下回れば、権利を行使して高値で売却 → 利益獲得\n\n株価が行使価格を上回れば権利を放棄、損失はプレミアムに限定\n\n\n\n\n満期時点での価値\nプットオプションの価値は次の式で表される：\n\\[\nV_T = \\max(E - S_T, \\; 0)\n\\]\n\n\\(S_T\\)：満期時の株価\n\n\\(E\\)：行使価格\n\n\n\n\nペイオフ図（Payoff Diagram）\n\n横軸：株価 \\(S_T\\)\n\n縦軸：オプション価値 \\(V_T\\)\n\n特徴：\n\n\\(S_T &gt; E\\) のとき → \\(V_T = 0\\)（権利を行使しない）\n\n\\(S_T \\leq E\\) のとき → \\(V_T = E - S_T\\)（利益発生）\n\n初期コスト（オプション料）を考慮すると、最初はマイナスからスタート\n\n\n\n\n\nまとめ\n\nプットオプション = 株を売る権利\n株価が行使価格を下回ると利益が発生\n\n満期時は簡単な式で評価可能\n\n満期前の価格計算には ブラック=ショールズモデル が必要\n\n##5-8 アメリカンオプションとヨーロピアンオプション\n\n\nアメリカンオプション (American Option)\n\n満期日 以前の任意の時点で行使可能\n柔軟性が高い\n例：株価が有利に動いた時点で即行使できる\n\n\n\n\nヨーロピアンオプション (European Option)\n\n満期日 (T) にのみ行使可能\nより単純でモデル化しやすい\nブラック=ショールズモデルは ヨーロピアンオプションを前提\n\n\n\n\nまとめ\n\nアメリカン: 「いつでも行使できる」\n\nヨーロピアン: 「満期日にしか行使できない」\n\n数理モデル上はヨーロピアンの方が扱いやすい\n\n実務上はアメリカンの方が柔軟だが、評価が難しい"
+  },
+  {
+    "objectID": "03ポートフォリオ理論.html",
+    "href": "03ポートフォリオ理論.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#3 現代ポートフォリオ理論\n##3-1 統計的基礎：期待値・分散・共分散・相関\n\n期待値（Expected Value / Mean）\n\n平均的な結果を表す。\n式： \\[E[X] = \\sum_i x_i p_i\\]\n例：\n\nサイコロ：期待値 = 3.5\nルーレット：期待値 &lt; 0（長期的には損をする）\n\n\n\n\n\n分散（Variance）と標準偏差（Stdard Deviation）\n\nデータの散らばりを表す。\n式： \\[Var(X) = E[(X-\\mu)^2]\\]\n標準偏差 = 分散の平方根。\n\n\n\n\n共分散（Covariance）\n\n2変数の一緒の動きを測る。\n式： \\[Cov(X,Y) = E[(X-\\mu_X)(Y-\\mu_Y)]\\]\n問題点：次元依存・比較が困難。\n\n\n\n\n相関（Correlation）\n\n共分散を標準偏差で正規化。\n値域：[-1, +1]\n\n+1 → 正の相関\n-1 → 負の相関\n0 → 無相関\n\nポートフォリオ最適化では「相関が小さい銘柄の組み合わせ」が有効。\n\n##3-2 モダン・ポートフォリオ理論（Markowitz Model）\n\n\n概要\n\nHarry Markowitz（1952年提唱, ノーベル賞受賞）。\n複数資産の組合せによるポートフォリオ最適化モデル。\n目的：効率的ポートフォリオを構築し、リスクを抑えつつリターンを最大化。\n\n\n\n\n基本的考え方\n\n単一銘柄投資は高リスク。\n複数資産を組み合わせることでリスクを分散（Diversification）。\n相関が低い資産を組み合わせるとリスクがさらに低減。\n\n\n\n\n前提条件\n\nリターンは正規分布に従う。\n投資家はリスク回避的（高リターンなら高リスクを取る）。\n\n\n\n\n効率的ポートフォリオ（Efficient Portfolio）\n\n与えられたリスクで最大リターン。\nまたは、与えられたリターンで最小リスク。\n投資家は自分のリスク許容度に応じて最適な組合せを選択可能。\n\n\n👉 MPTの核心は「分散投資」。\n👉 次は「ポートフォリオのリターンとリスクの定式化（数式表現）」に進む。\n##3-3 MPTの数式定式化（基礎）\n\n\nポートフォリオの前提\n\nショートポジション禁止（全てロング）。\n投資比率（weights）は非負で合計1。\n投資資産 = 株式（例：Apple, Google, Tesla, GE）。\n\n例： - \\(w = [0.2, 0.3, 0.25, 0.25],  Σw = 1.0\\)\n\n\n\n基本パラメータ\n\n\\(w_i\\) = 資産iの投資比率\n\\(r_i\\) = 資産iのリターン（過去データから算出）\n\\(E[r_i]\\) = 資産iの期待リターン（平均）\n\n\n\n\nリターンの定義\n\n通常リターン \\[\nr_t = \\frac{S_{t+1} - S_t}{S_t}\n\\]\n\n株価の変化率。\n\n対数リターン \\[\nr_t = \\ln\\left(\\frac{S_{t+1}}{S_t}\\right)\n\\]\n\n数学的に便利、正規化や機械学習で広く利用。\n\n\n\n\n\n重要点\n\nWeights + Returns + Expected Return がポートフォリオ数式の基礎。\nリターン計算では対数リターンを使う方が一般的。\n次は「ポートフォリオ期待リターンの計算」に進む。\n\n##3-4 ポートフォリオの期待リターン\n\n\n前提\n\nMPTでは「平均リターン」と「分散」を用いて効率的ポートフォリオを求める。\n過去の平均リターンを将来の推定値とみなす。\n\n\n\n\n定義\n\n\\(w_i\\) = 資産iの投資比率（weights）\n\\(r_i\\) = 資産iのリターン\n\\(μ_i = E[r_i]\\)（資産iの期待リターン）\n\n\n\n\n数式\nポートフォリオの期待リターン： \\[\nE[R_p] = \\sum_i w_i \\, μ_i\n\\]\n行列形式： \\[\nE[R_p] = w^T μ\n\\]\n\n\n\nポイント\n\n期待リターンは「各資産の期待リターン × 投資比率」の加重平均。\nウェイトベクトル w の合計は 1。\n次は「ポートフォリオのリスク（分散・共分散行列）」に進む。\n\n##3-5 ポートフォリオのリスク\n\n\n共分散\n\n2資産のリターンの連動性を表す。\nCov &lt; 0 → 逆相関（リスク低減に有効）。\nCov &gt; 0 → 同方向に動く（分散効果が小さい）。\n\n\n\n共分散行列 Σ\n\n対角要素：各銘柄の分散 Var(Ri)\n非対角要素：銘柄間の共分散 Cov(Ri, Rj)\n対称行列。\n\n\n\nポートフォリオ分散\n\\[\n\\sigma_p^2 = w^T \\Sigma w\n\\]\n\n\n標準偏差（リスク）\n\\[\n\\sigma_p = \\sqrt{w^T \\Sigma w}\n\\]\n\n\n\nポイント\n\n分散（リスク）は銘柄間の共分散も含めて計算される。\n相関が低い資産を組み合わせることでリスクを下げられる。\nMPTの目的は「リスク最小でリターン最大」の効率的ポートフォリオを見つけること。\n\n##3-6 効率的フロンティア\n\n横軸：リスク（標準偏差・分散）\n縦軸：リターン（期待収益率）\n各点：異なるウェイトのポートフォリオ\n\n\n\n効率的フロンティアとは\n\n同じリスクでより高いリターンを得られるポートフォリオ\n同じリターンでより低いリスクを持つポートフォリオ\n最適なポートフォリオの集合が「フロンティア」を形成する\n\n\n\n投資家の選択\n\nリスクを抑えるなら → 低リスク・低リターン側\n高いリターンを狙うなら → 高リスク・高リターン側\n自分のリスク許容度に応じてフロンティア上から選択\n\n\n\n結論\n\n収益を得るには必ずリスクを取る必要がある\nMPTは「リスクとリターンのバランスを最適化する」ための理論\n\n##3-7 Python実装：シャープレシオによる投資評価\n\n\n特徴\n\n投資のリスクとリターンを同時に評価できる指標。\n期待リターンから無リスク利子率を引き、リスク（標準偏差）で割った値。\n値が大きいほど投資効率が良い。\n\n\n\n\n数式\nSharpe Ratio = (期待リターン - 無リスク利子率) / 標準偏差\n\n期待リターン : 投資やポートフォリオの平均リターン\n無リスク利子率 : 国債や銀行預金などの利回り\n標準偏差 : リターンの変動（リスクの大きさ）\n\n\n\n\n解釈の目安\n\nSharpe Ratio &gt; 1 : 良い投資\nSharpe Ratio &gt; 2 : とても良い投資\nSharpe Ratio &gt; 3 : 優れた投資（例：ウォーレン・バフェットの投資）\n\n\n\n\nPython実装例\n\ndef sharpe_ratio(returns, risk_free_rate):\n    \"\"\"\n    returns: 投資リターンのリスト（例: [0.05, 0.07, 0.02]）\n    risk_free_rate: 無リスク利子率（例: 0.01 = 1%）\n    \"\"\"\n    import numpy as np\n    excess_returns = np.array(returns) - risk_free_rate\n    return np.mean(excess_returns) / np.std(excess_returns, ddof=1)\n\n\nif __name__ == \"__main__\":\n    returns = [0.05, 0.07, 0.02, 0.06, 0.04]  # 年ごとのリターン例\n    rf = 0.01  # 無リスク利子率（1%）\n\n    sr = sharpe_ratio(returns, rf)\n    print(\"Sharpe Ratio:\", sr)\n\nSharpe Ratio: 1.9755259306581379\n\n\n##3-8 Python実装：キャピタル・アロケーション・ライン（Capital Allocation Line, CAL）\n\n\n特徴\n\n投資家は「リスク資産（株式ポートフォリオ）」と「無リスク資産（国債やTビル）」を組み合わせて投資できる。\n無リスク資産のリターンと、最大シャープレシオを持つポートフォリオを結ぶ直線を「キャピタル・アロケーション・ライン（CAL）」と呼ぶ。\nCAL上にあるポートフォリオが最適ポートフォリオとなる。\n\n\n\n\n考え方\n\nリスクを取りたくない → 無リスク資産のみ（CALの左端）。\n一部リスクを取る → 無リスク資産とリスク資産を組み合わせた点（CAL上の中間）。\n全額リスク資産 → 最大シャープレシオを持つポートフォリオ（CALの接点）。\nさらにリスクを取りたい → 借入をしてリスク資産に追加投資（CALの右側延長）。\n\n\n\n\n数式\nCAL上の任意のポートフォリオの期待リターンは次の式で表される。\n\\[E[R_c] = R_f + ( (E[R_p] - R_f) / σ_p ) * σ_c\\]\n\n\\(E[R_c]\\) : CAL上のポートフォリオの期待リターン\n\n\\(R_f\\) : 無リスク利子率\n\n\\(E[R_p]\\) : リスク資産ポートフォリオの期待リターン\n\n\\(σ_p\\) : リスク資産ポートフォリオの標準偏差\n\n\\(σ_c\\) : CAL上のポートフォリオの標準偏差\n\n\n\n\nPython実装例\n\ndef capital_allocation_line(rf, rp, sigma_p, sigma_c):\n    \"\"\"\n    rf: 無リスク利子率\n    rp: リスク資産ポートフォリオの期待リターン\n    sigma_p: リスク資産ポートフォリオの標準偏差\n    sigma_c: 求めたいポートフォリオの標準偏差\n    \"\"\"\n    slope = (rp - rf) / sigma_p  # シャープレシオ\n    return rf + slope * sigma_c\n\n\nif __name__ == \"__main__\":\n    rf = 0.02      # 無リスク利子率（2%）\n    rp = 0.08      # リスク資産ポートフォリオの期待リターン（8%）\n    sigma_p = 0.15 # リスク資産ポートフォリオの標準偏差（15%）\n\n    for sigma_c in [0.0, 0.05, 0.1, 0.15, 0.2]:\n        rc = capital_allocation_line(rf, rp, sigma_p, sigma_c)\n        print(f\"σ={sigma_c:.2f}, 期待リターン={rc:.4f}\")\n\nσ=0.00, 期待リターン=0.0200\nσ=0.05, 期待リターン=0.0400\nσ=0.10, 期待リターン=0.0600\nσ=0.15, 期待リターン=0.0800\nσ=0.20, 期待リターン=0.1000\n\n\n##マーコヴィッツモデルの実装\n##3-9 Python実装：株価データの取得と可視化（Markowitzモデル準備）\n\n\n特徴\n\nモダンポートフォリオ理論（Markowitzモデル）の実装準備として、株価データを取得する。\nYahoo! Finance から株価データをダウンロードし、Pandas DataFrame にまとめる。\nMatplotlib を用いて可視化する。\n\n\n\n\n使用ライブラリ\n\nnumpy\npandas\nyfinance（Yahoo! Finance API）\nmatplotlib\nscipy.optimize（後の最適化で使用予定）\n\n\n\n\n手順\n\n対象銘柄のリストを作成\n例：Apple, Wal-Mart, Amazon, Deutsche Bank, General Electric, Tesla\n取得期間を設定（例：2012年～2017年）\nyfinance を用いて株価データ（特に終値）を取得\nPandas DataFrame にまとめる\nMatplotlib で株価推移をプロットする\n\n\n\n\nPython実装例\n\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport matplotlib.pyplot as plt\n\ndef download_data(stocks, start, end):\n    stock_data = {}\n    for stock in stocks:\n        ticker = yf.Ticker(stock)\n        stock_data[stock] = ticker.history(start=start, end=end)[\"Close\"]\n    return pd.DataFrame(stock_data)\n\ndef show_data(data):\n    data.plot(figsize=(10, 5))\n    plt.show()\n\nif __name__ == \"__main__\":\n    stocks = [\"AAPL\", \"WMT\", \"AMZN\", \"DB\", \"GE\", \"TSLA\"]\n    start = \"2012-01-01\"\n    end = \"2017-01-01\"\n\n    data = download_data(stocks, start, end)\n    print(data.head())   # データ確認\n    show_data(data)      # 可視化\n\n                                AAPL        WMT    AMZN         DB         GE  \\\nDate                                                                            \n2012-01-03 00:00:00-05:00  12.345172  15.184759  8.9515  26.521105  67.937828   \n2012-01-04 00:00:00-05:00  12.411514  15.028704  8.8755  25.722076  68.677895   \n2012-01-05 00:00:00-05:00  12.549308  14.955713  8.8805  24.124020  68.640892   \n2012-01-06 00:00:00-05:00  12.680498  14.850002  9.1305  22.812279  69.010948   \n2012-01-09 00:00:00-05:00  12.660383  14.895315  8.9280  22.399445  69.787987   \n\n                               TSLA  \nDate                                 \n2012-01-03 00:00:00-05:00  1.872000  \n2012-01-04 00:00:00-05:00  1.847333  \n2012-01-05 00:00:00-05:00  1.808000  \n2012-01-06 00:00:00-05:00  1.794000  \n2012-01-09 00:00:00-05:00  1.816667  \n\n\n&lt;Figure size 1000x500 with 1 Axes&gt;\n\n\n##3-10 Python実装：リターンとポートフォリオ統計量の計算\n\n\n特徴\n\n株価データから対数リターン（log return）を計算する。\n年間平均リターン、分散・共分散行列を算出する。\n任意のポートフォリオ（重みベクトル）に対して、期待リターンとリスク（ボラティリティ）を計算する。\n\n\n\n\n数式と定義\n対数リターン（Log Return）:\n\\[r_t = ln( S_t / S_{t-1} )\\]\nポートフォリオ期待リターン:\n\\[E[R_p] = (μ ・ w) × 252  \\] - \\(μ\\): ポートフォリオの重みベクトル\n- 252 : 年間取引日数\nポートフォリオ分散:\n\\[Var(R_p) = w^T Σ w × 252  \\] - \\(Σ\\) : リターンの共分散行列\n- \\(w^T\\) : 重みベクトルの転置\nポートフォリオ標準偏差（ボラティリティ）:\n\\[σ_p = sqrt( Var(R_p) )\\]\n\n\n\nPython実装例\n\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport matplotlib.pyplot as plt\n\nTRADING_DAYS = 252\n\ndef download_data(stocks, start, end):\n    data = {}\n    for stock in stocks:\n        ticker = yf.Ticker(stock)\n        data[stock] = ticker.history(start=start, end=end)[\"Close\"]\n    return pd.DataFrame(data)\n\ndef calculate_log_returns(data):\n    log_returns = np.log(data / data.shift(1))\n    return log_returns.iloc[1:]  # 最初の行は NaN なので削除\n\ndef show_statistics(returns):\n    mean_returns = returns.mean() * TRADING_DAYS\n    cov_matrix = returns.cov() * TRADING_DAYS\n    print(\"Annual Mean Returns:\\n\", mean_returns)\n    print(\"\\nAnnual Covariance Matrix:\\n\", cov_matrix)\n    return mean_returns, cov_matrix\n\ndef portfolio_performance(weights, mean_returns, cov_matrix):\n    port_return = np.dot(mean_returns, weights)\n    port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))\n    port_volatility = np.sqrt(port_variance)\n    return port_return, port_volatility\n\nif __name__ == \"__main__\":\n    stocks = [\"AAPL\", \"WMT\", \"AMZN\", \"DB\", \"GE\", \"TSLA\"]\n    start = \"2012-01-01\"\n    end = \"2017-01-01\"\n\n    data = download_data(stocks, start, end)\n    log_returns = calculate_log_returns(data)\n\n    mean_returns, cov_matrix = show_statistics(log_returns)\n\n    # 仮のポートフォリオ（各銘柄に均等投資）\n    weights = np.array([1/len(stocks)] * len(stocks))\n    port_return, port_volatility = portfolio_performance(weights, mean_returns, cov_matrix)\n\n    print(\"\\nPortfolio Expected Annual Return:\", round(port_return, 4))\n    print(\"Portfolio Volatility (Std Dev):\", round(port_volatility, 4))\n\nAnnual Mean Returns:\n AAPL    0.154803\nWMT     0.053214\nAMZN    0.287153\nDB     -0.128913\nGE      0.142554\nTSLA    0.406862\ndtype: float64\n\nAnnual Covariance Matrix:\n           AAPL       WMT      AMZN        DB        GE      TSLA\nAAPL  0.068351  0.008143  0.019009  0.024571  0.014196  0.025434\nWMT   0.008143  0.028017  0.008545  0.013247  0.009221  0.010265\nAMZN  0.019009  0.008545  0.094476  0.031574  0.018026  0.041774\nDB    0.024571  0.013247  0.031574  0.139114  0.031347  0.039047\nGE    0.014196  0.009221  0.018026  0.031347  0.032647  0.019334\nTSLA  0.025434  0.010265  0.041774  0.039047  0.019334  0.252700\n\nPortfolio Expected Annual Return: 0.1526\nPortfolio Volatility (Std Dev): 0.1858\n\n\n##3-11 Python実装：ランダムポートフォリオ生成と効率的フロンティア\n\n\n特徴\n\nランダムに重み（weights）を割り当てた多数のポートフォリオを生成する。\n各ポートフォリオについて期待リターンとリスク（ボラティリティ）を計算。\n結果を散布図で表示し、効率的フロンティア（Efficient Frontier）を可視化。\nカラーバーでシャープレシオを示す。\n\n\n\n\n数式\nポートフォリオ期待リターン:\n\\[E[R_p] = (μ ・ w) × 252  \\]\nポートフォリオ分散:\n\\[Var(R_p) = w^T Σ w × 252  \\]\nポートフォリオ標準偏差（ボラティリティ）:\n\\[σ_p = sqrt(Var(R_p))  \\]\nシャープレシオ（カラーの基準）:\n\\[Sharpe Ratio = E[R_p] / σ_p  \\]\n\n\n\nPython実装例\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nTRADING_DAYS = 252\n\ndef generate_portfolios(mean_returns, cov_matrix, num_portfolios=10000):\n    results = {\"returns\": [], \"risks\": [], \"weights\": []}\n    num_stocks = len(mean_returns)\n\n    for _ in range(num_portfolios):\n        weights = np.random.random(num_stocks)\n        weights /= np.sum(weights)  # 合計が1になるよう正規化\n\n        port_return = np.dot(mean_returns, weights)\n        port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))\n        port_volatility = np.sqrt(port_variance)\n\n        results[\"returns\"].append(port_return)\n        results[\"risks\"].append(port_volatility)\n        results[\"weights\"].append(weights)\n\n    return (np.array(results[\"returns\"]),\n            np.array(results[\"risks\"]),\n            np.array(results[\"weights\"]))\n\ndef show_portfolios(returns, risks):\n    plt.figure(figsize=(10, 6))\n    plt.scatter(risks, returns, c=returns/risks, marker='o')\n    plt.xlabel(\"Expected Volatility\")\n    plt.ylabel(\"Expected Return\")\n    plt.colorbar(label=\"Sharpe Ratio\")\n    plt.grid(True)\n    plt.show()\n\nif __name__ == \"__main__\":\n    # ダミーデータ例（実際は前講義のmean_returns, cov_matrixを利用）\n    mean_returns = np.array([0.12, 0.08, 0.15, 0.03])\n    cov_matrix = np.array([\n        [0.04, 0.01, 0.02, 0.0],\n        [0.01, 0.03, 0.01, 0.0],\n        [0.02, 0.01, 0.05, 0.0],\n        [0.0, 0.0, 0.0, 0.02]\n    ])\n\n    port_returns, port_risks, port_weights = generate_portfolios(mean_returns, cov_matrix, 5000)\n    show_portfolios(port_returns, port_risks)\n\n&lt;Figure size 1000x600 with 2 Axes&gt;\n\n\n##3-12 Python実装：最適ポートフォリオとシャープレシオ最大化\n\n\n特徴\n\nSciPy の最適化アルゴリズムを用いて、シャープレシオが最大となるポートフォリオを求める。\n制約条件：\n\n各資産の重みは 0〜1 の範囲。\n重みの合計は 1。\n\n最適化は「最小化」をベースにしているため、-Sharpe Ratio を最小化することでシャープレシオを最大化する。\n\n\n\n\n数式\nポートフォリオ期待リターン:\n\\[E[R_p] = (μ ・ w) × 252  \\]\nポートフォリオ標準偏差（ボラティリティ）:\n\\[σ_p = sqrt( w^T Σ w × 252 )  \\]\nシャープレシオ:\n\\[Sharpe Ratio = E[R_p] / σ_p  \\]\n\n\n\nPython実装例\n\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport matplotlib.pyplot as plt\nfrom scipy.optimize import minimize\n\nTRADING_DAYS = 252\n\ndef statistics(weights, mean_returns, cov_matrix):\n    port_return = np.dot(mean_returns, weights)\n    port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))\n    port_volatility = np.sqrt(port_variance)\n    sharpe_ratio = port_return / port_volatility\n    return np.array([port_return, port_volatility, sharpe_ratio])\n\ndef min_func_sharpe(weights, mean_returns, cov_matrix):\n    return -statistics(weights, mean_returns, cov_matrix)[2]\n\ndef optimize_portfolio(mean_returns, cov_matrix):\n    num_stocks = len(mean_returns)\n    args = (mean_returns, cov_matrix)\n\n    # 制約条件：重みの合計が1\n    constraints = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})\n\n    # 各資産の重みは0〜1\n    bounds = tuple((0, 1) for _ in range(num_stocks))\n\n    # 初期値（均等分散）\n    init_guess = num_stocks * [1. / num_stocks]\n\n    result = minimize(min_func_sharpe,\n                      init_guess,\n                      args=args,\n                      method=\"SLSQP\",\n                      bounds=bounds,\n                      constraints=constraints)\n\n    return result\n\ndef print_optimal_portfolio(opt_result, mean_returns, cov_matrix):\n    opt_weights = opt_result[\"x\"].round(3)\n    ret, vol, sharpe = statistics(opt_weights, mean_returns, cov_matrix)\n    print(\"Optimal Weights:\", opt_weights)\n    print(\"Expected Return:\", round(ret, 4))\n    print(\"Volatility:\", round(vol, 4))\n    print(\"Sharpe Ratio:\", round(sharpe, 4))\n\nif __name__ == \"__main__\":\n    # ダミーデータ例（実際は前講義のデータを利用）\n    mean_returns = np.array([0.12, 0.08, 0.15, 0.03])\n    cov_matrix = np.array([\n        [0.04, 0.01, 0.02, 0.0],\n        [0.01, 0.03, 0.01, 0.0],\n        [0.02, 0.01, 0.05, 0.0],\n        [0.0, 0.0, 0.0, 0.02]\n    ])\n\n    opt_result = optimize_portfolio(mean_returns, cov_matrix)\n    print_optimal_portfolio(opt_result, mean_returns, cov_matrix)\n\nOptimal Weights: [0.243 0.218 0.313 0.227]\nExpected Return: 0.1004\nVolatility: 0.1232\nSharpe Ratio: 0.8145\n\n\n##3-13 Python実装：最適ポートフォリオの可視化\n\n\n特徴\n\nこれまでの実装（平均・分散、ランダムポートフォリオ生成、最適化）を統合。\n最適ポートフォリオ（最大シャープレシオ）の重み・期待リターン・リスクを算出。\n散布図（効率的フロンティア）上に最適ポートフォリオを緑色の星印で表示。\n\n\n\n\n実行結果の例\n\n最適ポートフォリオの期待リターン：約 0.23（23% 年間リターン）\nボラティリティ（リスク）：約 0.19\nシャープレシオ：1.22（1以上なので「良い投資」とされる）\n投資配分例（各銘柄への比率の合計 = 1）:\n\nApple：約 14%\nTesla：約 16%\nGeneral Electric：約 37%\nAmazon：約 32%\nWal-Mart, Deutsche Bank：0%\n\n\n\n\n\nPython実装例\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef plot_optimal_portfolio(port_returns, port_risks, opt_result, mean_returns, cov_matrix):\n    # 散布図（ランダムポートフォリオ群）\n    plt.figure(figsize=(10, 6))\n    plt.scatter(port_risks, port_returns, c=port_returns/port_risks, marker='o')\n    plt.xlabel(\"Expected Volatility\")\n    plt.ylabel(\"Expected Return\")\n    plt.colorbar(label=\"Sharpe Ratio\")\n\n    # 最適ポートフォリオ（緑の星）\n    opt_weights = opt_result[\"x\"]\n    opt_return, opt_vol, opt_sharpe = statistics(opt_weights, mean_returns, cov_matrix)\n    plt.scatter(opt_vol, opt_return, c=\"green\", marker=\"*\", s=200)\n\n    plt.grid(True)\n    plt.show()\n\n    # 結果の表示\n    print(\"Optimal Weights:\", opt_weights.round(3))\n    print(\"Expected Return:\", round(opt_return, 4))\n    print(\"Volatility:\", round(opt_vol, 4))\n    print(\"Sharpe Ratio:\", round(opt_sharpe, 4))\n\nif __name__ == \"__main__\":\n    # ダミーデータ例（実際は前講義のmean_returns, cov_matrix, portfoliosを利用）\n    mean_returns = np.array([0.12, 0.08, 0.15, 0.03, 0.10, 0.05])\n    cov_matrix = np.random.rand(6, 6)\n    cov_matrix = (cov_matrix + cov_matrix.T) / 2  # 対称行列化\n    np.fill_diagonal(cov_matrix, 0.04)\n\n    # ランダムポートフォリオ生成（例）\n    port_returns = np.random.rand(1000)\n    port_risks = np.random.rand(1000)\n\n    # 最適化結果（例: SciPy minimizeで得られる結果オブジェクトを想定）\n    class DummyResult(dict):\n        pass\n    opt_result = DummyResult(x=np.array([0.14, 0.0, 0.16, 0.37, 0.32, 0.0]))\n\n    # 可視化と出力\n    plot_optimal_portfolio(port_returns, port_risks, opt_result, mean_returns, cov_matrix)\n\n&lt;Figure size 1000x600 with 2 Axes&gt;\n\n\nOptimal Weights: [0.14 0.   0.16 0.37 0.32 0.  ]\nExpected Return: 0.0839\nVolatility: 0.5936\nSharpe Ratio: 0.1413"
+  },
+  {
+    "objectID": "02債券.html",
+    "href": "02債券.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#2 債券\n##2-1 債券の基礎\n\n債券とは\n\n投資家が企業や政府にお金を貸すことで成立する「負債投資」。\n発行体は一定期間資金を借り、利子を支払う。\n「固定利付証券（Fixed Income Securities）」とも呼ばれる。\n\n\n\n\n債券の種類\n\n1. ゼロクーポン債（Zero Coupon Bond）\n\n元本のみ返済、利子なし。\n価格（現在価値）: \\[P = \\frac{X}{(1+r)^N}\\]\n例：額面 1000ドル、満期 2年、市場金利 4% → 価格 ≒ 924ドル\n\n\n\n2. クーポン債（Coupon Bond）\n\n毎年クーポン（利子）を支払い、満期時に元本も返済。\n価格（現在価値）: \\[P = \\sum_{t=1}^N \\frac{C}{(1+r)^t} + \\frac{X}{(1+r)^N}\\] または\n\\[P = \\frac{C}{r}\\left(1 - \\frac{1}{(1+r)^N}\\right) + \\frac{X}{(1+r)^N}\\]\n例：額面 1000ドル、クーポン率 10%、満期 3年、市場金利4% → 価格 ≒ 1167ドル\n\n\n👉 債券価格は「将来キャッシュフローの現在価値の合計」で決まる。\n👉 計算時は 市場金利 を使う点が重要。\n##2-2 債券の利回りと最終利回り（YTM）\n\n\n\n利回り（Yield）\n\n投資収益を示す指標。\n計算式： \\[\\text{Yield} = \\frac{\\text{年間クーポン支払額}}{\\text{債券価格}}\\]\n例：価格 1,167ドル、年間クーポン 100ドル → Yield ≒ 8.6%\n\n\n\n\n最終利回り（Yield to Maturity, YTM）\n\n債券を満期まで保有した場合の「実質利回り」。\n内部収益率(IRR) に相当。\n定義：\n\\[\\text{債券価格} = \\sum_{t=1}^N \\frac{C}{(1+y)^t} + \\frac{X}{(1+y)^N}\\]\n連続モデルでは：\n\\[PV = C \\cdot e^{-yt}, \\quad PV = X \\cdot e^{-yT}\\]\n数値解法（ニュートン法など）で \\(y\\) を求める。\n\n\n\n\nイールドカーブ（Yield Curve）\n\n縦軸：利回り、横軸：満期（年数）。\n通常は右上がり。\n理由：長期債ほどリスク大 → 高い利回りを要求。\nリスク要因：\n\n金利変動リスク\n経済変動リスク\n\n\n\n👉 Yield = 単純利回り、YTM = 実際の内部収益率。\n👉 イールドカーブは「期間が長いほど利回りが高い」傾向を示す。\n##2-3 市場金利と債券価格の関係\n\n\n基本原則\n\n債券価格と市場金利は 逆相関。\n\n金利 ↑ → 債券価格 ↓\n金利 ↓ → 債券価格 ↑\n\n\n\n\n\nゼロクーポン債\n\n価格： \\[P = \\frac{X}{(1+R)^N}\\]\nR（市場金利）が大きいほど価格は小さくなる。\n\n\n\n\nクーポン債\n\n価格： \\[P = \\sum_{t=1}^N \\frac{C}{(1+R)^t} + \\frac{X}{(1+R)^N}\\]\n分母に金利があるため、金利上昇 → 債券価格下落。\n\n\n\n\n金利リスク（Interest Rate Risk）\n\n金利上昇は債券価格を押し下げ、損失リスクを生む。\n金利低下は債券価格を押し上げ、利益につながる。\n投資家は将来の金利動向を分析する必要がある。\n\n\n👉 債券価格は「市場金利と逆相関」する。\n👉 これが金利リスクの理論的背景。\n##2-4 マコーレー・デュレーション（Macaulay Duration）\n\n\n定義\n\n債券のキャッシュフローで投資元本が回収されるまでの平均的な時間。\n数式： \\[D = -\\frac{1}{V}\\cdot \\frac{dV}{dy}\\]\n\nV = 債券価格\ny = 利回り（YTM）\n\n\n\n\n\n特徴\n\nゼロクーポン債：デュレーション = 満期までの期間。\nクーポン債：クーポンと元本を現在価値で加重平均した期間。\n\n\n\n\n金利リスクとの関係\n\n債券価格と金利は逆相関。\n長期債（デュレーション大）：価格は金利変動に敏感。\n短期債（デュレーション小）：価格は金利変動に鈍感。\n\n\n\n\n投資家の行動\n\n金利↓ 予想 → 長期債を選好。\n金利↑ or 安定予想 → 短期債を選好。\n\n\n👉 デュレーションは「債券価格の金利感応度」を測る指標。\n👉 金利リスク管理に不可欠。\n##2-5 債券のリスク\n\n\n1. 金利リスク（Interest Rate Risk）\n\n債券価格と市場金利は逆相関。\n金利↑ → 債券価格↓\n満期まで保有すれば影響はないが、途中売却時に損失リスク。\n\n\n\n\n2. デフォルトリスク（Default Risk）\n\n発行体（企業・政府）が利息や元本を支払えないリスク。\n例：クーポン（年間$100）が支払われない可能性。\n\n\n\n\n3. インフレリスク（Inflation Risk）\n\nインフレにより将来キャッシュフローの購買力が低下するリスク。\n名目額を受け取っても実質価値は目減りする。\n\n\n👉 債券投資では「金利リスク・デフォルトリスク・インフレリスク」の3つが特に重要。\n##2-6 株式と債券の違い\n\n\n株式（Stocks）\n\n企業の所有権を表す。\n株主は議決権を持つ。\n配当（Dividends）が支払われることがある。\n債券よりリスクが高い。\n\n\n\n\n債券（Bonds）\n\n政府・企業への「貸付」を表す負債証券。\n満期時に元本と利子が返済される。\n債券保有者は議決権を持たない。\n配当はなく利息のみ。\n債券価格は市場金利と逆相関。\n株式より安全とされる。\n\n\n\n\nまとめ\n\n株式 = 所有権（ハイリスク・ハイリターン）\n債券 = 負債投資（ローリスク・安定収益）\n\n##2-7 Python実装：ゼロクーポン債の価格計算\n\n\n特徴\n\nクーポン（利払い）がない。\n満期時に元本のみ支払われる。\n価格は将来キャッシュフローの現在価値。\n\n\n\n\n数式\n\\[\nP = \\frac{X}{(1+r)^N}\n\\] - X = 元本（Principal） - r = 市場金利（Market Interest Rate, 小数） - N = 満期（年数）\n\n\n\nPython実装例\n（下のコードセル参照）\n\nclass ZeroCouponBond:\n    def __init__(self, principal, maturity, interest_rate):\n        self.principal = principal\n        self.maturity = maturity\n        self.interest_rate = interest_rate / 100  # % → 小数\n\n    def present_value(self, X, n):\n        return X / ((1 + self.interest_rate) ** n)\n\n    def calculate_price(self):\n        return self.present_value(self.principal, self.maturity)\n\n\nif __name__ == \"__main__\":\n    bond = ZeroCouponBond(1000, 2, 4)  # 元本1000, 満期2年, 金利4%\n    price = bond.calculate_price()\n    print(f\"Price of the bond in dollars = {price:.2f}\")\n\nPrice of the bond in dollars = 924.56\n\n\n##2-8 Python実装：クーポン債の価格計算\n\n\n特徴\n\n毎年クーポン（利払い）あり。\n満期時に元本を返済。\n価格 = クーポン支払の現在価値 + 元本の現在価値。\n\n\n\n\n数式\n\\[\nP = \\sum_{t=1}^N \\frac{C}{(1+r)^t} + \\frac{X}{(1+r)^N}\n\\] - C = クーポン支払額（Principal × Coupon Rate） - X = 元本（Principal） - r = 市場金利（Market Interest Rate, 小数） - N = 満期（年数）\n\n\n\nPython実装例\n（下のコードセル参照）\n\nclass CouponBond:\n    def __init__(self, principal, rate, maturity, interest_rate):\n        self.principal = principal\n        self.rate = rate / 100          # クーポン利率\n        self.maturity = maturity\n        self.interest_rate = interest_rate / 100  # 市場金利\n\n    def present_value(self, X, n):\n        return X / ((1 + self.interest_rate) ** n)\n\n    def calculate_price(self):\n        price = 0\n        coupon = self.principal * self.rate\n        for t in range(1, self.maturity + 1):\n            price += self.present_value(coupon, t)\n        price += self.present_value(self.principal, self.maturity)\n        return price\n\n\nif __name__ == \"__main__\":\n    bond = CouponBond(1000, 10, 3, 4)  # 元本1000, クーポン10%, 満期3年, 市場金利4%\n    price = bond.calculate_price()\n    print(f\"Price of the bond = {price:.2f}\")\n\nPrice of the bond = 1166.51"
+  },
+  {
+    "objectID": "01株式.html",
+    "href": "01株式.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#1 株式市場\n##1-1お金の時間的価値 お金は現在と将来で、価値が違う可能性がある。 将来価格をFV、現在価格をPV、利率をr、期間をnとすると、\n\\[FV = PV × (1 + r)^n\\] \\[PV = \\frac{FV}{(1 + r)^n}\\] のようになる。このモデルは離散時間モデルといわれる。\n次に、連続的な時間でのモデルを考える。 時刻tにおけるある資産の価値をx(t)とする。利率をrとすると、微小時間\\(dt\\)での増分は利率と元本に比例するので \\[\\frac{dx}{dt} = r ⋅ x(t)\\] という微分方程式が成り立つ。 これを解くと、 \\[FV = PV⋅e^{rt}\\] \\[PV = FV⋅e^{-rt}\\] と求まる。 以上のことから、離散時間モデルでも連続時間モデルでも、お金は指数関数的に成長することが言える。\n##1-2 Pythonによる現在価値と将来価値の計算\n\n離散時間モデル\n投資額を X、利率を r、年数を n とすると、\n\\[FV = X \\times (1+r)^n\\] \\[PV = \\frac{X}{(1+r)^n}\\]\n\n\n連続時間モデル\n時間を t とすると、\n\\[FV = X \\cdot e^{rt}\\] \\[PV = X \\cdot e^{-rt}\\]\n##1-3 株式（Stocks / Shares）\n\n\n株式とは\n\n株式は会社の所有権の一部を表す。\n保有者は会社の利益や資産の一部を得る権利を持つ。\n企業は資金調達のために株式を発行する。\n「Stocks」と「Shares」は同義。\n\n\n\n\n株式市場の仕組み\n\n企業：成長・資金調達のために株式を発行。\n証券取引所：企業と投資家をつなぐ場（例：NYSE、Nasdaq）。\n投資家：株式に投資して利益を狙う。\n証券会社（ブローカー）：投資家と取引所を仲介。近年はオンライン取引が主流。\n\n\n\n\n株価の変動要因\n\n株価は「需要と供給」で決まる。\n買いが多ければ株価↑、売りが多ければ株価↓。\n株価推移は「ランダムウォーク」に近い。\n\n\n\n\n株を持つメリット\n\nキャピタルゲイン（値上がり益）\n\n株価上昇時に売却し利益を得る。\n例：Tesla株（2017年 約60ドル → 2021年 約900ドル）。\n\n配当金（Dividends）\n\n企業の利益に応じて株主に分配。\n四半期または半年ごとに支払われる。\n\n\n\n\n\n株のリスクとボラティリティ\n\n株はリスクの高い資産。\nボラティリティ：リターンの散らばりを示す統計指標。\n\n測定：標準偏差・分散。\n高ボラティリティ = 高リスク。\n\n将来学ぶ内容：CAPM、β値でのリスク評価。\n\n##1-4 コモディティ（Commodities）\n\n\nコモディティとは\n\n金、銀、石油、天然ガスなどの原材料・資源。\n価格変動が大きく、ボラティリティが高い。\n株式のように簡単に「現物」を所有できないため、取引は複雑。\n\n\n\n\n価格変動の要因\n\n基本は 需給（供給と需要）。\n買いが増えれば価格↑、売り・供給が増えれば価格↓。\n推移は「ランダムウォーク」に近い。\n\n\n\n\n先物契約（Futures）\n\n価格変動リスクを回避するための契約。\n例：航空会社は燃料費変動を避けるため原油先物を購入。\n先物市場：ニューヨーク・マーカンタイル取引所（NYMEX）など。\n\n\n\n\n投資方法\n\n直接投資：先物市場やブローカー経由で取引。\n間接投資：コモディティに依存する企業の株を購入。\n\n例：金価格 ↔︎ 金鉱株（正の相関が多い）。\n\n\n\n\n\nポートフォリオにおける役割\n\nインフレ対策：インフレ時に商品価格は上がりやすい。\n分散投資効果：株・債券・コモディティを組み合わせるのが有効。\nペアトレード戦略：コモディティと株価の相関を利用して利益を狙う。\n\n\n👉 コモディティはリスクは高いが、インフレ防衛・分散投資の観点で重要な資産クラス。\n##1-5 通貨と外国為替市場（Forex Market）\n\n\n為替レートとは\n\n1通貨を別の通貨に交換する比率。\n値 &gt; 1 → 行側の通貨が強い、値 &lt; 1 → 列側の通貨が強い。\n例：1ユーロ = 1.35ドル → ユーロ高。\n\n\n\n\n為替市場（Forex）\n\nForex = Foreign Exchange（外国為替）。\n国際通貨（USD, EUR, JPY, CHF など）を取引する市場。\n投資家は FXブローカーを介してアクセス。\n\n\n\n\n為替レートに影響する要因\n\n金利（Interest Rates）\n\n中央銀行が操作可能。\n金利↑ → 通貨需要↑ → 為替レート上昇。\n\nマネーサプライ（Money Supply）\n\n通貨供給↑（刷りすぎ）→ インフレ → 通貨安。\n\n金融安定性（Financial Stability）\n\n政治・経済が安定している国ほど通貨は強い。\n\n\n\n\n\nアービトラージ（Arbitrage）\n\n複数通貨間の交換で リスクなしに利益を得る取引。\nモデル化：通貨 = ノード、為替レート = エッジ。\n変換：エッジ重み = -log(rate)。\nBellman-Ford アルゴリズムで負のサイクルを検出 → アービトラージ機会。\n実際は高頻度取引（HFT）で活用される。\n\n\n👉 為替市場では「需給・金利・金融安定性」が通貨価値を決める。\n👉 アービトラージは理論的に可能だが、現実ではごく稀でHFTの領域。\n##1-6 ロングポジションとショートポジション\n\n\nロングポジション（Long Position）\n\n株式や債券を購入・保有する。\n価格上昇で利益、価格下落で損失。\n最大損失 = 投資額（100%）\n\n\n\n\nショートポジション（Short Position）\n\n株式を売ることで価格下落を狙う。\n2種類：\n\n保有株を売却 → 安値で買い戻し。\n空売り（Short Selling）：株を借りて売却 → 後に買い戻して返却 → 差額が利益。\n\n株価上昇で損失、損失に上限なし（無限大）。\nロングよりリスクが高い。\n\n\n\n\n市場環境\n\nBull Market（強気相場）：価格上昇が持続 → ロングが有効。\nBear Market（弱気相場）：価格下落が持続 → ショートが有効。\n相場はブル期とベア期を繰り返す。\n\n\n👉 ロングは「価格上昇で利益」、ショートは「価格下落で利益」。\n👉 ただし、ショートのリスクはロングより圧倒的に高い。"
+  },
+  {
+    "objectID": "03-portfolio.html",
+    "href": "03-portfolio.html",
+    "title": "03 ポートフォリオ理論",
+    "section": "",
+    "text": "説明…\n\n\n\\[\nE[R_p] = \\sum_i w_i \\mu_i\n\\]\n\n\n\nimport numpy as np print(“Hello MPT”)"
+  },
+  {
+    "objectID": "03-portfolio.html#数式",
+    "href": "03-portfolio.html#数式",
+    "title": "03 ポートフォリオ理論",
+    "section": "",
+    "text": "\\[\nE[R_p] = \\sum_i w_i \\mu_i\n\\]"
+  },
+  {
+    "objectID": "03-portfolio.html#pythonコード",
+    "href": "03-portfolio.html#pythonコード",
+    "title": "03 ポートフォリオ理論",
+    "section": "",
+    "text": "import numpy as np print(“Hello MPT”)"
+  },
+  {
+    "objectID": "04CAPM資本資産評価モデル.html",
+    "href": "04CAPM資本資産評価モデル.html",
+    "title": "データ取得",
+    "section": "",
+    "text": "#4 CAPM(Capital Asset Pricing Model)資本資産評価モデル\n##4-1 CAPM入門：リスクの種類とβの重要性\n\n背景\n\nこれまでモダンポートフォリオ理論（Markowitzモデル）を実装し、最適ポートフォリオを構築した。\n複数の株式を組み合わせることでリスクを低減できることを学んだ。\nしかし、すべてのリスクを排除することはできない。\n\n\n\n\nリスクの2種類\n\n非体系的リスク（Unsystematic Risk / Specific Risk）\n\n個別銘柄に固有のリスク（企業業績、経営問題など）。\n分散投資によりリスクを軽減・消去可能。\nMarkowitzモデルで扱っているのはこのリスク。\n例：Microsoft株に全額投資 → 企業固有のリスクを強く受ける。\n\n体系的リスク（Systematic Risk / Market Risk）\n\n分散投資しても消せない市場全体のリスク。\n要因：金利変動、不況、戦争など。\n例：金利上昇により債券価格が下落する「金利リスク」。\n将来予測が困難で、投資家が必ず直面するリスク。\n\n\n\n\n\nCAPMとβパラメータ\n\n資本資産評価モデル（CAPM）は「体系的リスク」を測定するモデル。\nβ（ベータ）：市場全体の動きに対する感応度を表す指標。\n\nβ &gt; 1 : 市場より価格変動が大きい（高リスク・高リターン）。\nβ &lt; 1 : 市場より価格変動が小さい（低リスク・低リターン）。\nβ = 1 : 市場と同じ動き。\n\n投資家にとって重要なのは、分散で消せない「体系的リスク＝市場リスク」。\n\n\n\n\n今後の展開\n\n次回以降：CAPMの基本原理を解説し、βを用いた体系的リスクの測定方法を学ぶ。\nさらに進んで、ブラック–ショールズモデル（Black-Scholes Model）を紹介。\n\n史上初めて市場リスクを数学的に扱い、金融工学に革命をもたらしたモデル。\n\n\n##4-2 CAPMの基本式とβパラメータ\n\n\nCAPMの定義\n\nウィリアム・シャープ（1960年代初頭）によって提唱。\n「期待収益率」と「市場プレミアム」の間に 線形関係 を定義するモデル。\n\n\n\n\n基本式\n\\[E[R_i] = R_f + β_i ( E[R_m] - R_f )\\]\n\nE[R_i] : 投資対象（株式やポートフォリオ）の期待収益率\nR_f : 無リスク利子率（国債・Tビル・銀行預金など）\nE[R_m] : 市場全体（例：S&P500）の期待収益率\nβ_i : 投資対象のリスク感応度（市場リスクに対する感度）\n\n\n\n\nポイント\n\n市場プレミアム : $(E[R_m] - R_f) $ → 市場の超過リターン\n線形関係 : 投資対象の期待リターンは、市場リスクプレミアムとβで決まる。\nリスクを取らない（β=0）→ 無リスク利子率のみ。\n\nリスクを取る（β&gt;0）→ 市場リターンに応じて期待収益が増える。\n\n\n\n\nβパラメータの計算\n\\[β_i = Cov(R_i, R_m) / Var(R_m)\\]\n\nCov(R_i, R_m) : 投資対象のリターンと市場リターンの共分散\nVar(R_m) : 市場リターンの分散\n解釈:\n\nβ &gt; 1 : 市場より価格変動が大きい（ハイリスク・ハイリターン）\nβ &lt; 1 : 市場より変動が小さい（ローリスク・ローリターン）\nβ = 1 : 市場と同じ動き\n\n\n\n\n\nまとめ\n\n非体系的リスク（個別リスク）は分散投資で消せる。\n\n体系的リスク（市場リスク）は消せず、βで測定される。\n\nCAPMにおいて、βは 株式リスクの唯一の有効な尺度。\n\n##4-3 βパラメータの解釈とポートフォリオβの計算\n\n\nβの意味\n\nβは市場に対する相対的リスク（ボラティリティ）を表す指標。\n投資対象（株式やポートフォリオ）のリターンが、市場全体（例：S&P500）のリターンとどの程度連動するかを測る。\n\n\n\n\nβの値と解釈\n\nβ = 0 : 無リスク（国債やTビル → リターン = Rf）\nβ = 1 : 市場と同じ動き（市場平均リターンと同じ）\nβ &gt; 1 : 市場より価格変動が大きい（ハイリスク・ハイリターン）\nβ &lt; 1 : 市場より価格変動が小さい（ローリスク・ローリターン）\n\n\n\n\n具体例\n\nβ = 0.5\n\n市場が +10% → 投資は +5%\n市場が -2% → 投資は -1%\n\nβ = 1.5\n\n市場が +10% → 投資は +15%\n市場が -2% → 投資は -3%\n\n\n\n\n\n数式まとめ\n単一株式のβ:\n\\[\n\\beta_i = \\frac{\\text{Cov}(R_i, R_m)}{\\text{Var}(R_m)}\n\\]\nポートフォリオのβ:\n\\[\n\\beta_p = w_1 \\beta_1 + w_2 \\beta_2 + \\dots + w_n \\beta_n\n\\]\n\n\\(R_i\\) : 投資対象のリターン\n\n\\(R_m\\) : 市場リターン（例：S&P500）\n\n\\(w_i\\) : ポートフォリオにおける各資産の比率（合計 = 1）\n\n\\(\\beta_i\\) : 各資産のβ\n\n\n\n\n例：ポートフォリオβの計算\n\n構成銘柄と比率:\n\nApple : 20%\nGoogle : 30%\nTesla : 25%\nGE : 25%\n\n各株式のβを計算し、上式に代入して加重平均を取ることでポートフォリオ全体のβを算出。\n\n\n\n\nまとめ\n\nβは市場リスク（体系的リスク）の唯一の有効な尺度。\nβの値によって「市場よりリスクを取っているのか」「抑えているのか」が判断できる。\n複数銘柄を組み合わせたポートフォリオのβは、各銘柄のβの加重平均で求められる。\n\n##4-4 線形回帰（Linear Regression）の基礎\n\n\n定義\n\n線形回帰は、目的変数（Y） と 説明変数（X） の関係を線形でモデル化する手法。\nシンプルな例：家の価格を家のサイズから予測する。\n\n\n\n\n線形回帰の種類\n\n単回帰（Simple Linear Regression）\n\n説明変数が1つ（例：家のサイズ → 家の価格）\n\n重回帰（Multiple Linear Regression）\n\n説明変数が複数（例：家のサイズ、立地、部屋数 → 家の価格）\n\n\n\n\n\nモデル式\n\\[\nh(x) = \\beta_0 + \\beta_1 x\n\\]\n\n\\(x\\)：説明変数（例：家のサイズ）\n\n\\(h(x)\\)：モデルが予測する目的変数（例：価格）\n\n\\(\\beta_0, \\beta_1\\)：学習によって推定されるパラメータ\n\n\n\n\n誤差と損失関数\n各データ点の誤差: \\[\n\\epsilon_i = y_i - h(x_i)\n\\]\n平均二乗誤差（MSE）: \\[\nMSE = \\frac{1}{n} \\sum_{i=1}^n (y_i - h(x_i))^2\n\\]\n\n誤差が小さいほどモデル精度が高い。\n損失関数を最小化することで最適な (_0, _1) を求める。\n\n\n\n\n決定係数 (R^2)\n回帰モデルの当てはまりを測る指標: \\[\nR^2 = 1 - \\frac{SS_{res}}{SS_{tot}}\n\\]\n\n$SS_{res} = (y_i - h(x_i))^2$（残差平方和）\n$SS_{tot} = (y_i - {y})^2$（総平方和）\n\\(R^2\\) が1に近いほど強い線形関係を示す。\n\n\n\n\nまとめ\n\n線形回帰はシンプルだが、CAPMにおける β推定 に応用可能。\n\n誤差を最小化することでモデルを最適化し、予測精度を高める。\n\n\\(R^2\\) を使えば「どの程度線形関係を説明できているか」がわかる。\n\n##4-5 CAPMと線形回帰の関係\n\n\nCAPMにおけるβの計算方法\n\n共分散と分散を使う方法 \\[\n\\beta = \\frac{\\text{Cov}(R_i, R_m)}{\\text{Var}(R_m)}\n\\]\n線形回帰を使う方法\nリスクフリーレート \\(R_f\\) を引いた形に変形すると： \\[\nE[R_i] - R_f = \\alpha + \\beta \\big( E[R_m] - R_f \\big)\n\\]\n\n\n\\(E[R_i]\\)：投資対象の期待収益率\n\n\\(E[R_m]\\)：市場の期待収益率（例：S&P500）\n\n\\(R_f\\)：無リスク利子率\n\n\\(\\alpha\\)：切片（実際の収益とCAPM推定値の差）\n\n\\(\\beta\\)：傾き（市場リスクに対する感応度）\n\n\n\n\n線形回帰との対応\n\n横軸（X）：市場超過リターン \\((R_m - R_f)\\)\n縦軸（Y）：投資対象超過リターン \\((R_i - R_f)\\)\n\n回帰式： \\[\nY = \\alpha + \\beta X\n\\]\n\n傾き（β） → システマティックリスク\n\n切片（α） → 実際のリターンと期待リターンの差\n\n\n\n\n\nα（アルファ）の意味\n\nCAPM理論式では \\(\\alpha = 0\\)。\n\n実際の投資では：\n\nα &gt; 0 → 実際のリターンがCAPM予測を上回る（優秀な投資）\n\nα &lt; 0 → 実際のリターンがCAPM予測を下回る（期待外れの投資）\n\n\n例：\n- CAPM推定リターン = 15%\n- 実際のリターン = 20%\n- → α = +5%\n\n\n\nまとめ\n\nCAPMのβは 線形回帰の傾き として推定可能。\n\nβは市場リスク（体系的リスク）を測る唯一の尺度。\n\nαはモデル予測との差を示し、投資の優劣を評価する指標。\n\n##CAPMの実装\n##4-6 CAPM実装準備：データ取得とクラス設計\n\n\n使用ライブラリ\n\nnumpy\npandas\nyfinance（Yahoo! Financeから株価データ取得）\nmatplotlib\n\n\n\n\n対象データ\n\n市場インデックス：S&P500（米国を代表する500社の株価指数 → 市場全体の代理）\n銘柄例：IBM\n期間：任意の開始日（start_date）と終了日（end_date）\n\n\n\n\n実装ステップ\n\nCAPMクラスを作成\n\n引数：stocks（IBMとS&P500）、start_date、end_date\n属性：株式リスト、期間、データ格納用変数\n\nデータ取得メソッド\n\nyfinance.download() を利用\n調整後終値（Adjusted Close）を使用\n\n通常の終値より正確\n\n配当・株式分割などを考慮済み\n\n\n戻り値\n\nPandas DataFrame に変換して管理\n\n\n\n\n\nPython実装例\n```python import numpy as np import pandas as pd import yfinance as yf import matplotlib.pyplot as plt\nclass CAPM: def init(self, stocks, start_date, end_date): self.stocks = stocks # 例: [“IBM”, “^GSPC”] self.start_date = start_date self.end_date = end_date self.data = None\ndef download_data(self):\n    data = {}\n    for stock in self.stocks:\n        ticker = yf.download(stock, start=self.start_date, end=self.end_date)\n        data[stock] = ticker[\"Adj Close\"]  # 調整後終値を使用\n    self.data = pd.DataFrame(data)\n    return self.data\nif name == “main”: stocks = [“IBM”, “^GSPC”] # ^GSPC = S&P500 capm = CAPM(stocks, “2015-01-01”, “2020-01-01”) df = capm.download_data() print(df.head())\n##4-7 CAPM実装：βの算出（共分散アプローチ）\n\n\nステップ概要\n\nデータ取得（IBM株とS&P500）\n日次データを月次データに変換（resample → ‘M’）\n対数月次リターンを計算\n共分散行列を計算\nβを算出 \\[\n\\beta = \\frac{\\text{Cov}(R_{stock}, R_{market})}{\\text{Var}(R_{market})}\n\\]\n\n\n\n\nなぜ月次リターンを使うのか？\n\n日次リターン：短期的・戦術的分析に有効（休日や短期イベントを考慮）\n月次リターン：分布が正規分布に近づき、CAPMなど長期モデルに適合しやすい\n\n\n\n\nPython実装例\n```python import numpy as np import pandas as pd import yfinance as yf\nclass CAPM: def init(self, stocks, start_date, end_date): self.stocks = stocks self.start_date = start_date self.end_date = end_date self.data = self.download_data()\ndef download_data(self):\n    data = {}\n    for stock in self.stocks:\n        ticker = yf.download(stock, start=self.start_date, end=self.end_date)\n        data[stock] = ticker[\"Adj Close\"]\n    return pd.DataFrame(data)\n\ndef calculate_beta(self):\n    # 月次データに変換\n    monthly_data = self.data.resample(\"M\").last()\n\n    # 対数リターンを計算\n    log_returns = np.log(monthly_data / monthly_data.shift(1)).dropna()\n\n    # 共分散行列\n    cov_matrix = np.cov(log_returns[self.stocks[0]], log_returns[self.stocks[1]])\n\n    # βの算出\n    beta = cov_matrix[0, 1] / cov_matrix[1, 1]\n    return beta\nif name == “main”: stocks = [“IBM”, “^GSPC”] # IBM と S&P500 capm = CAPM(stocks, “2010-01-01”, “2017-01-01”) beta_value = capm.calculate_beta() print(“Beta:”, round(beta_value, 3))\n##4-8 CAPM実装：線形回帰によるβ・αの推定\n\n\nステップ概要\n\n月次リターンを算出（株式リターン・市場リターン）\n線形回帰で株式超過リターンと市場超過リターンの関係を推定\n\\[\nR_i - R_f = \\alpha + \\beta (R_m - R_f)\n\\]\n推定したβとαから期待収益率を計算\n\\[\nE[R_i] = R_f + \\beta (E[R_m] - R_f)\n\\]\n回帰直線をプロットして可視化\n\n\n\n\nPython実装例\n```python import numpy as np import pandas as pd import yfinance as yf import matplotlib.pyplot as plt\nclass CAPM: def init(self, stocks, start_date, end_date): self.stocks = stocks self.start_date = start_date self.end_date = end_date self.data = self.download_data()\ndef download_data(self):\n    data = {}\n    for stock in self.stocks:\n        ticker = yf.download(stock, start=self.start_date, end=self.end_date)\n        data[stock] = ticker[\"Adj Close\"]\n    return pd.DataFrame(data)\n\ndef calculate_returns(self):\n    monthly = self.data.resample(\"M\").last()\n    log_returns = np.log(monthly / monthly.shift(1)).dropna()\n    return log_returns\n\ndef regression(self):\n    returns = self.calculate_returns()\n    stock_returns = returns[self.stocks[0]]\n    market_returns = returns[self.stocks[1]]\n\n    # 線形回帰（一次多項式）\n    beta, alpha = np.polyfit(market_returns, stock_returns, 1)\n    return alpha, beta, stock_returns, market_returns\n\ndef expected_return(self, rf=0.05, months_in_year=12):\n    alpha, beta, stock_returns, market_returns = self.regression()\n    mean_market_return = market_returns.mean() * months_in_year\n    exp_return = rf + beta * (mean_market_return - rf)\n    return exp_return, alpha, beta\n\ndef plot_regression(self):\n    alpha, beta, stock_returns, market_returns = self.regression()\n\n    plt.figure(figsize=(10, 6))\n    plt.scatter(market_returns, stock_returns, label=\"Data points\")\n    plt.plot(market_returns, alpha + beta * market_returns,\n             color=\"red\", label=\"CAPM Regression Line\")\n\n    plt.title(\"CAPM: Linear Regression for Alpha & Beta\")\n    plt.xlabel(\"Market Returns\")\n    plt.ylabel(\"Stock Returns\")\n    plt.legend()\n    plt.grid(True)\n    plt.show()\nif name == “main”: stocks = [“IBM”, “^GSPC”] capm = CAPM(stocks, “2010-01-01”, “2017-01-01”)\nexp_return, alpha, beta = capm.expected_return()\nprint(f\"Alpha: {alpha:.4f}, Beta: {beta:.4f}\")\nprint(f\"Expected Annual Return: {exp_return:.2%}\")\n\ncapm.plot_regression()\n##4-9 リターンの分布と正規分布仮定\n\n\n目的\n\n株価リターンが 正規分布に従う と仮定してよいかを検証する。\n\nヒストグラムを描画し、正規分布との比較を行う。\n\n\n\n\n手順\n\nIBM株価データ（2010〜2020年）の調整後終値を取得\n\n対数日次リターンを計算\n\\[\nr_t = \\ln\\left(\\frac{P_t}{P_{t-1}}\\right)\n\\]\n欠損値を削除\n\nリターンのヒストグラムを描画（例：700ビン）\n\n平均・分散・標準偏差を算出\n\n同じパラメータで正規分布曲線を重ね描画\n\n\n\n\nPython実装例\n```python import numpy as np import pandas as pd import yfinance as yf import matplotlib.pyplot as plt from scipy.stats import norm\n\n\nデータ取得\ndf = yf.download(“IBM”, start=“2010-01-01”, end=“2020-01-01”)[“Adj Close”]\n\n\n対数リターン\nlog_returns = np.log(df / df.shift(1)).dropna()\n\n\n平均と標準偏差\nmu = log_returns.mean() sigma = log_returns.std()\n\n\nヒストグラム\nplt.figure(figsize=(10, 6)) count, bins, ignored = plt.hist(log_returns, bins=700, density=True, alpha=0.6, color=“blue”)\n\n\n正規分布カーブ\nx = np.linspace(log_returns.min(), log_returns.max(), 1000) plt.plot(x, norm.pdf(x, mu, sigma), “y”, linewidth=2, label=“Normal Distribution”)\n\n\n±3σライン\nplt.axvline(mu - 3sigma, color=“red”, linestyle=“–”, label=“-3σ”) plt.axvline(mu + 3sigma, color=“red”, linestyle=“–”, label=“+3σ”)\nplt.title(“Histogram of IBM Daily Log Returns (2010–2020)”) plt.xlabel(“Log Returns”) plt.ylabel(“Frequency”) plt.legend() plt.grid(True) plt.show()"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html",
+    "href": "06ランダム性の取り扱い.html",
+    "title": "まとめ",
+    "section": "",
+    "text": "#ファイナンスにおけるランダム性\n##6-1分析手法の種類\nこの講義では、3つの主要な分析手法について解説しています。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#ファンダメンタル分析fundamental-analysis",
+    "href": "06ランダム性の取り扱い.html#ファンダメンタル分析fundamental-analysis",
+    "title": "まとめ",
+    "section": "1. ファンダメンタル分析（Fundamental Analysis）",
+    "text": "1. ファンダメンタル分析（Fundamental Analysis）\n企業そのものを詳しく調査し、本質的価値（Intrinsic Value）に対して株価が割安かどうかを判断する手法。\n\n主な分析対象\n\n経営陣\n製品・サービス\n資産（現金・設備など）\n負債（借金・ローン）\n損益計算書（収益・費用）\n貸借対照表\nキャッシュフロー計算書\n\n\n\n重要指標：P/E（株価収益率）\n\n純利益 ÷ 発行済株式数 = EPS\n\n株価 ÷ EPS = P/E比率\n→ 低いほど割安\n\n\n\n特徴\n\n本質的価値を重視\n\n需給がすぐに反映されない場合、正しく割安でも株価が上がらないこともある\n\n長期投資向けの手法"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#テクニカル分析technical-analysis",
+    "href": "06ランダム性の取り扱い.html#テクニカル分析technical-analysis",
+    "title": "まとめ",
+    "section": "2. テクニカル分析（Technical Analysis）",
+    "text": "2. テクニカル分析（Technical Analysis）\n企業の情報は株価にすべて反映されていると仮定し、過去の価格データから未来を予測する手法。\n\n主な手法\n\n移動平均線（SMA）\nRSI（相対力指数）\nAR / ARIMA モデル\nロジスティック回帰、SVM、DNN などの機械学習モデル\n\n\n\n基本概念\n\n過去に見られたパターンは将来も繰り返される\n→ 過去データから未来の動きを予測する\n\n\n\n特徴\n\nチャートの形やパターンを重視\n\n企業の財務情報は直接見ない\n\n短期〜中期取引に有効"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#クオンツ分析quantitative-analysis",
+    "href": "06ランダム性の取り扱い.html#クオンツ分析quantitative-analysis",
+    "title": "まとめ",
+    "section": "3. クオンツ分析（Quantitative Analysis）",
+    "text": "3. クオンツ分析（Quantitative Analysis）\n高度な数学と確率論を用いて、金融商品のランダムな動きをモデル化する手法。\n\n必要となる数学\n\n統計学\n確率論\n確率過程\n確率微分方程式（SDE）\nストキャスティック・カルキュラス（確率解析）\n\n\n\n特徴\n\n資産のランダム性を前提とする\n\nポートフォリオ最適化などでリスクを最小化\n\nモデル例：ブラック＝ショールズ方程式（オプション価格計算）"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ",
+    "href": "06ランダム性の取り扱い.html#まとめ",
+    "title": "まとめ",
+    "section": "まとめ",
+    "text": "まとめ\n\n\n\n\n\n\n\n\n手法\n何を見る？\n主な特徴\n\n\n\n\nファンダメンタル分析\n企業の価値・財務\n割安/割高を判断、長期向け\n\n\nテクニカル分析\n過去の価格データ\nパターン分析で未来を予測、短期向け\n\n\nクオンツ分析\n数学モデル・確率過程\nランダム性を数式化、高度で精密\n\n\n\n\n##6-2 資産のランダム性（確率的挙動）\n金融資産が「ランダムに振る舞う」という前提の背景と、その理由について解説する。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#なぜランダム性を仮定するのか",
+    "href": "06ランダム性の取り扱い.html#なぜランダム性を仮定するのか",
+    "title": "まとめ",
+    "section": "1. なぜランダム性を仮定するのか？",
+    "text": "1. なぜランダム性を仮定するのか？\nクオンツ分析では、株価・金利・オプション価格などはランダムに動くと仮定する。\nその理由は、実際の市場データ（特に日次リターン）を調べると、以下のような特徴があるため：\n\n日次リターン = (今日の株価 − 昨日の株価) ÷ 昨日の株価\n日次リターンのヒストグラムを描画すると\n→ 平均0の正規分布に非常に近い形状になる\n月次リターンでも同様の傾向がある\n\n正規分布は\n「平均」「分散（または標準偏差）」 の 2 つのパラメータで特徴付けられる。\n標準偏差 = 分散の平方根。\n→ リターンは正規分布からの乱数とみなせる\nという結論に至る。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#リターンをランダム変数として表す",
+    "href": "06ランダム性の取り扱い.html#リターンをランダム変数として表す",
+    "title": "まとめ",
+    "section": "2. リターンをランダム変数として表す",
+    "text": "2. リターンをランダム変数として表す\nリターン $ R $ は次のように表せる：\n\\[\nR = \\mu + \\sigma \\varepsilon\n\\]\n\n$ $：平均（決定論的部分）\n$ $：標準偏差\n$ $：正規分布からの乱数（ランダム部分）\n\nこれは日次リターンが正規分布に従うという観察に基づいている。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#正規分布がよく現れる理由中心極限定理",
+    "href": "06ランダム性の取り扱い.html#正規分布がよく現れる理由中心極限定理",
+    "title": "まとめ",
+    "section": "3. 正規分布がよく現れる理由（中心極限定理）",
+    "text": "3. 正規分布がよく現れる理由（中心極限定理）\n複数の独立な確率変数を足し合わせると、その和は正規分布に近づく。\nこれが 中心極限定理（Central Limit Theorem）。\nそのため金融市場だけでなく、物理・統計などあらゆる分野で正規分布が頻出する。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価の変動もランダム変数で表す",
+    "href": "06ランダム性の取り扱い.html#株価の変動もランダム変数で表す",
+    "title": "まとめ",
+    "section": "4. 株価の変動もランダム変数で表す",
+    "text": "4. 株価の変動もランダム変数で表す\nリターンだけでなく 株価そのものの未来値もランダム変数 として扱える。\n例：\n\n今日の株価：$ S_t $\n明日の株価：$ S_{t+1} $\n→ 正規分布からの乱数として扱える\n\nこれが ウィーナー過程（Wiener Process） を使ったモデル化の考え方につながる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#ウィーナー過程wiener-processの特徴",
+    "href": "06ランダム性の取り扱い.html#ウィーナー過程wiener-processの特徴",
+    "title": "まとめ",
+    "section": "5. ウィーナー過程（Wiener Process）の特徴",
+    "text": "5. ウィーナー過程（Wiener Process）の特徴\nウィーナー過程（ブラウン運動）は：\n\n連続的なパスを持つ\n増分が独立で、かつ正規分布に従う\n\n株価の変化をこのプロセスでモデル化するのは、\n「日次リターンが正規分布に従う」という経験的事実に基づく。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価の大まかな振れ幅",
+    "href": "06ランダム性の取り扱い.html#株価の大まかな振れ幅",
+    "title": "まとめ",
+    "section": "6. 株価の大まかな振れ幅",
+    "text": "6. 株価の大まかな振れ幅\n将来の株価は不確実だが、次の範囲に収まる可能性が高い：\n\\[\n\\mu \\pm 1 \\sigma\n\\]\n\n平均（トレンド）\n\n± 標準偏差（ばらつき）\n\n多くの場合、株価はこのレンジ内で推移する。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#今日の株価から明日の株価を予測する考え方",
+    "href": "06ランダム性の取り扱い.html#今日の株価から明日の株価を予測する考え方",
+    "title": "まとめ",
+    "section": "7. 今日の株価から明日の株価を予測する考え方",
+    "text": "7. 今日の株価から明日の株価を予測する考え方\n今日の株価を $ S_t $ とすると、明日の株価 $ S_{t+1} $ は：\n\\[\nS_{t+1} \\sim \\text{Normal}(\\text{mean}, \\text{variance})\n\\]\nつまり 株価の将来値そのものがランダムウォークである。\nこれがクオンツ分析の基本的な前提となる。\n##6-3 金融資産の数学的背景：ウィーナー過程とランダムウォーク\nこの講義では、金融資産の確率的挙動を説明するための ウィーナー過程（Wiener Process） と\nランダムウォーク（特に幾何ブラウン運動） について解説する。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#リターンは正規分布に従う",
+    "href": "06ランダム性の取り扱い.html#リターンは正規分布に従う",
+    "title": "まとめ",
+    "section": "1. リターンは正規分布に従う",
+    "text": "1. リターンは正規分布に従う\n株価 \\(S_t\\) を使うと 日次リターン は次の式で計算できる：\n$ = $\n日次リターンのヒストグラムは：\n\n平均はほぼ 0\n\n一定の分散（標準偏差）\n\n正規分布に非常に近い形状\n\n→ リターンは正規分布に従う とみなせる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価そのものは正規分布に従わない理由",
+    "href": "06ランダム性の取り扱い.html#株価そのものは正規分布に従わない理由",
+    "title": "まとめ",
+    "section": "2. 株価そのものは正規分布に従わない理由",
+    "text": "2. 株価そのものは正規分布に従わない理由\n\n理由1：株価は負の値を取れない\n正規分布は負の値が出る → モデルとして破綻。\n\n\n理由2：株価には長期的な上昇トレンドがある\nApple、Tesla、Google などの株価は 長期では上昇し続ける傾向 にある。\n→ 完全なランダムウォーク（通常の正規分布）では説明できない。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価は対数正規分布に従う",
+    "href": "06ランダム性の取り扱い.html#株価は対数正規分布に従う",
+    "title": "まとめ",
+    "section": "3. 株価は対数正規分布に従う",
+    "text": "3. 株価は対数正規分布に従う\n株価 \\(S_t\\) ではなく その対数 \\(\\ln S_t\\) が正規分布に従う と仮定する。\n$ S_t (, ^2) $\nつまり株価そのものは 対数正規分布（lognormal distribution）。\nこの仮定により：\n\n株価は負にならない\n\n長期的に指数関数的な増加が可能\n\n株価が大きくなると変動も大きくなる（実際の市場と一致）"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価変動はトレンド-ノイズ",
+    "href": "06ランダム性の取り扱い.html#株価変動はトレンド-ノイズ",
+    "title": "まとめ",
+    "section": "4. 株価変動は「トレンド + ノイズ」",
+    "text": "4. 株価変動は「トレンド + ノイズ」\n株価の動きは以下に分解できる：\n\n決定論的部分（ドリフト）\n→ 長期トレンドを表すパラメータ \\(\\mu\\)\n確率的部分（ランダム変動）\n→ ボラティリティを表すパラメータ \\(\\sigma\\)\n\n標準偏差と分散の関係：\n$ = $"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#ウィーナー過程wiener-processの性質",
+    "href": "06ランダム性の取り扱い.html#ウィーナー過程wiener-processの性質",
+    "title": "まとめ",
+    "section": "5. ウィーナー過程（Wiener Process）の性質",
+    "text": "5. ウィーナー過程（Wiener Process）の性質\nウィーナー過程 \\(W_t\\) の増分は次の性質を持つ：\n$ W_{t+t} - W_t (0, t) $\n\n増分は独立\n\n増分は正規分布\n\nサンプルパスは連続"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#幾何ブラウン運動geometric-brownian-motion-gbm",
+    "href": "06ランダム性の取り扱い.html#幾何ブラウン運動geometric-brownian-motion-gbm",
+    "title": "まとめ",
+    "section": "6. 幾何ブラウン運動（Geometric Brownian Motion: GBM）",
+    "text": "6. 幾何ブラウン運動（Geometric Brownian Motion: GBM）\n金融工学で最も重要なSDE（確率微分方程式）はこれ：\n$ dS_t = S_t , dt + S_t , dW_t $\n意味：\n\n\\(dS_t\\)：株価の微小変化\n\n\\(\\mu S_t dt\\)：決定論的トレンド\n\n\\(\\sigma S_t dW_t\\)：確率的変動（ボラティリティ）\n\n\\(dW_t\\)：正規分布 \\(\\mathcal{N}(0, dt)\\) に従う増分\n\n\n株価が大きいほど変動が大きくなる理由\n式の通り：\n$ S_t $\n→ 株価が成長すると変動が自然に大きくなる（実データと一致）。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#現代金融モデルへの応用",
+    "href": "06ランダム性の取り扱い.html#現代金融モデルへの応用",
+    "title": "まとめ",
+    "section": "7. 現代金融モデルへの応用",
+    "text": "7. 現代金融モデルへの応用\nこの\n$ dS_t = S_t dt + S_t dW_t $\nは現代金融工学の中心であり：\n\nブラック＝ショールズモデル\n\n金利モデル（Vasicek、CIR など）\n\nデリバティブ価格付け\n\nといった多くの理論の基盤。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#前提リターンとランダム性",
+    "href": "06ランダム性の取り扱い.html#前提リターンとランダム性",
+    "title": "まとめ",
+    "section": "1. 前提：リターンとランダム性",
+    "text": "1. 前提：リターンとランダム性\n株価のリターン（日次リターン）は次の式で定義されます。\n$ = $\n実データからリターンのヒストグラムを作ると次の特徴があります。\n\n平均はほぼ 0\n\n正規分布に非常に近い形\n\n→ よって リターンは正規分布に従う確率変数として扱える と考えられます。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価そのものではなく過程をモデル化する理由",
+    "href": "06ランダム性の取り扱い.html#株価そのものではなく過程をモデル化する理由",
+    "title": "まとめ",
+    "section": "2. 株価そのものではなく「過程」をモデル化する理由",
+    "text": "2. 株価そのものではなく「過程」をモデル化する理由\n株価の動きを連続時間で変化する確率過程として扱うため、次の概念が登場します。\n\nウィーナー過程（ブラウン運動）\n\nランダムウォーク\n\nウィーナー過程 \\(W(t)\\) の性質：\n\n独立増分\n\n正規増分（平均 0、分散 \\(\\Delta t\\)）\n\n式で表すと：\n$ W(t + t) - W(t) N(0, t) $"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#数値シミュレーションの基本アイデア",
+    "href": "06ランダム性の取り扱い.html#数値シミュレーションの基本アイデア",
+    "title": "まとめ",
+    "section": "3. 数値シミュレーションの基本アイデア",
+    "text": "3. 数値シミュレーションの基本アイデア\n連続時間の確率過程をコンピュータで扱うため、小さい時間刻み \\(dt\\) を使って近似します。\n手順：\n\n標準正規乱数 \\(Z \\sim N(0,1)\\) を生成\n\n増分 \\(dW = \\sqrt{dt} \\times Z\\) を計算\n\n初期値 \\(W(0)=0\\) とし、累積和で \\(W(t)\\) を構築"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#python実装ウィーナー過程クラス",
+    "href": "06ランダム性の取り扱い.html#python実装ウィーナー過程クラス",
+    "title": "まとめ",
+    "section": "4. Python実装：ウィーナー過程クラス",
+    "text": "4. Python実装：ウィーナー過程クラス\n以下に示すクラス WienerProcess は、ウィーナー過程の生成と可視化を扱います。\n\n特徴\n\n時間刻み \\(dt\\) とステップ数 \\(N\\) を設定\n\ngenerate_path：パスを生成\n\nplot_path：結果をプロット\n\n\n\n\nコード：WienerProcess クラス\nimport numpy as np\nimport numpy.random as npr\nimport matplotlib.pyplot as plt\n\nclass WienerProcess:\n    def __init__(self, dt=0.1, N=1000):\n        \"\"\"\n        初期化\n        dt : 時間刻み\n        N  : ステップ数\n        \"\"\"\n        self.dt = dt\n        self.N = N\n        self.t = None\n        self.W = None\n\n    def generate_path(self):\n        \"\"\"\n        ウィーナー過程 W(t) を生成して内部に保持する\n        \"\"\"\n        # 時間軸\n        self.t = np.linspace(0, self.N * self.dt, self.N + 1)\n\n        # 標準正規乱数 Z ~ N(0, 1)\n        Z = npr.normal(0, 1, self.N)\n\n        # 増分 dW = sqrt(dt) * Z\n        dW = np.sqrt(self.dt) * Z\n\n        # 初期値 0 の配列\n        self.W = np.zeros(self.N + 1)\n\n        # 累積和で W を構築\n        self.W[1:] = np.cumsum(dW)\n\n        return self.t, self.W\n\n    def plot_path(self):\n        \"\"\"\n        生成されたパスをプロットする\n        \"\"\"\n        if self.W is None:\n            self.generate_path()\n\n        plt.figure(figsize=(10, 5))\n        plt.plot(self.t, self.W, label=\"Wiener Process\")\n        plt.xlabel(\"Time\")\n        plt.ylabel(\"W(t)\")\n        plt.title(\"Wiener Process Simulation\")\n        plt.grid(True)\n        plt.legend()\n        plt.show()\n\n# メイン処理\nif __name__ == \"__main__\":\n    process = WienerProcess(dt=0.1, N=1000)\n    process.plot_path()"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価モデルとしての評価",
+    "href": "06ランダム性の取り扱い.html#株価モデルとしての評価",
+    "title": "まとめ",
+    "section": "5. 株価モデルとしての評価",
+    "text": "5. 株価モデルとしての評価\nウィーナー過程の特徴（欠点）\n\n値が正にも負にもなる\n\n長期的トレンドが 0\n\nランダムなギザギザした動き\n\n一方、実際の株価の特徴は：\n\n負にならない（最小値は 0）\n\n長期的に上昇トレンドをもつ\n\n株価が高いほど変動（ボラティリティ）も大きくなる\n\n→ よって、ウィーナー過程そのままでは株価のモデルとして不適。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#幾何ブラウン運動gbmへの接続",
+    "href": "06ランダム性の取り扱い.html#幾何ブラウン運動gbmへの接続",
+    "title": "まとめ",
+    "section": "6. 幾何ブラウン運動（GBM）への接続",
+    "text": "6. 幾何ブラウン運動（GBM）への接続\n株価のモデルには、次の確率微分方程式（SDE）が一般的に使われます。\n$ dS(t) = S(t),dt + S(t),dW(t) $\n\n特徴\n\n決定論的トレンド \\(\\mu\\)（期待リターン）\n\nランダム変動 \\(\\sigma\\)（ボラティリティ）\n\n解が指数関数形 → 負値にならない\n\n現代金融工学の標準モデル"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ-2",
+    "href": "06ランダム性の取り扱い.html#まとめ-2",
+    "title": "まとめ",
+    "section": "7. まとめ",
+    "text": "7. まとめ\n\nリターンは正規分布として扱える\n\nウィーナー過程は最も基本的な確率過程\n\nnumpy の累積和で簡単にシミュレーション可能\n\nしかし株価を表すには不十分（負値・トレンドがない）\n\nそのため、幾何ブラウン運動（GBM） が株価モデルとして使われる\n\n##6-5 伊藤計算と確率変数の微分\nこの資料では、講義で説明されていた\n「確率微分方程式（SDE）を解くための伊藤計算（Itô calculus）」\nについて、内容を整理したものです。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#普通の関数確定変数の微分",
+    "href": "06ランダム性の取り扱い.html#普通の関数確定変数の微分",
+    "title": "まとめ",
+    "section": "1. 普通の関数（確定変数）の微分",
+    "text": "1. 普通の関数（確定変数）の微分\nまず、確定変数 \\(x\\) をもつ通常の関数を考えます。\n例：\n\\(f(x) = x^2\\)\nこの微分は：\n\\(\\frac{df}{dx} = 2x\\)\n小さな変化 \\(dx\\) に対する変化は、\n\\(df = 2x\\,dx\\)\nこれは普通の微分の公式であり、\n関数が確定的で、\\(x\\) がランダムでない場合に成り立つ。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#確率変数ウィーナー過程を含む場合はどうなるか",
+    "href": "06ランダム性の取り扱い.html#確率変数ウィーナー過程を含む場合はどうなるか",
+    "title": "まとめ",
+    "section": "2. 確率変数（ウィーナー過程）を含む場合はどうなるか？",
+    "text": "2. 確率変数（ウィーナー過程）を含む場合はどうなるか？\n今度は \\(x\\) が 確率変数（例：ウィーナー過程 \\(W_t\\)） の場合を考える。\nウィーナー過程の性質：\n\n\\(dW\\) は平均 0、分散 \\(dt\\) の正規分布\n\nつまり\n\\(dW \\sim N(0, dt)\\)\n\nここで問題：\n\n普通の微分法則 \\(df = f'(x)\\,dx\\) はそのまま使えるか？\n\n→ 使えない。\n理由：\n\\(W_t\\) は確率変数であり、\\(dW\\) は無限小ではあるがランダムで、\nしかも二乗すると \\(dW^2 = dt\\) という非常に特殊な性質を持つため。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#伊藤の補題itôs-lemma",
+    "href": "06ランダム性の取り扱い.html#伊藤の補題itôs-lemma",
+    "title": "まとめ",
+    "section": "3. 伊藤の補題（Itô’s Lemma）",
+    "text": "3. 伊藤の補題（Itô’s Lemma）\n確率変数を含む関数 \\(f(x)\\) の変化は次で与えられる：\n\\(df = f'(x)\\,dx + \\frac{1}{2} f''(x)\\,(dx)^2\\)\nここで、ウィーナー過程の性質\n\n\\(dW\\) の期待値は 0\n\\((dW)^2 = dt\\)\n\nを使う。\nただの微分との違い：\n\n2次の微小項 \\((dx)^2\\) が消えない\nむしろ \\((dW)^2 = dt\\) となって残る\n\nこれが確率微分の最大のポイント。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#taylor-展開からの導出直感",
+    "href": "06ランダム性の取り扱い.html#taylor-展開からの導出直感",
+    "title": "まとめ",
+    "section": "4. Taylor 展開からの導出（直感）",
+    "text": "4. Taylor 展開からの導出（直感）\n関数 \\(f(x)\\) を \\(x + dx\\) で評価すると：\n\\(f(x + dx) = f(x)\n\\quad + f'(x)\\,dx\n\\quad + \\frac{1}{2} f''(x)\\,(dx)^2\n\\quad + \\cdots\\)\n通常の微分では \\((dx)^2\\) は無視してよい小ささだが、\n確率変数では 無視すると間違いになる。\nなぜか？\n\n\\(dx = dW\\) の場合\n\n\\(dW \\sim \\sqrt{dt}\\) の大きさ\n\n\\((dW)^2 = dt\\) は無視できない"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#実際に計算してみるfxx2",
+    "href": "06ランダム性の取り扱い.html#実際に計算してみるfxx2",
+    "title": "まとめ",
+    "section": "5. 実際に計算してみる：\\(f(x)=x^2\\)",
+    "text": "5. 実際に計算してみる：\\(f(x)=x^2\\)\n\n関数\n\\(f(x) = x^2\\)\n\n\n1次微分\n\\(f'(x) = 2x\\)\n\n\n2次微分\n\\(f''(x) = 2\\)\n\n\n伊藤の補題を適用\n\\(df = 2x\\,dW + \\frac{1}{2}\\cdot 2 \\cdot (dW)^2\\)\n\\(dW^2 = dt\\) を使って簡略化：\n\\(df = 2x\\,dW + dt\\)"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#普通の微分との比較",
+    "href": "06ランダム性の取り扱い.html#普通の微分との比較",
+    "title": "まとめ",
+    "section": "6. 普通の微分との比較",
+    "text": "6. 普通の微分との比較\n確定変数の場合：\n\\(df = 2x\\,dx\\)\n確率変数の場合（伊藤の補題）：\n\\(df = 2x\\,dW + dt\\)\n→ “+ dt” が追加されるのが決定的な違い。\nこの追加項が後の\n\n幾何ブラウン運動（GBM）\nBlack–Scholes 方程式の導出\n金融工学の確率微分方程式\n\nすべてに現れる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ-3",
+    "href": "06ランダム性の取り扱い.html#まとめ-3",
+    "title": "まとめ",
+    "section": "7. まとめ",
+    "text": "7. まとめ\n\n普通の微分では 1次の微小項だけが残る\n\nウィーナー過程では \\((dW)^2 = dt\\) が残るため 2次項が重要\n\nこれを体系化したのが 伊藤の補題（Itô’s Lemma）\n\n金融工学では必須の道具\n\n次のステップは 幾何ブラウン運動（GBM）に伊藤の補題を適用すること\n\n#6-6 高次元伊藤（Itô）計算とブラック–ショールズ方程式の導入\nこの資料では、講義で説明されていた\n「なぜ確率微分方程式（SDE）と伊藤計算が必要なのか」\nを整理しつつ、ブラック–ショールズ式につながる 多変数の伊藤補題 をまとめる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#なぜ確率微分方程式sdeが必要なのか",
+    "href": "06ランダム性の取り扱い.html#なぜ確率微分方程式sdeが必要なのか",
+    "title": "まとめ",
+    "section": "1. なぜ確率微分方程式（SDE）が必要なのか？",
+    "text": "1. なぜ確率微分方程式（SDE）が必要なのか？\nオプション価格 \\(V(S,t)\\) を計算したいとき：\n\n満期（\\(t = T\\)）ではオプションの価値は明確\n例：コールなら \\(V = \\max(S_T - K, 0)\\)\nしかし知りたいのは 満期前 \\(t &lt; T\\) のオプション価格\n→ この時点では株価 \\(S_t\\) が確率的に変動するため、\nオプション価格 \\(V(S,t)\\) も確率的に変動する\n\nよって、株価と同じく 確率過程としてオプション価格を扱う必要がある。\nそのために 確率微分方程式（SDE） と\n伊藤計算（Itô calculus） が必要になる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#株価のモデルsde一次元",
+    "href": "06ランダム性の取り扱い.html#株価のモデルsde一次元",
+    "title": "まとめ",
+    "section": "2. 株価のモデル：SDE（一次元）",
+    "text": "2. 株価のモデル：SDE（一次元）\n株価の変化は次の形でモデル化されたとする：\n$ dS = a,dt + b,dW $\n\n\\(a = \\mu S\\)（ドリフト：期待成長率）\n\\(b = \\sigma S\\)（ボラティリティ）\n\nただし今回は記号を簡略化して \\(a, b\\) をそのまま使う。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#オプション価格は-2-変数の確率関数-になる",
+    "href": "06ランダム性の取り扱い.html#オプション価格は-2-変数の確率関数-になる",
+    "title": "まとめ",
+    "section": "3. オプション価格は 2 変数の確率関数 になる",
+    "text": "3. オプション価格は 2 変数の確率関数 になる\nオプション価格 \\(V\\) は次を変数に持つ：\n\n株価：\\(S\\)（確率変数）\n時間：\\(t\\)（確定変数）\n\nつまり：\n$ V = V(S, t) $\n変化量は：\n$ dV = V_S,dS + V_t,dt + V_{SS}(dS)^2 $\n多変数の伊藤の補題（2D Itô’s Lemma）である。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#taylor-展開からの導出のイメージ",
+    "href": "06ランダム性の取り扱い.html#taylor-展開からの導出のイメージ",
+    "title": "まとめ",
+    "section": "4. Taylor 展開からの導出のイメージ",
+    "text": "4. Taylor 展開からの導出のイメージ\n\\(V(S,t)\\) を \\((S + dS, t + dt)\\) に広げると：\n$ V(S+dS, t+dt) =\nV + V_S dS + V_t dt + V_{SS}(dS)^2 + $\n通常の微分なら \\((dS)^2\\) は無視して良いが、\n確率変数では 無視すると間違い。\n理由：\n\\(dS = a\\,dt + b\\,dW\\) なので：\n\\((dS)^2 = (a\\,dt + b\\,dW)^2\n\\approx b^2(dW)^2 = b^2\\,dt\\)\nここでウィーナー過程の性質：\n\\((dW)^2 = dt\\)\nが重要。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#必要な項だけ残すと",
+    "href": "06ランダム性の取り扱い.html#必要な項だけ残すと",
+    "title": "まとめ",
+    "section": "5. 必要な項だけ残すと…",
+    "text": "5. 必要な項だけ残すと…\n\\(dS = a\\,dt + b\\,dW\\) を使って：\n$ (dS)^2 b^2 dt $\nこれを Itô の式に代入：\n$ dV\n= V_t dt\n+ V_S (a,dt + b,dW)\n+ V_{SS} b^2 dt $\nまとめると：\n$ dV\n= ( V_t + a V_S + b^2 V_{SS} ) dt\n+ b V_S, dW $\nこれは オプション価格の確率微分方程式 であり、\n後にブラック–ショールズ PDE に変形される。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#なぜこれが重要なのか",
+    "href": "06ランダム性の取り扱い.html#なぜこれが重要なのか",
+    "title": "まとめ",
+    "section": "6. なぜこれが重要なのか？",
+    "text": "6. なぜこれが重要なのか？\n株価 \\(S\\) が確率過程である以上：\n\n\\(S\\) 依存のオプション価格 \\(V(S,t)\\) も確率過程になる\n\nよって \\(V\\) の変化量 \\(dV\\) を正しく扱うには\n高次元の伊藤補題 が不可欠\n\nブラック–ショールズの導出では：\n\nこの式をリスクヘッジ資産に組み合わせることで\n\n\\(dW\\) の項を消し、リスクのないポートフォリオを作り\n\nPDE（偏微分方程式）へ変形する\n\nという流れになる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ-4",
+    "href": "06ランダム性の取り扱い.html#まとめ-4",
+    "title": "まとめ",
+    "section": "7. まとめ",
+    "text": "7. まとめ\n\n株価が確率過程 → オプション価格も確率過程\n\nよって 2 変数の伊藤補題が必要\n\n\\(dV\\) には 1次項（\\(V_S\\), \\(V_t\\)）だけでなく\n2次項の \\(\\frac{1}{2}V_{SS}(dS)^2\\) が必須\n\\((dS)^2 = b^2 dt\\) という性質に注意\n\nこれが後のブラック–ショールズ方程式の核心部分\n\n##6-7 幾何ブラウン運動（GBM）の確率微分方程式を伊藤の補題で解く\nこの資料では、講義で説明されていた\n「幾何ブラウン運動（GBM）の SDE を伊藤の補題で解く手順」\nをわかりやすく整理したものです。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#幾何ブラウン運動gbmの定義",
+    "href": "06ランダム性の取り扱い.html#幾何ブラウン運動gbmの定義",
+    "title": "まとめ",
+    "section": "1. 幾何ブラウン運動（GBM）の定義",
+    "text": "1. 幾何ブラウン運動（GBM）の定義\n株価 \\(S(t)\\) の変化は次の確率微分方程式（SDE）で与えられる：\n$ dS = S,dt + S,dW $\n\n\\(\\mu\\)：ドリフト（平均成長率）\n\\(\\sigma\\)：ボラティリティ\n\\(W\\)：ウィーナー過程（ブラウン運動）\n\nこの式を 解いて明示的な形の \\(S(t)\\) を得るのが今回の目的。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まず式を対数微分の形にする",
+    "href": "06ランダム性の取り扱い.html#まず式を対数微分の形にする",
+    "title": "まとめ",
+    "section": "2. まず式を「対数微分の形」にする",
+    "text": "2. まず式を「対数微分の形」にする\n両辺を \\(S\\) で割る：\n$ = ,dt + ,dW $\nこれは「対数微分」と同じ形なので：\n$ d(S)$ を伊藤の補題で計算すれば良い。\nよって、次の関数を定義する：\n\n\\(f(S) = \\ln S\\)"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#伊藤の補題itôs-lemmaを適用",
+    "href": "06ランダム性の取り扱い.html#伊藤の補題itôs-lemmaを適用",
+    "title": "まとめ",
+    "section": "3. 伊藤の補題（Itô’s Lemma）を適用",
+    "text": "3. 伊藤の補題（Itô’s Lemma）を適用\n伊藤の補題（1変数版）は：\n$ df = f’(S),dS + f’’(S),(dS)^2 $\nここで：\n\n1次微分\n\\(f'(S) = \\frac{1}{S}\\)\n\n\n2次微分\n\\(f''(S) = -\\frac{1}{S^2}\\)"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#ds2-を計算する",
+    "href": "06ランダム性の取り扱い.html#ds2-を計算する",
+    "title": "まとめ",
+    "section": "4. \\((dS)^2\\) を計算する",
+    "text": "4. \\((dS)^2\\) を計算する\n$ dS = S,dt + S,dW $\nの両辺を二乗する：\n$(dS)^2\n= (S,dt + S,dW)^2\n^2 S^2 (dW)^2\n= ^2 S^2 dt $\n（理由：\\(dt^2\\) や \\(dt\\,dW\\) は無視でき、\\((dW)^2 = dt\\) のみ残る）"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#伊藤の補題に代入",
+    "href": "06ランダム性の取り扱い.html#伊藤の補題に代入",
+    "title": "まとめ",
+    "section": "5. 伊藤の補題に代入",
+    "text": "5. 伊藤の補題に代入\n\\(df = f'(S)\\,dS + \\frac{1}{2}f''(S)(dS)^2\\)\n代入：\n\\(df\n= \\frac{1}{S}(\\mu S\\,dt + \\sigma S\\,dW)\n\\quad + \\frac{1}{2}\\left(-\\frac{1}{S^2}\\right)(\\sigma^2 S^2 dt)\\)\n簡略化：\n\\(df\n= \\mu\\,dt + \\sigma\\,dW\n\\quad - \\frac{1}{2}\\sigma^2 dt\\)\nよって：\n$ d(S)\n= (- ^2) dt + , dW $"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#両辺を積分して明示解を得る",
+    "href": "06ランダム性の取り扱い.html#両辺を積分して明示解を得る",
+    "title": "まとめ",
+    "section": "6. 両辺を積分して明示解を得る",
+    "text": "6. 両辺を積分して明示解を得る\n0〜t まで積分：\n\\(\\ln S(t) - \\ln S(0)\n= \\left(\\mu - \\frac{1}{2}\\sigma^2\\right)t + \\sigma W(t)\\)\n両辺に指数をつけて \\(S(t)\\) を求める：\n$ S(t)\n= S(0),$"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#幾何ブラウン運動の解の特徴",
+    "href": "06ランダム性の取り扱い.html#幾何ブラウン運動の解の特徴",
+    "title": "まとめ",
+    "section": "7. 幾何ブラウン運動の解の特徴",
+    "text": "7. 幾何ブラウン運動の解の特徴\n\n常に正の値をとる（指数関数形のため）\n平均成長率 \\(\\mu\\) に従って長期的に増えていく\nボラティリティ \\(\\sigma\\) が大きいほど変動も大きい\n株価の現実的特徴を非常によく表す\n\n→ この理由で GBM は現代金融工学の標準的な株価モデル になっている。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ-5",
+    "href": "06ランダム性の取り扱い.html#まとめ-5",
+    "title": "まとめ",
+    "section": "8. まとめ",
+    "text": "8. まとめ\n\nSDE \\(dS=\\mu S dt + \\sigma S dW\\) を伊藤の補題で解いた\n\n対数変換 \\(f(S)=\\ln S\\) を使うのがポイント\n\n\\((dW)^2 = dt\\) を利用して 2次項が残る\n\n最終解は：\n\n$ S(t) = S(0)$\n\nこれが次の講義でシミュレーションする GBM の明示解 となる\n\n##6-8 幾何ブラウン運動（GBM）のPython実装\nこの資料では、講義で説明されていた\n「幾何ブラウン運動（Geometric Brownian Motion: GBM）のシミュレーション」\nを、数式の復習から Python 実装まで整理してまとめる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#幾何ブラウン運動の復習",
+    "href": "06ランダム性の取り扱い.html#幾何ブラウン運動の復習",
+    "title": "まとめ",
+    "section": "1. 幾何ブラウン運動の復習",
+    "text": "1. 幾何ブラウン運動の復習\n前の講義で学んだ GBM の確率微分方程式（SDE）は：\n$ dS = S,dt + S,dW $\nこの式の解（明示解）は：\n$ S(t) = S_0 $\nしたがって、Python では\n\n\\(W(t)\\) を Brownian motion（累積和）\nその結果を上式に代入\n\nすることで株価パスを生成できる。"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#gbm-シミュレーションのアルゴリズム",
+    "href": "06ランダム性の取り扱い.html#gbm-シミュレーションのアルゴリズム",
+    "title": "まとめ",
+    "section": "2. GBM シミュレーションのアルゴリズム",
+    "text": "2. GBM シミュレーションのアルゴリズム\n\n時間刻み\n\\(dt = T/N\\) を計算する\n\n時間軸\nnp.linspace(0, T, N+1)\n\n標準正規乱数を生成\n\\(Z \\sim N(0,1)\\)\n\n\\(W(t)\\) を累積和で生成\n\\(W(t) = \\sqrt{dt} \\sum Z\\)\n\n明示解\n\\(S(t) = S_0 \\exp[(\\mu - \\tfrac12\\sigma^2)t + \\sigma W(t)]\\)"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#python-コード幾何ブラウン運動gbmの実装",
+    "href": "06ランダム性の取り扱い.html#python-コード幾何ブラウン運動gbmの実装",
+    "title": "まとめ",
+    "section": "3. Python コード：幾何ブラウン運動（GBM）の実装",
+    "text": "3. Python コード：幾何ブラウン運動（GBM）の実装\n以下は講義内容に基づいた シンプルで本格的な実装。\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef simulate_gbm(S0, T, N, mu, sigma):\n    \"\"\"\n    幾何ブラウン運動 (GBM) のシミュレーション\n    S0   : 初期株価\n    T    : シミュレーション期間（年）\n    N    : ステップ数\n    mu   : ドリフト（平均成長率）\n    sigma: ボラティリティ\n    \"\"\"\n    # 1. 時間刻み\n    dt = T / N\n\n    # 2. 時間軸\n    t = np.linspace(0, T, N + 1)\n\n    # 3. 標準正規乱数\n    Z = np.random.normal(0, 1, N)\n\n    # 4. Brownian motion\n    W = np.zeros(N + 1)\n    W[1:] = np.cumsum(np.sqrt(dt) * Z)\n\n    # 5. GBM の明示解\n    S = S0 * np.exp((mu - 0.5 * sigma**2) * t + sigma * W)\n\n    return t, S\n\ndef plot_gbm(t, S):\n    plt.figure(figsize=(10, 5))\n    plt.plot(t, S, label=\"Geometric Brownian Motion\")\n    plt.xlabel(\"Time\")\n    plt.ylabel(\"Stock Price\")\n    plt.title(\"GBM Simulation\")\n    plt.grid(True)\n    plt.legend()\n    plt.show()\n\n# メイン処理例\nif __name__ == \"__main__\":\n    S0 = 10       # 初期株価\n    T = 2         # 2年間\n    N = 1000      # 1000ステップ\n    mu = 0.1      # 平均成長率（10%）\n    sigma = 0.3   # ボラティリティ\n\n    t, S = simulate_gbm(S0, T, N, mu, sigma)\n    plot_gbm(t, S)"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#出力される株価軌道の特徴",
+    "href": "06ランダム性の取り扱い.html#出力される株価軌道の特徴",
+    "title": "まとめ",
+    "section": "4. 出力される株価軌道の特徴",
+    "text": "4. 出力される株価軌道の特徴\nシミュレーション結果を確認すると：\n\n上昇トレンド（μによる）\nランダム変動（σによる）\n価格は常に 0 より大きい → 株価の性質に合致\n\nσ を大きくすると変動が大きくなる\nS0 を変えると開始点が変わる\n\nたとえば：\n\nsigma = 0.05 → 滑らかで安定\n\nsigma = 0.5 → 激しく上下に揺れる"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#このモデルが株価に適している理由",
+    "href": "06ランダム性の取り扱い.html#このモデルが株価に適している理由",
+    "title": "まとめ",
+    "section": "5. このモデルが株価に適している理由",
+    "text": "5. このモデルが株価に適している理由\n幾何ブラウン運動 GBM は株価の性質を自然に再現する：\n\n負の値を取らない（下限が 0）\n長期的に増加する傾向（経済成長）\n価格が大きいと変動幅も大きくなる（対数正規性）\n金融工学で最も広く使われる標準モデル\n\n（Black–Scholes 価格公式も GBM を前提に導かれる）"
+  },
+  {
+    "objectID": "06ランダム性の取り扱い.html#まとめ-6",
+    "href": "06ランダム性の取り扱い.html#まとめ-6",
+    "title": "まとめ",
+    "section": "6. まとめ",
+    "text": "6. まとめ\n\nGBM の SDE：\\(dS = \\mu S dt + \\sigma S dW\\)\n\n伊藤の補題で解くと明示式が得られる\n\nBrownian motion を累積和で生成し、指数に代入するだけでシミュレーション可能\n\nPython では NumPy を使って効率的に実装できる\n\n株価の現実的特徴（対数正規性・非負性）を自然に満たす\n\n\nimport numpy as np\nimport numpy.random as npr\nimport matplotlib.pyplot as plt\n\n# =========================\n#  ウィーナー過程クラス\n# =========================\nclass WienerProcess:\n    def __init__(self, dt=0.1, N=1000):\n        \"\"\"\n        初期化\n        dt : 時間刻み\n        N  : ステップ数\n        \"\"\"\n        self.dt = dt\n        self.N = N\n        self.t = None\n        self.W = None\n\n    def generate_path(self):\n        \"\"\"ウィーナー過程 W(t) を生成して内部に保持する\"\"\"\n        # 時間軸\n        self.t = np.linspace(0, self.N * self.dt, self.N + 1)\n\n        # 標準正規乱数 Z ~ N(0, 1)\n        Z = npr.normal(0, 1, self.N)\n\n        # 増分 dW = sqrt(dt) * Z\n        dW = np.sqrt(self.dt) * Z\n\n        # 初期値 0 の配列\n        self.W = np.zeros(self.N + 1)\n\n        # 累積和で W を構築\n        self.W[1:] = np.cumsum(dW)\n\n        return self.t, self.W\n\n    def plot_path(self):\n        \"\"\"生成されたパスをプロットする\"\"\"\n        if self.W is None:\n            self.generate_path()\n\n        plt.figure(figsize=(10, 5))\n        plt.plot(self.t, self.W, label=\"Wiener Process\")\n        plt.xlabel(\"Time\")\n        plt.ylabel(\"W(t)\")\n        plt.title(\"Wiener Process Simulation\")\n        plt.grid(True)\n        plt.legend()\n        plt.show()\n\n\n# =========================\n#  幾何ブラウン運動 (GBM)\n# =========================\ndef simulate_gbm(S0, T, N, mu, sigma):\n    \"\"\"\n    幾何ブラウン運動 (GBM) のシミュレーション\n    S0   : 初期株価\n    T    : シミュレーション期間（年）\n    N    : ステップ数\n    mu   : ドリフト（平均成長率）\n    sigma: ボラティリティ\n    \"\"\"\n    # 1. 時間刻み\n    dt = T / N\n\n    # 2. 時間軸\n    t = np.linspace(0, T, N + 1)\n\n    # 3. 標準正規乱数\n    Z = np.random.normal(0, 1, N)\n\n    # 4. Brownian motion\n    W = np.zeros(N + 1)\n    W[1:] = np.cumsum(np.sqrt(dt) * Z)\n\n    # 5. GBM の明示解\n    S = S0 * np.exp((mu - 0.5 * sigma**2) * t + sigma * W)\n\n    return t, S\n\n\ndef plot_gbm(t, S):\n    plt.figure(figsize=(10, 5))\n    plt.plot(t, S, label=\"Geometric Brownian Motion\")\n    plt.xlabel(\"Time\")\n    plt.ylabel(\"Stock Price\")\n    plt.title(\"GBM Simulation\")\n    plt.grid(True)\n    plt.legend()\n    plt.show()\n\n\n# =========================\n#  メイン処理（ノートブックではそのまま実行）\n# =========================\nif __name__ == \"__main__\":\n    # ウィーナー過程\n    process = WienerProcess(dt=0.1, N=1000)\n    process.plot_path()\n\n    # GBM\n    S0 = 10       # 初期株価\n    T = 2         # 2年間\n    N = 1000      # 1000ステップ\n    mu = 0.1      # 平均成長率（10%）\n    sigma = 0.3   # ボラティリティ\n\n    t, S = simulate_gbm(S0, T, N, mu, sigma)\n    plot_gbm(t, S)"
+  },
+  {
+    "objectID": "08VaR.html",
+    "href": "08VaR.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#8 VaR(value at Risk)\n##8-1 Value at Risk（VaR）入門\n本章では、リスク管理の中心的概念である Value at Risk（VaR） について解説する。\nこれまで扱ってきた MPT（現代ポートフォリオ理論）や CAPM では、リスク＝分散・標準偏差 や β（ベータ） を指標にしてきた。しかし、これらは直感的に理解しにくく、確率分布を直接使わない という弱点もある。\nVaR は、損失額そのものを確率の観点で評価する指標 であり、金融リスク管理の定番となっている。"
+  },
+  {
+    "objectID": "08VaR.html#なぜ-var-が必要なのか",
+    "href": "08VaR.html#なぜ-var-が必要なのか",
+    "title": "金融工学ノート",
+    "section": "1. なぜ VaR が必要なのか？",
+    "text": "1. なぜ VaR が必要なのか？\n従来のリスク指標には以下の問題がある：\n\n標準偏差：リスクの大きさはわかるが、「いくら損する可能性があるのか」がわからない\n\nβ（ベータ）：市場との相関は測れるが、損失額の概念ではない\n\n分散：単位が「価格²」で直感的でない\n\nいずれも確率分布を直接扱わない\n\n一方、金融市場の価格やリターンは 確率変数 として扱うべきであり、 特にリターンは\n\nほぼ正規分布\n\n（実務上はファットテールありだが）平均と標準偏差で近似できる\n\nこの性質を利用することで 確率ベースのリスク測定が可能 になる。"
+  },
+  {
+    "objectID": "08VaR.html#var-とは何か",
+    "href": "08VaR.html#var-とは何か",
+    "title": "金融工学ノート",
+    "section": "2. VaR とは何か？",
+    "text": "2. VaR とは何か？\nValue at Risk（VaR） とは：\n\nある信頼水準のもとで、指定した期間内に発生し得る最大損失額\n\nたとえば：\n\n「1日 95% VaR = $1,000」 → 明日 \\(95%\\) の確率で $$1,000 以上は損しない\n\n「1週間 99% VaR = $5,000」 → 来週 \\(99%\\) の確率で $$5,000 以上は損しない\n\n\n特徴まとめ\n\n単位が金額（ドルなど） → 直感的・説明しやすい\n\n確率分布を利用する → 定量的で合理的\n\nポートフォリオ全体にも適用可能\n\nリスク比較（Risk Budgeting）に使える"
+  },
+  {
+    "objectID": "08VaR.html#var-と確率分布の関係",
+    "href": "08VaR.html#var-と確率分布の関係",
+    "title": "金融工学ノート",
+    "section": "3. VaR と確率分布の関係",
+    "text": "3. VaR と確率分布の関係\nリターン \\(R\\) が正規分布に従うとする：\n\\[\nR \\sim N(\\mu, \\sigma^2)\n\\]\n株価の変動は\n\n平均 \\(\\mu\\)\n標準偏差 \\(\\sigma\\)\n\nで決まり、損失額もこの分布に基づき評価できる。\n標準化した変数 \\(Z\\) を使えば：\n\\[\nR = \\mu + \\sigma Z \\qquad (Z \\sim N(0,1))\n\\]\nこの性質を使って、確率的に損失がどこまで広がるか を計算できる。"
+  },
+  {
+    "objectID": "08VaR.html#var-が好まれる理由",
+    "href": "08VaR.html#var-が好まれる理由",
+    "title": "金融工学ノート",
+    "section": "4. VaR が好まれる理由",
+    "text": "4. VaR が好まれる理由\n\nわかりやすい指標\n「最大でいくら損する可能性があるのか？」を金額で直接示す。\n資産の比較が容易\n株・債券・為替など、異なる資産クラス間でもリスクを同一尺度で比較できる。\nポートフォリオ全体のリスク管理に使える\n特に リスク予算（Risk Budgeting） の基準としてよく利用される。\n確率分布に基づく合理的な指標\nMPT や CAPM よりも、確率論に基づいた定量的なリスク評価が可能。\n\n##8-2 Value at Risk（VaR）の数学的背景"
+  },
+  {
+    "objectID": "08VaR.html#var-の2つの計算法",
+    "href": "08VaR.html#var-の2つの計算法",
+    "title": "金融工学ノート",
+    "section": "1. VaR の2つの計算法",
+    "text": "1. VaR の2つの計算法\nVaR には代表的に2つのアプローチがある：\n\n分散共分散法（Variance–Covariance Method）\n\n収益率が正規分布に従うことを仮定\n\n計算が速い\n\n\nモンテカルロ・シミュレーション法\n\n任意の分布、非線形商品にも対応\n\nより柔軟"
+  },
+  {
+    "objectID": "08VaR.html#正規分布と-var-の関係",
+    "href": "08VaR.html#正規分布と-var-の関係",
+    "title": "金融工学ノート",
+    "section": "2. 正規分布と VaR の関係",
+    "text": "2. 正規分布と VaR の関係\nVaR の前提：\nリターンは正規分布に従う とみなせる。\n正規分布の確率密度関数（PDF）は：\n\\[\nf(x)=\\frac{1}{\\sqrt{2\\pi}\\sigma}\\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)\n\\]\nここで\n- \\(\\mu\\) = 平均\n- \\(\\sigma\\) = 標準偏差（ボラティリティ）\nPDF の面積（積分）は確率を表す。\n例えば：\n\\[\nP(a &lt; X &lt; b)=\\int_a^b f(x)\\,dx\n\\]"
+  },
+  {
+    "objectID": "08VaR.html#var-における確率の考え方",
+    "href": "08VaR.html#var-における確率の考え方",
+    "title": "金融工学ノート",
+    "section": "3. VaR における確率の考え方",
+    "text": "3. VaR における確率の考え方\nVaR では次を求める：\n\n「一定の信頼水準で、最大どれだけ損失するか」\n\n例：信頼水準 95% の場合\n\\[\nP(\\Delta P &lt; -VaR)=1 - 0.95 = 0.05\n\\]\nこの 0.05 が正規分布の左側の面積になる。\n信頼水準に対応する Z スコア：\n\n\n\nConfidence\nZ値\n\n\n\n\n95%\n1.645\n\n\n99%\n2.33\n\n\n\nこれが「平均から何 σ 離れた位置か？」を示す。"
+  },
+  {
+    "objectID": "08VaR.html#var-の基本式",
+    "href": "08VaR.html#var-の基本式",
+    "title": "金融工学ノート",
+    "section": "4. VaR の基本式",
+    "text": "4. VaR の基本式\nポジションサイズ \\(P\\) に対して、1日 VaR は：\n$ VaR = P ( t - , Z_{} ) $\n通常の1日 VaRでは\n\\[\\Delta t = 1 \\text{ day}\\]\nなので \\(\\mu\\) は小さいため無視できる（＝平均リターンをゼロとみなす）。"
+  },
+  {
+    "objectID": "08VaR.html#期間変換scaling",
+    "href": "08VaR.html#期間変換scaling",
+    "title": "金融工学ノート",
+    "section": "5. 期間変換（Scaling）",
+    "text": "5. 期間変換（Scaling）\n期間を \\(n\\) 日に伸ばす場合：\n\n平均（μ）\n\\[ \\mu_n = \\mu_1 \\times n \\]\n標準偏差（σ）\n\\[ \\sigma_n = \\sigma_1 \\sqrt{n} \\]\n\nこれはランダムウォークと中心極限定理に基づく。"
+  },
+  {
+    "objectID": "08VaR.html#最終的な-var-の式",
+    "href": "08VaR.html#最終的な-var-の式",
+    "title": "金融工学ノート",
+    "section": "6. 最終的な VaR の式",
+    "text": "6. 最終的な VaR の式\n以上をまとめると、期間 \\(\\Delta t\\) の VaR は：\n\\[\nVaR = P \\left( \\mu \\Delta t - \\sigma\\sqrt{\\Delta t}\\,Z_{\\alpha} \\right)\n\\]\n特に 1日 VaR の場合：\n\\[\nVaR \\approx P \\left( -\\sigma Z_{\\alpha} \\right)\n\\]\n（平均は通常無視）"
+  },
+  {
+    "objectID": "08VaR.html#実用例",
+    "href": "08VaR.html#実用例",
+    "title": "金融工学ノート",
+    "section": "7. 実用例",
+    "text": "7. 実用例\n例：\n「2017/2/10 に Apple 株 100 株を保有しているとする。\n95% 信頼水準の 1日最大損失額は $1,750 である。」\nこれが VaR による典型的なアウトプット。\n##8-3 Value at Risk（VaR）を Python で実装する\n前章では VaR の理論式を確認した。本章では Python を使って実際に VaR を計算できるコード を実装する。\n必要なライブラリは：\n\nnumpy\n\npandas\n\nscipy（正規分布の逆累積分布）\n\nyfinance（株価データ取得）\n\ndatetime"
+  },
+  {
+    "objectID": "08VaR.html#必要ライブラリのインポート",
+    "href": "08VaR.html#必要ライブラリのインポート",
+    "title": "金融工学ノート",
+    "section": "1. 必要ライブラリのインポート",
+    "text": "1. 必要ライブラリのインポート\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nfrom scipy import stats\nimport datetime"
+  },
+  {
+    "objectID": "08VaR.html#株価データをダウンロードする関数",
+    "href": "08VaR.html#株価データをダウンロードする関数",
+    "title": "金融工学ノート",
+    "section": "2. 株価データをダウンロードする関数",
+    "text": "2. 株価データをダウンロードする関数\nYahoo! Finance から 調整終値（Adj Close） を取得して DataFrame に変換する。\ndef download_data(stock, start, end):\n    data = {}\n    ticker = yf.download(stock, start=start, end=end, auto_adjust=False)\n    data[stock] = ticker['Adj Close']\n    return pd.DataFrame(data)"
+  },
+  {
+    "objectID": "08VaR.html#value-at-risk-var-を計算する関数",
+    "href": "08VaR.html#value-at-risk-var-を計算する関数",
+    "title": "金融工学ノート",
+    "section": "3. Value at Risk (VaR) を計算する関数",
+    "text": "3. Value at Risk (VaR) を計算する関数\n理論式：\n\\[\nVaR = P \\bigl( \\mu \\Delta t - \\sigma \\sqrt{\\Delta t}\\, Z_\\alpha \\bigr)\n\\]\nここで：\n\nP … ポジション価値\n\nμ … 平均リターン\n\nσ … 標準偏差\n\nZₐ … 信頼水準に対応する正規分布の逆累積\n\nΔt … 日数\n\ndef calculate_var(position, c, mu, sigma, days=1):\n    # Z値 = 正規分布の逆累積分布（PPF）\n    z = stats.norm.ppf(1 - c)\n\n    # 期間スケーリング\n    mu_t = mu * days\n    sigma_t = sigma * np.sqrt(days)\n\n    # VaR 計算（損失額なので絶対値を返す）\n    var = position * (mu_t - sigma_t * z)\n    return abs(var)"
+  },
+  {
+    "objectID": "08VaR.html#メイン処理var-を実際に計算する",
+    "href": "08VaR.html#メイン処理var-を実際に計算する",
+    "title": "金融工学ノート",
+    "section": "4. メイン処理：VaR を実際に計算する",
+    "text": "4. メイン処理：VaR を実際に計算する\nif __name__ == \"__main__\":\n    # 期間の設定\n    start = datetime.datetime(2016, 1, 1)\n    end   = datetime.datetime(2017, 1, 1)\n\n    # データ取得（例：Citigroup）\n    stock_data = download_data(\"C\", start, end)\n    print(stock_data.head())\n\n    # 日次ログリターン\n    stock_data[\"Returns\"] = np.log(stock_data[\"C\"] / stock_data[\"C\"].shift(1))\n    stock_data = stock_data.dropna()\n\n    # 平均 μ と 標準偏差 σ を計算\n    mu = np.mean(stock_data[\"Returns\"])\n    sigma = np.std(stock_data[\"Returns\"])\n\n    # 投資額（例：100万ドル）\n    position = 1_000_000\n\n    # 信頼水準（95%）\n    confidence = 0.95\n\n    # 1日VaR\n    var_1day = calculate_var(position, confidence, mu, sigma, days=1)\n    print(f\"1-Day VaR (95%): ${var_1day:,.2f}\")\n\n    # 10日VaR\n    var_10day = calculate_var(position, confidence, mu, sigma, days=10)\n    print(f\"10-Day VaR (95%): ${var_10day:,.2f}\")\n\n    # 99% 1日VaR\n    var_99 = calculate_var(position, 0.99, mu, sigma, days=1)\n    print(f\"1-Day VaR (99%): ${var_99:,.2f}\")"
+  },
+  {
+    "objectID": "08VaR.html#実行例典型値",
+    "href": "08VaR.html#実行例典型値",
+    "title": "金融工学ノート",
+    "section": "5. 実行例（典型値）",
+    "text": "5. 実行例（典型値）\n1-Day VaR (95%): $25,000\n10-Day VaR (95%): $82,000\n1-Day VaR (99%): $35,000\n意味：\n\n95% の確率で、明日失う金額は $25,000 を超えない\n\n99% のより厳しい基準では $35,000 を超えない"
+  },
+  {
+    "objectID": "08VaR.html#var-のポイント整理",
+    "href": "08VaR.html#var-のポイント整理",
+    "title": "金融工学ノート",
+    "section": "6. VaR のポイント整理",
+    "text": "6. VaR のポイント整理\n\nリターンは 正規分布を仮定\n\nZ 値は 逆累積分布（PPF） から取得\n\n期間が長くなるほど\n\n平均：\\(\\mu n\\)\n\n分散：\\(\\sigma\\sqrt{n}\\)\n\n\n結果は 損失額（$） で直感的に理解しやすい"
+  },
+  {
+    "objectID": "08VaR.html#まとめ",
+    "href": "08VaR.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "まとめ",
+    "text": "まとめ\n\nYahoo Finance から株価を取得\n\nリターンの平均・標準偏差を計算\n\n正規分布モデルに基づいて VaR を算出\n\nPython では 数十行で実装可能\n\n\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nfrom scipy import stats\nimport datetime\n\ndef download_data(stock, start, end):\n    data = {}\n    ticker = yf.download(stock, start=start, end=end, auto_adjust=False)\n    data[stock] = ticker['Adj Close']\n    return pd.DataFrame(data)\n\ndef calculate_var(position, c, mu, sigma, days=1):\n    # Z値 = 正規分布の逆累積分布（PPF）\n    z = stats.norm.ppf(1 - c)\n\n    # 期間スケーリング\n    mu_t = mu * days\n    sigma_t = sigma * np.sqrt(days)\n\n    # VaR 計算（損失額なので絶対値を返す）\n    var = position * (mu_t - sigma_t * z)\n    return abs(var)\n\nif __name__ == \"__main__\":\n    # 期間の設定\n    start = datetime.datetime(2016, 1, 1)\n    end   = datetime.datetime(2017, 1, 1)\n\n    # データ取得（例：Citigroup）\n    stock_data = download_data(\"C\", start, end)\n    print(stock_data.head())\n\n    # 日次ログリターン\n    stock_data[\"Returns\"] = np.log(stock_data[\"C\"] / stock_data[\"C\"].shift(1))\n    stock_data = stock_data.dropna()\n\n    # 平均 μ と 標準偏差 σ を計算\n    mu = np.mean(stock_data[\"Returns\"])\n    sigma = np.std(stock_data[\"Returns\"])\n\n    # 投資額（例：100万ドル）\n    position = 1_000_000\n\n    # 信頼水準（95%）\n    confidence = 0.95\n\n    # 1日VaR\n    var_1day = calculate_var(position, confidence, mu, sigma, days=1)\n    print(f\"1-Day VaR (95%): ${var_1day:,.2f}\")\n\n    # 10日VaR\n    var_10day = calculate_var(position, confidence, mu, sigma, days=10)\n    print(f\"10-Day VaR (95%): ${var_10day:,.2f}\")\n\n    # 99% 1日VaR\n    var_99 = calculate_var(position, 0.99, mu, sigma, days=1)\n    print(f\"1-Day VaR (99%): ${var_99:,.2f}\")\n\n##8-4 Monte Carlo 法による Value at Risk（VaR）\n前章では、正規分布を仮定した 分散共分散法（Variance Method） による VaR を扱った。\n本章では、もう一つの重要手法 Monte Carlo Simulation（モンテカルロ法） を使った VaR を実装する。"
+  },
+  {
+    "objectID": "08VaR.html#monte-carlo-法の基本アイデア",
+    "href": "08VaR.html#monte-carlo-法の基本アイデア",
+    "title": "金融工学ノート",
+    "section": "1. Monte Carlo 法の基本アイデア",
+    "text": "1. Monte Carlo 法の基本アイデア\n\n株価は 幾何ブラウン運動（GBM） でモデル化できる\n\nGBM の解析解：\n\n[ S_T = S_0 ]\nここで\n- (Z) は標準正規乱数\n- (), () は歴史的データから推定\n- T は日数"
+  },
+  {
+    "objectID": "08VaR.html#var-を-monte-carlo-で求める流れ",
+    "href": "08VaR.html#var-を-monte-carlo-で求める流れ",
+    "title": "金融工学ノート",
+    "section": "2. VaR を Monte Carlo で求める流れ",
+    "text": "2. VaR を Monte Carlo で求める流れ\n\n大量の未来株価 (S_T^{(i)}) を生成\n\n結果を 小さい順にソート\n\n信頼水準 (c) の VaR は\n\n損失分布の (1 - c) パーセンタイル\n\n\nVaR = ( S_0 - S^{*} )\n\n(S^{*})：指定パーセンタイルの未来価格"
+  },
+  {
+    "objectID": "08VaR.html#python-実装コード",
+    "href": "08VaR.html#python-実装コード",
+    "title": "金融工学ノート",
+    "section": "3. Python 実装コード",
+    "text": "3. Python 実装コード\n\n3-1. ライブラリ\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport datetime"
+  },
+  {
+    "objectID": "08VaR.html#データダウンロード関数",
+    "href": "08VaR.html#データダウンロード関数",
+    "title": "金融工学ノート",
+    "section": "3-2. データダウンロード関数",
+    "text": "3-2. データダウンロード関数\ndef download_data(stock, start, end):\n    data = {}\n    ticker = yf.download(stock, start=start, end=end, auto_adjust=False)\n    data[stock] = ticker[\"Adj Close\"]\n    return pd.DataFrame(data)"
+  },
+  {
+    "objectID": "08VaR.html#monte-carlo-var-クラス",
+    "href": "08VaR.html#monte-carlo-var-クラス",
+    "title": "金融工学ノート",
+    "section": "3-3. Monte Carlo VaR クラス",
+    "text": "3-3. Monte Carlo VaR クラス\nclass ValueAtRiskMonteCarlo:\n    def __init__(self, S0, mu, sigma, confidence, days, iterations):\n        self.S0 = S0                    # 初期投資額\n        self.mu = mu                    # 平均リターン\n        self.sigma = sigma              # 標準偏差\n        self.confidence = confidence    # 信頼水準（例：0.99）\n        self.days = days                # 予測日数\n        self.iterations = iterations    # シミュレーション回数\n\n    def simulate(self):\n        # 標準正規乱数を大量生成\n        Z = np.random.normal(0, 1, self.iterations)\n\n        # 幾何ブラウン運動の式に従って未来価格を生成\n        ST = self.S0 * np.exp(\n            (self.mu - 0.5 * self.sigma**2) * self.days\n            + self.sigma * np.sqrt(self.days) * Z\n        )\n\n        # 小さい順に並べ替え\n        ST_sorted = np.sort(ST)\n\n        # パーセンタイルを取得\n        percentile = 100 * (1 - self.confidence)\n        ST_percentile = np.percentile(ST_sorted, percentile)\n\n        # VaR = 初期価値 − 最悪パーセンタイル\n        VaR = self.S0 - ST_percentile\n        return VaR"
+  },
+  {
+    "objectID": "08VaR.html#実行例",
+    "href": "08VaR.html#実行例",
+    "title": "金融工学ノート",
+    "section": "4. 実行例",
+    "text": "4. 実行例\nif __name__ == \"__main__\":\n    # 履歴データ期間\n    start = datetime.datetime(2016, 1, 1)\n    end   = datetime.datetime(2017, 1, 1)\n\n    # 例：Citigroup（ティッカー：C）\n    df = download_data(\"C\", start, end)\n\n    # 日次ログリターン\n    df[\"Returns\"] = np.log(df[\"C\"] / df[\"C\"].shift(1))\n    df = df.dropna()\n\n    # μ と σ を推定\n    mu = df[\"Returns\"].mean()\n    sigma = df[\"Returns\"].std()\n\n    # Monte Carlo VaR モデル構築\n    model = ValueAtRiskMonteCarlo(\n        S0 = 1_000_000,    # 投資額100万ドル\n        mu = mu,\n        sigma = sigma,\n        confidence = 0.99, # 99%信頼水準\n        days = 1,          # 1日VaR\n        iterations = 10000 # 1万シミュレーション\n    )\n\n    VaR_1day = model.simulate()\n    print(f\"1-Day VaR (99%): ${VaR_1day:,.2f}\")"
+  },
+  {
+    "objectID": "08VaR.html#結果のイメージ典型例",
+    "href": "08VaR.html#結果のイメージ典型例",
+    "title": "金融工学ノート",
+    "section": "5. 結果のイメージ（典型例）",
+    "text": "5. 結果のイメージ（典型例）\n1-Day VaR (99%): $35,000\n意味：\n\n99% の確率で、明日失う金額は $35,000 を超えない"
+  },
+  {
+    "objectID": "08VaR.html#monte-carlo-var-のポイント",
+    "href": "08VaR.html#monte-carlo-var-のポイント",
+    "title": "金融工学ノート",
+    "section": "6. Monte Carlo VaR のポイント",
+    "text": "6. Monte Carlo VaR のポイント\n\n正規分布前提だが、任意の分布で拡張可能\nオプションやパス依存商品にもそのまま使える\n\n価格分布を直接再現できるため より柔軟\n\n計算コストはかかるが、精度は高い"
+  },
+  {
+    "objectID": "08VaR.html#まとめ-1",
+    "href": "08VaR.html#まとめ-1",
+    "title": "金融工学ノート",
+    "section": "✔ まとめ",
+    "text": "✔ まとめ\n\n株価は GBM としてモデル化\n\n未来価格 (S_T) を大量生成し、最悪パーセンタイルを取る\n\nVaR = 初期価値 − パーセンタイル価格\n\nMonte Carlo 法は複雑商品にも応用可能\n\n##8-5 Monte Carlo 法による VaR（Value at Risk）の検証\n前章で作成した Monte Carlo VaR モデルが実際に正しく働くか を確認する。"
+  },
+  {
+    "objectID": "08VaR.html#初期設定",
+    "href": "08VaR.html#初期設定",
+    "title": "金融工学ノート",
+    "section": "1. 初期設定",
+    "text": "1. 初期設定\n\n投資額：\n[ S_0 = 1{,}000{,}000 ]\n信頼水準：95% → 下側 5% パーセンタイルを使う\n\n期間：1日（明日の VaR を計算）\nシミュレーション回数：100,000 回"
+  },
+  {
+    "objectID": "08VaR.html#履歴データcitigroupから-μσ-を推定",
+    "href": "08VaR.html#履歴データcitigroupから-μσ-を推定",
+    "title": "金融工学ノート",
+    "section": "2. 履歴データ（Citigroup）から μ・σ を推定",
+    "text": "2. 履歴データ（Citigroup）から μ・σ を推定\n\n期間：2014–2017\n\nAdj Close を取得\n\n日次リターン = pct_change()\n\n平均 μ と標準偏差 σ を計算\n\n「株価は正規分布に従う」という前提で Monte Carlo に利用"
+  },
+  {
+    "objectID": "08VaR.html#python-コード完全版",
+    "href": "08VaR.html#python-コード完全版",
+    "title": "金融工学ノート",
+    "section": "3. Python コード（完全版）",
+    "text": "3. Python コード（完全版）\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport datetime\n\n# ----------------------------------\n# 過去データの取得\n# ----------------------------------\ndef download_data(stock, start, end):\n    data = {}\n    ticker = yf.download(stock, start=start, end=end, auto_adjust=False)\n    data[stock] = ticker[\"Adj Close\"]\n    return pd.DataFrame(data)\n\n# ----------------------------------\n# Monte Carlo VaR モデル\n# ----------------------------------\nclass ValueAtRiskMonteCarlo:\n    def __init__(self, S0, mu, sigma, confidence, days, iterations):\n        self.S0 = S0\n        self.mu = mu\n        self.sigma = sigma\n        self.confidence = confidence\n        self.days = days\n        self.iterations = iterations\n\n    def simulate(self):\n        # 標準正規乱数（一括生成）\n        Z = np.random.normal(0, 1, self.iterations)\n\n        # 未来の資産価値 S_T を生成（GBM）\n        ST = self.S0 * np.exp(\n            (self.mu - 0.5 * self.sigma**2) * self.days +\n            self.sigma * np.sqrt(self.days) * Z\n        )\n\n        # 小さい順にソート\n        ST_sorted = np.sort(ST)\n\n        # 信頼水準に対応するパーセンタイル\n        percentile = 100 * (1 - self.confidence)\n        ST_percentile = np.percentile(ST_sorted, percentile)\n\n        # VaR = 初期価値 − 最悪ケース\n        return self.S0 - ST_percentile\n\n\n# ----------------------------------\n# メイン処理\n# ----------------------------------\nif __name__ == \"__main__\":\n\n    # 1. データ取得期間\n    start = datetime.datetime(2014, 1, 1)\n    end   = datetime.datetime(2017, 1, 1)\n\n    # 2. Citi の株価データ取得\n    df = download_data(\"C\", start, end)\n\n    # 3. 日次リターン（対数リターンでも可）\n    df[\"Returns\"] = df[\"C\"].pct_change()\n    df = df.dropna()\n\n    # 4. μ・σ 推定\n    mu = df[\"Returns\"].mean()\n    sigma = df[\"Returns\"].std()\n\n    # 5. 初期条件\n    S0 = 1_000_000          # 100万ドル\n    confidence = 0.95       # 95% 信頼水準\n    days = 1                # 1日 VaR\n    iterations = 100000     # Monte Carlo 10万回\n\n    # 6. Monte Carlo VaR 計算\n    model = ValueAtRiskMonteCarlo(S0, mu, sigma, confidence, days, iterations)\n    VaR_95 = model.simulate()\n\n    print(f\"Monte Carlo VaR (95%): ${VaR_95:,.2f}\")\n\n    # 信頼水準 99%\n    model_99 = ValueAtRiskMonteCarlo(S0, mu, sigma, 0.99, days, iterations)\n    VaR_99 = model_99.simulate()\n\n    print(f\"Monte Carlo VaR (99%): ${VaR_99:,.2f}\")"
+  },
+  {
+    "objectID": "08VaR.html#実行結果典型例",
+    "href": "08VaR.html#実行結果典型例",
+    "title": "金融工学ノート",
+    "section": "4. 実行結果（典型例）",
+    "text": "4. 実行結果（典型例）\nMonte Carlo VaR (95%): $24,800\nMonte Carlo VaR (99%): $35,000"
+  },
+  {
+    "objectID": "08VaR.html#どう解釈する",
+    "href": "08VaR.html#どう解釈する",
+    "title": "金融工学ノート",
+    "section": "5. どう解釈する？",
+    "text": "5. どう解釈する？\n\n95% VaR\n→ 「明日、損失が 24,800ドルを超える確率は 5%」\n99% VaR\n→ 「明日、損失が 35,000ドルを超える確率は 1%」"
+  },
+  {
+    "objectID": "08VaR.html#結論monte-carlo-var-は正しく動作",
+    "href": "08VaR.html#結論monte-carlo-var-は正しく動作",
+    "title": "金融工学ノート",
+    "section": "✔ 結論：Monte Carlo VaR は正しく動作",
+    "text": "✔ 結論：Monte Carlo VaR は正しく動作\n\n理論どおり GBM から未来価格を大量生成\n\n最悪パーセンタイルを取ることで VaR を算出\n\n分散共分散法と同程度の数値が得られ、整合性も確認できる"
+  },
+  {
+    "objectID": "10金利モデル.html",
+    "href": "10金利モデル.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#金利モデル（Interest Rate Modeling）\n##10-1 金利モデル（Interest Rate Modeling）の導入\nこの章からは 金利（interest rates）を将来どのように予測するか を学ぶ。\n株価モデルとは異なる特徴をもつため、専用の確率過程を扱うことになる。"
+  },
+  {
+    "objectID": "10金利モデル.html#なぜ金利をモデル化する必要があるのか",
+    "href": "10金利モデル.html#なぜ金利をモデル化する必要があるのか",
+    "title": "金融工学ノート",
+    "section": "1. なぜ金利をモデル化する必要があるのか？",
+    "text": "1. なぜ金利をモデル化する必要があるのか？\n\n✔ 金利は常に変動している（stochastic）\n市場金利は日々上下するため、将来値を予測できない。\n\n\n✔ 企業の借入コストに直結する\n企業は融資を受けると 変動金利 に左右される。\n\n金利上昇 → 支払利息が増加 → 財務悪化\n→ 金利リスクを管理する必要がある（例：金利スワップ）\n\n\n\n✔ 債券価格に必須\n債券は金利の逆数で現在価値を計算するため：\n\nゼロクーポン債\n[ PV = ]\nクーポン債\nクーポンも利回りで割引して現在価値化\n\n金利が変動すると 債券価格も大きく動く。"
+  },
+  {
+    "objectID": "10金利モデル.html#株価モデルとの違い",
+    "href": "10金利モデル.html#株価モデルとの違い",
+    "title": "金融工学ノート",
+    "section": "2. 株価モデルとの違い",
+    "text": "2. 株価モデルとの違い\n株価モデル（幾何ブラウン運動, GBM）\n→ 長期的に「右肩上がり」を仮定\nしかし 金利は上がり続けたりしない。\nむしろ：\n\n✔ 金利は一定の水準へ戻る性質を持つ（Mean Reversion）\nこれを扱う代表的な確率過程が：\n\n\nオーンシュタイン＝ウーレンベック過程（OU過程）\n[ dr_t = (- r_t)dt + dW_t ]\n\n現在の金利が平均 μ から離れていれば\n→ 平均へ戻る方向に動く（θ が強さ）\nσ はランダム変動\n\n金利モデルでは GBM ではなく OU 過程をベース にする。"
+  },
+  {
+    "objectID": "10金利モデル.html#今後の流れ次の講義",
+    "href": "10金利モデル.html#今後の流れ次の講義",
+    "title": "金融工学ノート",
+    "section": "3. 今後の流れ（次の講義）",
+    "text": "3. 今後の流れ（次の講義）\n\n平均回帰型の確率過程（OU過程） を詳しく解説\n\nPython で OU 過程をシミュレーションして可視化\n\n最初の金利モデルを実装\n\n例：Vasicek モデル（OU過程ベース）"
+  },
+  {
+    "objectID": "10金利モデル.html#まとめ",
+    "href": "10金利モデル.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "まとめ",
+    "text": "まとめ\n\n金利は企業、債券、金融工学モデルすべてに影響\n\n金利は 平均回帰性 を持つため、株式モデル（GBM）は使えない\n\n代わりに Ornstein–Uhlenbeck（OU）過程 を採用する\n\n次章から具体的な数理モデルと実装へ進む\n\n##10-2 Ornstein–Uhlenbeck（OU）過程の理論背景\nこの講義では 金利モデル・ペアトレードなどで中心的に使われる確率過程\n「オーンシュタイン＝ウーレンベック過程（OU 過程）」 の理論を整理する。"
+  },
+  {
+    "objectID": "10金利モデル.html#基礎となる-wiener-過程brownian-motion",
+    "href": "10金利モデル.html#基礎となる-wiener-過程brownian-motion",
+    "title": "金融工学ノート",
+    "section": "1. 基礎となる Wiener 過程（Brownian Motion）",
+    "text": "1. 基礎となる Wiener 過程（Brownian Motion）\nOU 過程の「ランダム部分」は Wiener 過程（ブラウン運動）によって構成される。\n\n✔ 独立増分（Independent Increments）\n[ W_{t+t} - W_t ] は、過去の値に依存しない。\n未来の動きが過去と独立 → マルコフ性をもつ。\n\n\n✔ ガウス分布に従う（Gaussian Increments）\n[ W_{t+t} - W_t (0,;t) ]\n\n平均：0\n\n分散：Δt\n\n→ 正規乱数 を使えば簡単にシミュレーションできる。"
+  },
+  {
+    "objectID": "10金利モデル.html#ou-過程ornsteinuhlenbeck-process",
+    "href": "10金利モデル.html#ou-過程ornsteinuhlenbeck-process",
+    "title": "金融工学ノート",
+    "section": "2. OU 過程（Ornstein–Uhlenbeck Process）",
+    "text": "2. OU 過程（Ornstein–Uhlenbeck Process）\n金利や為替、ペアトレードなどで用いられる 平均回帰型の確率過程。\n\n✔ 確率微分方程式（SDE）\n[ dX_t = (- X_t)dt + , dW_t ]"
+  },
+  {
+    "objectID": "10金利モデル.html#パラメータの意味",
+    "href": "10金利モデル.html#パラメータの意味",
+    "title": "金融工学ノート",
+    "section": "3. パラメータの意味",
+    "text": "3. パラメータの意味\n\n\n\n記号\n意味\n\n\n\n\n\\(\\mu\\)\n平均（平衡点, long-term mean）\n\n\n\\(\\theta\\)\n平均へ戻る強さ（speed of reversion）\n\n\n\\(\\sigma\\)\nランダム変動の大きさ（volatility）\n\n\n\\(dW_t\\)\nWiener 過程の微小変動（正規分布）"
+  },
+  {
+    "objectID": "10金利モデル.html#どんな性質を持つのか",
+    "href": "10金利モデル.html#どんな性質を持つのか",
+    "title": "金融工学ノート",
+    "section": "4. どんな性質を持つのか？",
+    "text": "4. どんな性質を持つのか？\n\n✔ 平均回帰性（Mean Reversion）\n\n\\(X_t\\) が平均から離れるほど、平均へ戻る方向に強く動く\n株価モデル（GBM）のように「無限に増え続ける」ことはない\n\n\n\n✔ 定常性（Stationarity）\n\n分布が時間とともに変化しない\n\nBrownian motion は非定常なので、この点が大きく異なる"
+  },
+  {
+    "objectID": "10金利モデル.html#ペアトレードpairs-tradingとの関係",
+    "href": "10金利モデル.html#ペアトレードpairs-tradingとの関係",
+    "title": "金融工学ノート",
+    "section": "5. ペアトレード（Pairs Trading）との関係",
+    "text": "5. ペアトレード（Pairs Trading）との関係\n\n✔ ペアトレードの考え方\n相関の強い2銘柄（例：コカ・コーラ vs ペプシ）を組み合わせると\n差分やスプレッドが OU 過程に従う ことが多い。\nつまり：\n\n平均から大きく外れたら → 平均に戻るはず\n\nよって「売り／買い」で仕掛けられる\n\n平均より高い → 売り\n\n平均より低い → 買い\n\n\n市場全体の動きに影響されにくく マーケットニュートラル戦略 になる\n\n\n\n✔ OU 過程は「平均に戻る」という性質を数学的に表現\nこれが多くのクオンツ戦略の基礎になる。"
+  },
+  {
+    "objectID": "10金利モデル.html#要点まとめ",
+    "href": "10金利モデル.html#要点まとめ",
+    "title": "金融工学ノート",
+    "section": "6. 要点まとめ",
+    "text": "6. 要点まとめ\n\nOU 過程は 平均へ戻る動きを持つ確率過程\nランダム部分（\\(dW_t\\)）は 正規分布の Wiener 過程\n金利モデル（例：Vasicek）やペアトレードの基礎\nパラメータ θ, μ, σ がプロセスの性質を決める\n次回は Python による OU 過程のシミュレーション を行う\n\n##10-3 Ornstein–Uhlenbeck（OU）過程のシミュレーション実装\n前回は OU 過程の理論を説明した。\n本講義では Python を用いて OU 過程を実際にシミュレーション（数値解法） する。"
+  },
+  {
+    "objectID": "10金利モデル.html#必要ライブラリ",
+    "href": "10金利モデル.html#必要ライブラリ",
+    "title": "金融工学ノート",
+    "section": "1. 必要ライブラリ",
+    "text": "1. 必要ライブラリ\n\nnumpy\n\nmatplotlib\n\n正規乱数（Wiener increment を近似）\n\nimport numpy as np\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "10金利モデル.html#ou-過程のシミュレーション関数",
+    "href": "10金利モデル.html#ou-過程のシミュレーション関数",
+    "title": "金融工学ノート",
+    "section": "2. OU 過程のシミュレーション関数",
+    "text": "2. OU 過程のシミュレーション関数\n離散近似式：\n$ X_{t+t} = X_t + (- X_t)t + ,Z_t $\nここで\n- $( Z_t (0,1) $)\n- OU 過程の離散化（Euler–Maruyama 法）\n\n✔ 実装\ndef generate_process(\n    dt=0.01,\n    theta=1.2,\n    mu=0.5,\n    sigma=0.3,\n    n_steps=10000\n):\n    # 初期値 X(0) = 0\n    x = np.zeros(n_steps)\n    \n    for t in range(1, n_steps):\n        # ガウス分布（平均0, 標準偏差 √dt）\n        dW = np.random.normal(0, np.sqrt(dt))\n        \n        # OU 過程の離散近似\n        x[t] = x[t-1] + theta * (mu - x[t-1]) * dt + sigma * dW\n    \n    return x"
+  },
+  {
+    "objectID": "10金利モデル.html#シミュレーション結果を可視化",
+    "href": "10金利モデル.html#シミュレーション結果を可視化",
+    "title": "金融工学ノート",
+    "section": "3. シミュレーション結果を可視化",
+    "text": "3. シミュレーション結果を可視化\nif __name__ == \"__main__\":\n    data = generate_process(\n        dt=0.01,\n        theta=1.2,\n        mu=0.5,\n        sigma=0.3,\n        n_steps=10000\n    )\n    \n    plt.plot(data)\n    plt.xlabel(\"t\")\n    plt.ylabel(\"X(t)\")\n    plt.title(\"Ornstein–Uhlenbeck Process Simulation\")\n    plt.show()"
+  },
+  {
+    "objectID": "10金利モデル.html#パラメータを変える例",
+    "href": "10金利モデル.html#パラメータを変える例",
+    "title": "金融工学ノート",
+    "section": "4. パラメータを変える例",
+    "text": "4. パラメータを変える例\n\n✔ 平均を 0.9 に変更、揺れを小さく（σ = 0.05）\ndata = generate_process(mu=0.9, sigma=0.05)\n→ 平均 0.9 に強く引き寄せられ、小さく上下する。\n\n\n✔ ボラティリティを大きく（σ = 1.0）\ndata = generate_process(mu=0.5, sigma=1.0)\n→ 平均は同じだが、上下の振れ幅が激しくなる。"
+  },
+  {
+    "objectID": "10金利モデル.html#要点まとめ-1",
+    "href": "10金利モデル.html#要点まとめ-1",
+    "title": "金融工学ノート",
+    "section": "5. 要点まとめ",
+    "text": "5. 要点まとめ\n\nOU 過程は 平均回帰（mean reversion） を持つ確率過程\nシミュレーションには Euler–Maruyama 法 が使われる\nノイズ項は Wiener 過程：\n\\([\ndW_t \\sim \\mathcal{N}(0,\\sqrt{\\Delta t})\\)]\nθ が大きい → 強く平均へ戻る\n\nσ が大きい → ランダムな揺れが増える\n金利モデル（Vasicek）、ペアトレードのスプレッドなどで必須\n\n##10-4 Vasicek モデル（短金利モデル）の理論まとめ\n前回は Ornstein–Uhlenbeck（OU）過程の理論と実装を学んだ。\n今回はそれを 金利モデルに応用した代表的モデル：Vasicek（ワセチェック）モデル を整理する。"
+  },
+  {
+    "objectID": "10金利モデル.html#vasicek-モデルとは",
+    "href": "10金利モデル.html#vasicek-モデルとは",
+    "title": "金融工学ノート",
+    "section": "1. Vasicek モデルとは？",
+    "text": "1. Vasicek モデルとは？\n\n1977 年に提案された 短金利（short rate）モデル\n金利 $( r_t $) の時間変化を 平均回帰（mean reversion） をもつ確率過程で記述する\n債券価格・デリバティブ価格・モーゲージモデル に利用される\n政策金利や景気など多くの要因が絡むため\n金利モデリングは本質的に難しい\n→ しかし Vasicek は 最もシンプルで強力 なモデルのひとつ"
+  },
+  {
+    "objectID": "10金利モデル.html#数理モデル確率微分方程式",
+    "href": "10金利モデル.html#数理モデル確率微分方程式",
+    "title": "金融工学ノート",
+    "section": "2. 数理モデル（確率微分方程式）",
+    "text": "2. 数理モデル（確率微分方程式）\n$ dr_t = (- r_t),dt + , dW_t $\n\n用語と意味\n\n\n\n記号\n意味\n\n\n\n\n$( r_t $)\n短金利（short rate）\n\n\n$( $)\n平均回帰速度（speed of mean reversion）\n\n\n$( $)\n金利の長期平均（long-term mean）\n\n\n$( $)\nボラティリティ（変動性）\n\n\n$( dW_t $)\nWiener（ブラウン運動）過程の微小変化"
+  },
+  {
+    "objectID": "10金利モデル.html#各項の解釈",
+    "href": "10金利モデル.html#各項の解釈",
+    "title": "金融工学ノート",
+    "section": "3. 各項の解釈",
+    "text": "3. 各項の解釈\n\n◆ ① 決定論的項（mean reversion）\n$ (- r_t),dt $\n\n金利が平均 $( $) に戻る力\n\\((\\kappa\\)) が大きいほど、急速に平均へ吸収される\n金利が高すぎれば 下に引っ張られ、低すぎれば 上に戻される\n\n\n\n\n◆ ② 確率（ノイズ）項 $\n, dW_t $\n\nランダム変動（市場ショック、景気ニュースなど）\n\\((dW_t\\sim N(0,dt)\\)) → 正規分布で揺れる"
+  },
+  {
+    "objectID": "10金利モデル.html#vasicek-モデルの特徴",
+    "href": "10金利モデル.html#vasicek-モデルの特徴",
+    "title": "金融工学ノート",
+    "section": "4. Vasicek モデルの特徴",
+    "text": "4. Vasicek モデルの特徴\n\n✔ 長所\n\n数学的に扱いやすい（解析解が存在）\n計算が速く、債券価格式も closed-form\n金利の平均回帰を自然に表現できる\n\n\n\n✔ 注意点\n\n金利が負になる可能性がある\n→ 近年は実際にマイナス金利が存在したため問題は小さい場合もある\n実務では Hull–White モデル（拡張版）がよく使われる"
+  },
+  {
+    "objectID": "10金利モデル.html#vasicek-は-ou-過程そのもの",
+    "href": "10金利モデル.html#vasicek-は-ou-過程そのもの",
+    "title": "金融工学ノート",
+    "section": "5. Vasicek は OU 過程そのもの",
+    "text": "5. Vasicek は OU 過程そのもの\nOU 過程の一般式：\n$ dX_t = (- X_t), dt + dW_t $\n金利を $( X_t = r_t $) とすれば\nVasicek = OU 過程の金利バージョン\nだから前回 OU 過程を学んだわけだ。\n#16-5 Vasicek（ワセチェック）モデルの実装\n前回は Vasicek モデル（短金利モデル）の理論を学んだ。\n今回はその Python 実装：金利パスのシミュレーション（Monte Carlo） を行う。"
+  },
+  {
+    "objectID": "10金利モデル.html#必要ライブラリ-1",
+    "href": "10金利モデル.html#必要ライブラリ-1",
+    "title": "金融工学ノート",
+    "section": "1. 必要ライブラリ",
+    "text": "1. 必要ライブラリ\n\nnumpy（計算）\nmatplotlib（可視化）\n\nimport numpy as np\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "10金利モデル.html#vasicek-モデルを実装する関数",
+    "href": "10金利モデル.html#vasicek-モデルを実装する関数",
+    "title": "金融工学ノート",
+    "section": "2. Vasicek モデルを実装する関数",
+    "text": "2. Vasicek モデルを実装する関数\n確率微分方程式：\n$ dr_t = (- r_t)dt + dW_t $\nこれを オイラー近似 で離散化してシミュレーションする。\ndef vasicek_model(r0, kappa, theta, sigma, T, N):\n    \"\"\"\n    Vasicek 金利モデルのシミュレーション\n    r0 : 初期金利\n    kappa : 平均回帰速度\n    theta : 長期平均\n    sigma : ボラティリティ\n    T : 期間（年）\n    N : サンプル数\n    \"\"\"\n    dt = T / float(N)\n    t = np.linspace(0, T, N + 1)\n\n    # 金利パスを格納する配列\n    rates = [r0]\n\n    for _ in range(N):\n        dr = (\n            kappa * (theta - rates[-1]) * dt\n            + sigma * np.sqrt(dt) * np.random.normal(0, 1)\n        )\n        rates.append(rates[-1] + dr)\n\n    return t, np.array(rates)"
+  },
+  {
+    "objectID": "10金利モデル.html#シミュレーション結果をプロット",
+    "href": "10金利モデル.html#シミュレーション結果をプロット",
+    "title": "金融工学ノート",
+    "section": "3. シミュレーション結果をプロット",
+    "text": "3. シミュレーション結果をプロット\ndef plot_vasicek(t, r):\n    plt.plot(t, r)\n    plt.xlabel(\"Time\")\n    plt.ylabel(\"Interest Rate\")\n    plt.title(\"Vasicek Model Simulation\")\n    plt.grid(True)\n    plt.show()"
+  },
+  {
+    "objectID": "10金利モデル.html#実行例パラメータ典型値",
+    "href": "10金利モデル.html#実行例パラメータ典型値",
+    "title": "金融工学ノート",
+    "section": "4. 実行例（パラメータ：典型値）",
+    "text": "4. 実行例（パラメータ：典型値）\n\n初期金利：1.3%\n平均回帰速度：0.9\n長期平均：1.5%\nボラティリティ：0.05\n期間：1年\nステップ数：10000\n\nif __name__ == \"__main__\":\n    r0 = 0.013\n    kappa = 0.9\n    theta = 0.015\n    sigma = 0.05\n    T = 1\n    N = 10000\n\n    t, r = vasicek_model(r0, kappa, theta, sigma, T, N)\n    plot_vasicek(t, r)"
+  },
+  {
+    "objectID": "10金利モデル.html#挙動の特徴",
+    "href": "10金利モデル.html#挙動の特徴",
+    "title": "金融工学ノート",
+    "section": "5. 挙動の特徴",
+    "text": "5. 挙動の特徴\n\nkappa が大きい → 平均への回帰が速い\nsigma が大きい → 金利の揺れ幅が大きくなる\ntheta に向かって収束するのが Vasicek の特徴"
+  },
+  {
+    "objectID": "12長期投資.html",
+    "href": "12長期投資.html",
+    "title": "金融工学ノート",
+    "section": "",
+    "text": "#長期投資\n##12-1 長期投資（Long-Term Investing）\nこれまでの章では、\n- 債券\n- 為替\n- 現代ポートフォリオ理論\n- CAPM\n- ブラック・ショールズモデル\n- モンテカルロ法\nなど、主に クオンツ（Quantitative）手法 による投資・リスク管理を扱ってきた。\nここからは、まったく別の視点である 長期投資（Value Investing） を扱う。"
+  },
+  {
+    "objectID": "12長期投資.html#長期投資とは何か",
+    "href": "12長期投資.html#長期投資とは何か",
+    "title": "金融工学ノート",
+    "section": "1. 長期投資とは何か？",
+    "text": "1. 長期投資とは何か？\n長期投資（Value Investing）は、アルゴリズム取引の対極に位置する投資哲学。\n\nアルゴリズム取引：\n→ 「短期の価格変動を数学的・統計的に捉え、利益を積み上げる」\n長期投資（バリュー投資）：\n→ 「企業の本質的価値に比べて割安な株を買い、長期間保有する」\n\n\n代表者\n\nBenjamin Graham（バリュー投資の祖）\nWarren Buffett（その弟子であり最も有名な実践者）"
+  },
+  {
+    "objectID": "12長期投資.html#長期投資の基本思想",
+    "href": "12長期投資.html#長期投資の基本思想",
+    "title": "金融工学ノート",
+    "section": "2. 長期投資の基本思想",
+    "text": "2. 長期投資の基本思想\nバリュー投資家は次の前提を信じている：\n\n市場は短期的には非合理で、ニュースに過剰反応する。\nしかし長期的には企業価値に収束する。\n\nこれは特に暗号資産などで顕著で、\n市場は技術内容を理解しないままニュースで大きく価格変動する。\n例：\n- 新技術の誤解 → 過剰買い\n- 小さな問題の誇張 → 過剰売り"
+  },
+  {
+    "objectID": "12長期投資.html#長期投資の4つの柱",
+    "href": "12長期投資.html#長期投資の4つの柱",
+    "title": "金融工学ノート",
+    "section": "3. 長期投資の4つの柱",
+    "text": "3. 長期投資の4つの柱\n\n① 企業に投資する（株ではなく企業を見る）\n企業を深く理解し投資する。\nこれは ファンダメンタル分析 と本質的に同じ。\n\n資産（現金、設備、在庫）\n負債（借入、ローン）\n収益性（売上、利益、営業利益率）\n経営者や組織の質\n製品・サービスの競争力\n財務諸表（BS、PL、CF）\n\n\n\n② 割安なときに買う\n企業の本質価値（intrinsic value）よりも\n市場価格が十分に低いときだけ買う。\n→ 安全余裕（Margin of Safety） の概念。\n\n\n③ 長期の買い持ち（Buy & Hold）\n短期の市場変動やノイズを気にしない。\n\nローソク足やチャートパターンを追わない\nデイトレードや短期のミスプライシングを狙わない\n機械学習で超高頻度の変動を読むような行為はしない\n\n目線は 5年〜10年、場合によっては永久保有。\n\n\n④ 群衆に流されない（Ignore the crowd）\n一般的な投資家の行動：\n\n上がると買う（Buy High）\n下がると売る（Sell Low）\n\n価値投資家：\n\n本質価値 ＞ 市場価格 → 買い\n\n本質価値 ＜ 市場価格 → 売り or 買わない\n\n「人気」ではなく「価値」で判断する。"
+  },
+  {
+    "objectID": "12長期投資.html#クオンツと長期投資の違い",
+    "href": "12長期投資.html#クオンツと長期投資の違い",
+    "title": "金融工学ノート",
+    "section": "4. クオンツと長期投資の違い",
+    "text": "4. クオンツと長期投資の違い\n\n\n\n\n\n\n\n\n視点\nクオンツ投資\n長期投資\n\n\n\n\nタイムスケール\n秒〜日〜数ヶ月\n数年〜数十年\n\n\n注目するもの\n価格データ・統計・数式\n企業価値・財務・ビジネス\n\n\n目的\nマーケットより速く動き利益を得る\n企業成長と市場の是正による利益\n\n\nリスク管理\n数理モデル・ヘッジ・機械学習\n分散・質の高い企業選び\n\n\n投資観\n市場は“データ”\n市場は“感情的で非合理”\n\n\n\nどちらが優れているというより 目的が違う。\n著者（講義の語り手）も述べていた通り：\n\n数学的に美しいクオンツモデルも好き\n\n企業理解に基づく長期投資も好き\n\nというように 両方学ぶのが最強。"
+  },
+  {
+    "objectID": "12長期投資.html#まとめ",
+    "href": "12長期投資.html#まとめ",
+    "title": "金融工学ノート",
+    "section": "5. まとめ",
+    "text": "5. まとめ\n\n長期投資は市場価格のノイズではなく 企業の本質価値 を見る手法\n大量のデータや高速取引ではなく ファンダメンタル分析が中心\n目標は短期の利ざやではなく 企業成長の果実を長期で享受すること\n市場が過剰反応して割安になった時にのみ購入する\n群衆心理に左右されず、理性的に行動することが重要\n\n##12-2 Efficient Market Hypothesis（効率的市場仮説：EMH）\n本講義では、金融の中心的概念である 効率的市場仮説（Efficient Market Hypothesis: EMH） について説明する。"
+  },
+  {
+    "objectID": "12長期投資.html#効率的市場仮説とは",
+    "href": "12長期投資.html#効率的市場仮説とは",
+    "title": "金融工学ノート",
+    "section": "1. 効率的市場仮説とは？",
+    "text": "1. 効率的市場仮説とは？\n効率的市場仮説（EMH） の主張：\n\n「市場価格は常に利用可能なあらゆる情報を完全に織り込んでおり、\n投資家が市場平均を安定的に上回ること（=市場を“打ち負かす”こと）は不可能である」\n\nつまり、\n\n株価は“適正価格”で取引されている\n\n割安株を見つけることも不可能\n\nテクニカル分析・機械学習・時系列分析による予測も機能しない\n\n市場平均を上回る唯一の方法は「追加のリスクを取ることのみ」"
+  },
+  {
+    "objectID": "12長期投資.html#emh-が意味するもの",
+    "href": "12長期投資.html#emh-が意味するもの",
+    "title": "金融工学ノート",
+    "section": "2. EMH が意味するもの",
+    "text": "2. EMH が意味するもの\n\n① 株価の動きは完全にランダム（Random Walk）\nEMHに従うと株価はランダムウォーク：\n\n過去の値動き（トレンド・パターン）は未来を一切予測できない\n\n価格変化は“完全にランダム”\n\n\n\n② 情報はすべて価格に即座に反映される\n\n新しいニュース\n\n経済指標\n\n決算情報\n\n投資家の期待\n\n→ すべて瞬時に価格に反映されるため、分析する意味がない。\n\n\n③ オートコリレーション（自己相関）は存在しないはず\n理論上：\n\n株価リターンの自己相関は ≈ 0\n\n過去の値動きは未来の値動きに影響を与えない\n\nしかし現実には 自己相関が存在する場合も多い\n→ アルゴリズム取引（ARIMA・GARCH 等）が利益を出せる理由。"
+  },
+  {
+    "objectID": "12長期投資.html#emh-の問題点現実との矛盾",
+    "href": "12長期投資.html#emh-の問題点現実との矛盾",
+    "title": "金融工学ノート",
+    "section": "3. EMH の問題点（現実との矛盾）",
+    "text": "3. EMH の問題点（現実との矛盾）\n以下の点から EMH は完全には正しくない とされる。\n\n① ランダムウォークは負の株価を許してしまう\n数理モデル上、ランダムウォークは負値をとり得るが、\n現実の株価は決して負にならない。\n\n\n② 実際には自己相関が存在することがある\n\nボラティリティ・クラスタリング（GARCH の基礎）\nトレンド継続\n急落後の反転パターン\n\nなどが観測される。\n\n\n③ 明らかに市場平均を上回り続けた投資家が存在する\n後述の例の通り、\n市場を長年にわたり“打ち負かしてきた”人物やファンドが現実に存在する。"
+  },
+  {
+    "objectID": "12長期投資.html#市場を実際に打ち負かした実例",
+    "href": "12長期投資.html#市場を実際に打ち負かした実例",
+    "title": "金融工学ノート",
+    "section": "4. 市場を実際に“打ち負かした”実例",
+    "text": "4. 市場を実際に“打ち負かした”実例\n\n① Fidelity Investments（マゼランファンド）– Peter Lynch\n\n運用期間：1977–1990\n\n平均年利：29%\n\n世界最高クラスの実績\n\n徹底した企業調査と長期投資の実例\n\n\n\n\n② Renaissance Technologies – Jim Simons\n\n設立：1982\n\n平均年利：34%（驚異的）\n\n創業者は理論物理学者\n\n高度な数理モデル・統計学・機械学習・ペアトレードなどを駆使\n\nクオンツファンドの頂点\n\n\n\n\n③ Berkshire Hathaway – Warren Buffett\n\n長期平均年利：約 22%\n\n14歳で初めて株を購入\n\nバリュー投資（企業価値 ＞ 株価）を徹底\n\n“長期投資は市場に勝てる”ことの生き証人"
+  },
+  {
+    "objectID": "12長期投資.html#まとめemh-は完全には正しくない",
+    "href": "12長期投資.html#まとめemh-は完全には正しくない",
+    "title": "金融工学ノート",
+    "section": "5. まとめ：EMH は完全には正しくない",
+    "text": "5. まとめ：EMH は完全には正しくない\n効率的市場仮説は金融理論の基礎だが、\n現実世界を完全に説明しきれてはいない。\nEMHの主張\n- 市場は完全に合理的\n- 価格はすべての情報を反映\n- 市場に勝つことは不可能\n現実\n- 自己相関やパターンが存在する\n- バリュー投資やクオンツ戦略で市場を上回る事例が多数\n- 人間の感情やバブル・恐慌が相場に影響\n- 完全に効率的な市場は存在しない"
+  }
+]

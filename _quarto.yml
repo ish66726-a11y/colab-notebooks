@@ -1,0 +1,18 @@
+project:
+  type: website
+
+website:
+  title: "金融工学ノート"
+  navbar:
+    left:
+      - text: ホーム
+        href: index.qmd
+      - text: ポートフォリオ理論
+        href: 03-portfolio.qmd
+      - text: CAPM
+        href: 04-capm.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true

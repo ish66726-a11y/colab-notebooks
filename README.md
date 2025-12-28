@@ -13,5 +13,5 @@
 7. [07 ブラックショールズモデル](notebooks/07ブラックショールズモデル.ipynb)
 8. [08 VaR](notebooks/08VaR.ipynb)
 9. [09 CDOs](notebooks/09CDOs.ipynb)
-10. [10 金利モデル](notebooks/10金利モデル.ipynb)
+10. [10 Vasicek モデル](notebooks/10金利モデル.ipynb)
 11. [11 長期投資](notebooks/11長期投資.ipynb)
